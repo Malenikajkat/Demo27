@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Панель пользователя — Производственная ИС</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <!-- Контейнер уведомлений -->
+    <div id="notificationContainer" class="notification-container"></div>
+
+    <!-- Шапка -->
+    <div class="dashboard-header">
+        <div class="dashboard-header-left">
+            <div class="dashboard-logo">ПИС</div>
+            <div class="dashboard-title">Панель пользователя</div>
+        </div>
+        <div class="dashboard-header-right">
+            <div class="user-badge">
+                <div class="user-avatar">{{ user.login[0]|upper }}</div>
+                <div class="user-info">
+                    <div class="user-name">{{ user.login }}</div>
+                    <div class="user-role">{{ user.role }}</div>
+                </div>
+            </div>
+            <form method="POST" action="/logout" style="display: inline;">
+                <button type="submit" class="btn-logout">Выйти</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Контент -->
+    <div class="dashboard-content">
+        <!-- Приветствие -->
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="section-title-icon">👋</span>
+                    Добро пожаловать, {{ user.login }}!
+                </h2>
+            </div>
+        </div>
+
+        <!-- Заметки -->
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="section-title-icon">📝</span>
+                    Мои заметки
+                </h2>
+            </div>
+
+            <div id="notesContainer" class="notes-grid">
+                <!-- Заполняется через AJAX -->
+                <div class="loading-spinner">Загрузка заметок...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Показать уведомление
+        function showNotification(type, title, message) {
+            const container = document.getElementById('notificationContainer');
+            const icons = { error: '✕', warning: '!', info: 'ℹ', success: '✓' };
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <div class="notification-icon">${icons[type] || 'i'}</div>
+                <div class="notification-content">
+                    <div class="notification-title">${title}</div>
+                    <div class="notification-message">${message}</div>
+                </div>
+                <button class="notification-close" onclick="this.parentElement.remove()">&times;</button>
+            `;
+            container.appendChild(notification);
+            setTimeout(() => notification.remove(), 5000);
+        }
+
+        // Загрузить заметки
+        async function loadNotes() {
+            try {
+                const response = await fetch('/api/notes/');
+                const data = await response.json();
+
+                const container = document.getElementById('notesContainer');
+
+                if (!data.notes || data.notes.length === 0) {
+                    container.innerHTML = '<p class="empty-state">Заметок пока нет.</p>';
+                    return;
+                }
+
+                container.innerHTML = '';
+                data.notes.forEach(note => {
+                    const card = document.createElement('div');
+                    card.className = 'note-card';
+                    card.innerHTML = `
+                        <div class="note-card-header">
+                            <span class="note-id">#${note.id}</span>
+                            <span class="note-date">${note.formatted_date}</span>
+                        </div>
+                        <h4 class="note-title">${note.title_user}</h4>
+                        <p class="note-content">${note.content}</p>
+                    `;
+                    container.appendChild(card);
+                });
+            } catch (error) {
+                showNotification('error', 'Ошибка', 'Не удалось загрузить заметки');
+            }
+        }
+
+        // Загрузка при старте
+        document.addEventListener('DOMContentLoaded', loadNotes);
+    </script>
+</body>
+</html>

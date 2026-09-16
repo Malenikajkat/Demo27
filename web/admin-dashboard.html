@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Панель администратора — Производственная ИС</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <!-- Контейнер уведомлений -->
+    <div id="notificationContainer" class="notification-container"></div>
+
+    <!-- Шапка -->
+    <div class="dashboard-header">
+        <div class="dashboard-header-left">
+            <div class="dashboard-logo">ПИС</div>
+            <div class="dashboard-title">Панель администратора</div>
+        </div>
+        <div class="dashboard-header-right">
+            <div class="user-badge">
+                <div class="user-avatar">{{ user.login[0]|upper }}</div>
+                <div class="user-info">
+                    <div class="user-name">{{ user.login }}</div>
+                    <div class="user-role">{{ user.role }}</div>
+                </div>
+            </div>
+            <form method="POST" action="/logout" style="display: inline;">
+                <button type="submit" class="btn-logout">Выйти</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Контент -->
+    <div class="dashboard-content">
+        <!-- Управление пользователями -->
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="section-title-icon">👥</span>
+                    Управление пользователями
+                </h2>
+                <button class="btn btn-primary" onclick="openAddUserModal()">
+                    + Добавить пользователя
+                </button>
+            </div>
+
+            <div class="table-container">
+                <table id="usersTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Логин</th>
+                            <th>Роль</th>
+                            <th>Статус</th>
+                            <th>Попытки</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody">
+                        <!-- Заполняется через AJAX -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно добавления/редактирования пользователя -->
+    <div id="userModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Добавить пользователя</h3>
+                <span class="modal-close" onclick="closeUserModal()">&times;</span>
+            </div>
+            <form id="userForm" onsubmit="saveUser(event)">
+                <input type="hidden" id="editUserId" value="">
+                <div class="form-group">
+                    <label for="modalLogin" class="form-label">Логин *</label>
+                    <input type="text" id="modalLogin" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="modalPassword" class="form-label">Пароль *</label>
+                    <input type="password" id="modalPassword" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="modalRole" class="form-label">Роль</label>
+                    <select id="modalRole" class="form-input">
+                        <option value="Пользователь">Пользователь</option>
+                        <option value="Администратор">Администратор</option>
+                    </select>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-outline" onclick="closeUserModal()">Отмена</button>
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Показать уведомление
+        function showNotification(type, title, message) {
+            const container = document.getElementById('notificationContainer');
+            const icons = { error: '✕', warning: '!', info: 'ℹ', success: '✓' };
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <div class="notification-icon">${icons[type] || 'i'}</div>
+                <div class="notification-content">
+                    <div class="notification-title">${title}</div>
+                    <div class="notification-message">${message}</div>
+                </div>
+                <button class="notification-close" onclick="this.parentElement.remove()">&times;</button>
+            `;
+            container.appendChild(notification);
+            setTimeout(() => notification.remove(), 5000);
+        }
+
+        // Загрузить список пользователей
+        async function loadUsers() {
+            try {
+                const response = await fetch('/api/admin/users/');
+                const data = await response.json();
+                const tbody = document.getElementById('usersTableBody');
+                tbody.innerHTML = '';
+
+                data.users.forEach(user => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${user.user_id}</td>
+                        <td>${user.login}</td>
+                        <td>${user.role}</td>
+                        <td>${user.is_blocked ? '<span class="badge badge-danger">Заблокирован</span>' : '<span class="badge badge-success">Активен</span>'}</td>
+                        <td>${user.failed_attempts}</td>
+                        <td>
+                            <button class="btn btn-sm btn-outline" onclick="editUser(${user.user_id}, '${user.login}', '${user.role}')">✏️</button>
+                            ${!user.is_blocked ?
+                                `<button class="btn btn-sm btn-outline" onclick="blockUser(${user.user_id})">🔒</button>` :
+                                `<button class="btn btn-sm btn-success" onclick="unblockUser(${user.user_id})">🔓</button>`
+                            }
+                            <button class="btn btn-sm btn-danger" onclick="deleteUser(${user.user_id})">🗑️</button>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            } catch (error) {
+                showNotification('error', 'Ошибка', 'Не удалось загрузить список пользователей');
+            }
+        }
+
+        // Открыть модальное окно добавления
+        function openAddUserModal() {
+            document.getElementById('modalTitle').textContent = 'Добавить пользователя';
+            document.getElementById('editUserId').value = '';
+            document.getElementById('modalLogin').value = '';
+            document.getElementById('modalPassword').value = '';
+            document.getElementById('modalRole').value = 'Пользователь';
+            document.getElementById('userModal').style.display = 'block';
+        }
+
+        // Редактировать пользователя
+        function editUser(userId, login, role) {
+            document.getElementById('modalTitle').textContent = 'Редактировать пользователя';
+            document.getElementById('editUserId').value = userId;
+            document.getElementById('modalLogin').value = login;
+            document.getElementById('modalPassword').value = '';
+            document.getElementById('modalPassword').required = false;
+            document.getElementById('modalRole').value = role;
+            document.getElementById('userModal').style.display = 'block';
+        }
+
+        // Закрыть модальное окно
+        function closeUserModal() {
+            document.getElementById('userModal').style.display = 'none';
+            document.getElementById('modalPassword').required = true;
+        }
+
+        // Сохранить пользователя
+        async function saveUser(event) {
+            event.preventDefault();
+            const userId = document.getElementById('editUserId').value;
+            const login = document.getElementById('modalLogin').value;
+            const password = document.getElementById('modalPassword').value;
+            const role = document.getElementById('modalRole').value;
+
+            const data = { login: login, role: role };
+            if (password) data.password = password;
+
+            const url = userId ? `/api/admin/users/${userId}` : '/api/admin/users/';
+            const method = userId ? 'PUT' : 'POST';
+
+            try {
+                const response = await fetch(url, {
+                    method: method,
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                const result = await response.json();
+
+                if (response.ok) {
+                    showNotification('success', 'Успех', result.message);
+                    closeUserModal();
+                    loadUsers();
+                } else {
+                    showNotification('error', 'Ошибка', result.message);
+                }
+            } catch (error) {
+                showNotification('error', 'Ошибка', 'Не удалось сохранить пользователя');
+            }
+        }
+
+        // Разблокировать пользователя
+        async function unblockUser(userId) {
+            try {
+                const response = await fetch(`/api/admin/users/${userId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ is_blocked: false })
+                });
+                const result = await response.json();
+                if (response.ok) {
+                    showNotification('success', 'Успех', result.message);
+                    loadUsers();
+                } else {
+                    showNotification('error', 'Ошибка', result.message);
+                }
+            } catch (error) {
+                showNotification('error', 'Ошибка', 'Не удалось разблокировать пользователя');
+            }
+        }
+
+        // Заблокировать пользователя
+        async function blockUser(userId) {
+            try {
+                const response = await fetch(`/api/admin/users/${userId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ is_blocked: true })
+                });
+                const result = await response.json();
+                if (response.ok) {
+                    showNotification('success', 'Успех', result.message);
+                    loadUsers();
+                } else {
+                    showNotification('error', 'Ошибка', result.message);
+                }
+            } catch (error) {
+                showNotification('error', 'Ошибка', 'Не удалось заблокировать пользователя');
+            }
+        }
+
+        // Удалить пользователя
+        async function deleteUser(userId) {
+            if (!confirm('Вы уверены, что хотите удалить этого пользователя?')) return;
+
+            try {
+                const response = await fetch(`/api/admin/users/${userId}`, {
+                    method: 'DELETE'
+                });
+                const result = await response.json();
+                if (response.ok) {
+                    showNotification('success', 'Успех', result.message);
+                    loadUsers();
+                } else {
+                    showNotification('error', 'Ошибка', result.message);
+                }
+            } catch (error) {
+                showNotification('error', 'Ошибка', 'Не удалось удалить пользователя');
+            }
+        }
+
+        // Загрузка при старте
+        document.addEventListener('DOMContentLoaded', loadUsers);
+    </script>
+</body>
+</html>

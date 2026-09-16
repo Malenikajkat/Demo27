@@ -1,0 +1,1284 @@
+{
+  "info": {
+    "name": "Production Management System - API Tests",
+    "description": "Коллекция тестов для API производственной информационной системы",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": "1.0.0"
+  },
+  "auth": {
+    "type": "inherit"
+  },
+  "item": [
+    {
+      "name": "AUTHORIZATION (TZ.md)",
+      "item": [
+        {
+          "name": "POST /api/auth/login (Valid - admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Login successful with correct message\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.message).to.eql('Вы успешно авторизовались');",
+                  "    pm.expect(jsonData).to.have.property('user_id');",
+                  "    pm.expect(jsonData).to.have.property('login');",
+                  "    pm.expect(jsonData).to.have.property('role');",
+                  "    pm.expect(jsonData.role).to.eql('Администратор');",
+                  "    pm.environment.set('admin_user_id', jsonData.user_id);",
+                  "    pm.environment.set('admin_login', jsonData.login);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"login\": \"admin\",\n    \"password\": \"admin123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "login"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST /api/auth/login (Invalid credentials)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 401\", function () {",
+                  "    pm.response.to.have.status(401);",
+                  "});",
+                  "",
+                  "pm.test(\"Error message displayed\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.detail).to.include('неверный логин или пароль');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"login\": \"admin\",\n    \"password\": \"wrongpassword\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "login"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST /api/auth/login (Non-existent user)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 401\", function () {",
+                  "    pm.response.to.have.status(401);",
+                  "});",
+                  "",
+                  "pm.test(\"Error message for non-existent user\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.detail).to.include('неверный логин или пароль');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"login\": \"nonexistent\",\n    \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "login"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET /api/auth/users/ (Admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response is an array\", function () {",
+                  "    pm.expect(Array.isArray(pm.response.json())).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test(\"Users have required fields\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    if (jsonData.length > 0) {",
+                  "        pm.expect(jsonData[0]).to.have.property('user_id');",
+                  "        pm.expect(jsonData[0]).to.have.property('login');",
+                  "        pm.expect(jsonData[0]).to.have.property('role');",
+                  "        pm.expect(jsonData[0]).to.have.property('is_blocked');",
+                  "    }",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/auth/users/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "users", ""]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST /api/auth/users/ (Create User)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "pm.test(\"User created successfully\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('user_id');",
+                  "    pm.expect(jsonData.login).to.eql('testuser');",
+                  "    pm.environment.set('test_user_id', jsonData.user_id);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"login\": \"testuser\",\n    \"password\": \"testpass123\",\n    \"role\": \"Пользователь\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/users/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "users", ""]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST /api/auth/users/ (Duplicate User)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 409\", function () {",
+                  "    pm.response.to.have.status(409);",
+                  "});",
+                  "",
+                  "pm.test(\"Duplicate user message\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.detail).to.include('уже существует');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"login\": \"testuser\",\n    \"password\": \"testpass123\",\n    \"role\": \"Пользователь\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/users/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "users", ""]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT /api/auth/users/{id} (Unblock User)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"User unblocked\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.is_blocked).to.be.false;",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"is_blocked\": false\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/users/{{test_user_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "users", "{{test_user_id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE /api/auth/users/{id}",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 204\", function () {",
+                  "    pm.response.to.have.status(204);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/auth/users/{{test_user_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "users", "{{test_user_id}}"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "PUZZLE CAPTCHA (TZ.md)",
+      "item": [
+        {
+          "name": "GET /api/puzzle-captcha/generate",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has required fields\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('token');",
+                  "    pm.expect(jsonData).to.have.property('fragments');",
+                  "    pm.expect(jsonData).to.have.property('grid_size');",
+                  "    pm.expect(jsonData.fragments.length).to.equal(9);",
+                  "    pm.environment.set('puzzle_token', jsonData.token);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/puzzle-captcha/generate",
+              "host": ["{{base_url}}"],
+              "path": ["api", "puzzle-captcha", "generate"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST /api/puzzle-captcha/verify (Correct Order)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Puzzle valid\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.valid).to.be.true;",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"token\": \"{{puzzle_token}}\",\n    \"fragment_order\": [0, 1, 2, 3, 4, 5, 6, 7, 8]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/puzzle-captcha/verify",
+              "host": ["{{base_url}}"],
+              "path": ["api", "puzzle-captcha", "verify"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST /api/puzzle-captcha/verify (Wrong Order)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Puzzle invalid\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.valid).to.be.false;",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"token\": \"{{puzzle_token}}\",\n    \"fragment_order\": [8, 7, 6, 5, 4, 3, 2, 1, 0]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/puzzle-captcha/verify",
+              "host": ["{{base_url}}"],
+              "path": ["api", "puzzle-captcha", "verify"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "CAPTCHA",
+        {
+          "name": "GET /api/captcha/generate",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has required fields\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('token');",
+                  "    pm.expect(jsonData).to.have.property('image_base64');",
+                  "    pm.expect(jsonData).to.have.property('hint');",
+                  "    pm.expect(jsonData.token.length).to.be.greaterThan(0);",
+                  "    pm.expect(jsonData.image_base64.length).to.be.greaterThan(0);",
+                  "    pm.environment.set('captcha_token', jsonData.token);",
+                  "});",
+                  "",
+                  "pm.test(\"Image is valid base64 JPEG\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.image_base64).to.include('data:image/jpeg;base64,');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/captcha/generate",
+              "host": ["{{base_url}}"],
+              "path": ["api", "captcha", "generate"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST /api/captcha/verify (Valid)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"CAPTCHA is valid\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.valid).to.be.true;",
+                  "    pm.expect(jsonData.message).to.include('успешно');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"token\": \"{{captcha_token}}\",\n    \"answer\": \"test123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/captcha/verify",
+              "host": ["{{base_url}}"],
+              "path": ["api", "captcha", "verify"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST /api/captcha/verify (Invalid)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"CAPTCHA is invalid\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.valid).to.be.false;",
+                  "    pm.expect(jsonData.message).to.include('Неверный');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"token\": \"{{captcha_token}}\",\n    \"answer\": \"wrong_answer\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/captcha/verify",
+              "host": ["{{base_url}}"],
+              "path": ["api", "captcha", "verify"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET /api/captcha/stats",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Stats has active challenges\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('active_challenges');",
+                  "    pm.expect(jsonData.active_challenges).to.be.a('number');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/captcha/stats",
+              "host": ["{{base_url}}"],
+              "path": ["api", "captcha", "stats"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Health Check",
+      "item": [
+        {
+          "name": "GET /api/health",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Service is healthy\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.status).to.eql('ok');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/health",
+              "host": ["{{base_url}}"],
+              "path": ["api", "health"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Clients (Protected)",
+      "item": [
+        {
+          "name": "GET /api/clients/ (No CAPTCHA - OK)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response is an array\", function () {",
+                  "    pm.expect(Array.isArray(pm.response.json())).to.be.true;",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/clients/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "clients", ""]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST /api/clients/ (Without CAPTCHA - 403)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 403 (CAPTCHA required)\", function () {",
+                  "    pm.response.to.have.status(403);",
+                  "});",
+                  "",
+                  "pm.test(\"Response indicates CAPTCHA is required\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.detail).to.include('CAPTCHA');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Тестовый клиент\",\n    \"inn\": \"1234567890\",\n    \"address\": \"г. Тестовск\",\n    \"phone\": \"+79991234567\",\n    \"client_type\": \"Покупатель\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/clients/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "clients", ""]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST /api/clients/ (With CAPTCHA - 201)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "pm.test(\"Client created successfully\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('client_id');",
+                  "    pm.expect(jsonData.name).to.eql('Тестовый клиент с CAPTCHA');",
+                  "    pm.environment.set('test_client_id', jsonData.client_id);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"},
+              {"key": "X-Captcha-Token", "value": "{{captcha_token}}"},
+              {"key": "X-Captcha-Answer", "value": "test123"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Тестовый клиент с CAPTCHA\",\n    \"inn\": \"1234567891\",\n    \"address\": \"г. Тестовск\",\n    \"phone\": \"+79991234568\",\n    \"client_type\": \"Покупатель\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/clients/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "clients", ""]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE /api/clients/{id} (With CAPTCHA)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 204\", function () {",
+                  "    pm.response.to.have.status(204);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {"key": "X-Captcha-Token", "value": "{{captcha_token}}"},
+              {"key": "X-Captcha-Answer", "value": "test123"}
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/clients/{{test_client_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "clients", "{{test_client_id}}"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "GET /api/products/",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response is an array\", function () {",
+                  "    pm.expect(Array.isArray(pm.response.json())).to.be.true;",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "products", ""]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Materials",
+      "item": [
+        {
+          "name": "GET /api/materials/",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response is an array\", function () {",
+                  "    pm.expect(Array.isArray(pm.response.json())).to.be.true;",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/materials/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "materials", ""]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Operations",
+      "item": [
+        {
+          "name": "GET /api/operations/",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response is an array\", function () {",
+                  "    pm.expect(Array.isArray(pm.response.json())).to.be.true;",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/operations/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "operations", ""]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Sales Orders",
+      "item": [
+        {
+          "name": "GET /api/sales-orders/",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response is an array\", function () {",
+                  "    pm.expect(Array.isArray(pm.response.json())).to.be.true;",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/sales-orders/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "sales-orders", ""]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST /api/sales-orders/ (Create Order)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "pm.test(\"Order created with items\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('sales_order_id');",
+                  "    pm.expect(jsonData).to.have.property('items');",
+                  "    pm.expect(jsonData.items.length).to.be.greaterThan(0);",
+                  "    pm.expect(jsonData).to.have.property('total_amount');",
+                  "    pm.environment.set('test_sales_order_id', jsonData.sales_order_id);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": ["content-type"]
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"},
+              {"key": "X-Captcha-Token", "value": "{{captcha_token}}"},
+              {"key": "X-Captcha-Answer", "value": "test123"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"order_number\": \"TEST-001\",\n    \"order_date\": \"2026-09-09\",\n    \"client_id\": \"000000002\",\n    \"executor_id\": \"000000001\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/sales-orders/?items=[{\"product_id\":\"{{product_id}}\",\"quantity\":2,\"unit_price\":14120.00,\"discount\":1412.00}]",
+              "host": ["{{base_url}}"],
+              "path": ["api", "sales-orders", ""],
+              "query": [
+                {
+                  "key": "items",
+                  "value": "[{\"product_id\":\"{{product_id}}\",\"quantity\":2,\"unit_price\":14120.00,\"discount\":1412.00}]"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET /api/sales-orders/{id}/cost-calculation",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Cost calculation has all required fields\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('sales_order_id');",
+                  "    pm.expect(jsonData).to.have.property('order_number');",
+                  "    pm.expect(jsonData).to.have.property('customer_name');",
+                  "    pm.expect(jsonData).to.have.property('executor_name');",
+                  "    pm.expect(jsonData).to.have.property('items');",
+                  "    pm.expect(jsonData).to.have.property('total_material_cost');",
+                  "    pm.expect(jsonData).to.have.property('total_operation_cost');",
+                  "    pm.expect(jsonData).to.have.property('total_production_cost');",
+                  "    pm.expect(jsonData).to.have.property('calculated_total');",
+                  "    pm.expect(jsonData).to.have.property('difference');",
+                  "});",
+                  "",
+                  "pm.test(\"Cost calculation returns items\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.items.length).to.be.greaterThan(0);",
+                  "});",
+                  "",
+                  "pm.test(\"Each cost item has required fields\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    if (jsonData.items.length > 0) {",
+                  "        var item = jsonData.items[0];",
+                  "        pm.expect(item).to.have.property('product_name');",
+                  "        pm.expect(item).to.have.property('ordered_quantity');",
+                  "        pm.expect(item).to.have.property('material_cost_per_unit');",
+                  "        pm.expect(item).to.have.property('operation_cost_per_unit');",
+                  "        pm.expect(item).to.have.property('total_cost_per_unit');",
+                  "        pm.expect(item).to.have.property('line_total');",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test(\"Production cost is calculated correctly\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.total_production_cost).to.be.greaterThan(0);",
+                  "    pm.expect(jsonData.total_material_cost).to.be.greaterThan(0);",
+                  "    pm.expect(jsonData.total_operation_cost).to.be.greaterThan(0);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/sales-orders/{{test_sales_order_id}}/cost-calculation",
+              "host": ["{{base_url}}"],
+              "path": ["api", "sales-orders", "{{test_sales_order_id}}", "cost-calculation"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Specifications",
+      "item": [
+        {
+          "name": "GET /api/specifications/materials/",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response is an array\", function () {",
+                  "    pm.expect(Array.isArray(pm.response.json())).to.be.true;",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/specifications/materials/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "specifications", "materials", ""]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET /api/specifications/operations/",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response is an array\", function () {",
+                  "    pm.expect(Array.isArray(pm.response.json())).to.be.true;",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/specifications/operations/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "specifications", "operations", ""]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "NOTES (API.md)",
+      "item": [
+        {
+          "name": "GET /api/notes/ (Status 200 + JSON validation)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response is valid JSON\", function () {",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test(\"Response has notes array\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('notes');",
+                  "    pm.expect(jsonData).to.have.property('total');",
+                  "    pm.expect(Array.isArray(jsonData.notes)).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test(\"Each note has required fields\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    if (jsonData.notes.length > 0) {",
+                  "        var note = jsonData.notes[0];",
+                  "        pm.expect(note).to.have.property('id');",
+                  "        pm.expect(note).to.have.property('title_user');",
+                  "        pm.expect(note).to.have.property('content');",
+                  "        pm.expect(note).to.have.property('formatted_date');",
+                  "        \n",
+                  "        // Проверка формата title_user: \"{title} - {login}\"",
+                  "        pm.expect(note.title_user).to.include(' - ');",
+                  "        \n",
+                  "        // Проверка формата даты: ДД.ММ.ГГГГ",
+                  "        pm.expect(note.formatted_date).to.match(/^\\d{2}\\.\\d{2}\\.\\d{4}$/);",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test(\"Total count matches\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.total).to.be.a('number');",
+                  "    pm.expect(jsonData.total).to.be.greaterThan(0);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/notes/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "notes", ""]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET /api/notes/{note_id} (Single Note)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Note has all fields\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('id');",
+                  "    pm.expect(jsonData).to.have.property('title_user');",
+                  "    pm.expect(jsonData).to.have.property('content');",
+                  "    pm.expect(jsonData).to.have.property('formatted_date');",
+                  "    \n",
+                  "    // Проверка формата title_user",
+                  "    pm.expect(jsonData.title_user).to.include(' - ');",
+                  "    \n",
+                  "    // Проверка формата даты",
+                  "    pm.expect(jsonData.formatted_date).to.match(/^\\d{2}\\.\\d{2}\\.\\d{4}$/);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/notes/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "notes", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET /api/notes/ (Empty result - 200 OK)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200 (empty array is OK)\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has empty notes array\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.notes).to.be.an('array');",
+                  "    pm.expect(jsonData.notes.length).to.equal(0);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/notes/?skip=9999&limit=10",
+              "host": ["{{base_url}}"],
+              "path": ["api", "notes", ""],
+              "query": [
+                {
+                  "key": "skip",
+                  "value": "9999"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET /api/notes/ (Bad Request - 400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 400 for invalid params\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/notes/?skip=-1&limit=10",
+              "host": ["{{base_url}}"],
+              "path": ["api", "notes", ""],
+              "query": [
+                {
+                  "key": "skip",
+                  "value": "-1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "product_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "captcha_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "puzzle_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "admin_user_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "admin_login",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "test_client_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "test_sales_order_id",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

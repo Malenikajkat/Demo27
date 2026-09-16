@@ -1,0 +1,103 @@
+{% extends "base-dashboard.html" %}
+
+{% block title %}Заметки{% endblock %}
+{% block content %}
+<script>
+    async function loadNotes() {
+        try {
+            const response = await fetch('/api/notes/', { credentials: 'include' });
+            const data = await response.json();
+            const container = document.getElementById('notesContainer');
+
+            if (!data.notes || data.notes.length === 0) {
+                container.innerHTML = '<div class="empty-state">Заметок пока нет.</div>';
+                return;
+            }
+
+            container.innerHTML = '';
+            data.notes.forEach(note => {
+                const card = document.createElement('div');
+                card.className = 'note-card';
+                card.innerHTML = `
+                    <div class="note-card-header">
+                        <span class="note-id">#${note.id}</span>
+                        <span class="note-date">${note.formatted_date}</span>
+                    </div>
+                    <h4 class="note-title">${note.title_user}</h4>
+                    <p class="note-content">${note.content}</p>
+                    <div class="note-card-footer">
+                        <span class="note-card-user">👤 ${note.title_user.split(' - ')[0]}</span>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        } catch (error) {
+            showNotification('error', 'Ошибка', 'Не удалось загрузить заметки');
+        }
+    }
+
+    function openAddNoteModal() {
+        document.getElementById('modalTitle').textContent = 'Добавить заметку';
+        document.getElementById('noteForm').reset();
+        openModal('noteModal');
+    }
+
+    async function saveNote(event) {
+        event.preventDefault();
+        const data = {
+            title: document.getElementById('noteTitle').value,
+            content: document.getElementById('noteContent').value
+        };
+
+        try {
+            const response = await fetch('/api/notes/', {
+                method: 'POST',
+                credentials: 'include',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            const result = await response.json();
+            if (!response.ok) throw new Error(result.message || 'Error');
+            showNotification('success', 'Успех', result.message || 'Заметка создана');
+            closeModal('noteModal');
+            loadNotes();
+        } catch (error) {
+            showNotification('error', 'Ошибка', error.message);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadNotes);
+</script>
+<div style="margin-bottom: 24px;">
+    <button class="btn btn-primary" onclick="openAddNoteModal()">+ Добавить заметку</button>
+</div>
+
+<div id="notesContainer" class="notes-grid">
+    <div class="loading-spinner">Загрузка заметок...</div>
+</div>
+
+<div id="noteModal" class="modal-overlay" style="display:none;">
+    <div class="modal">
+        <div class="modal-header">
+            <h3 id="modalTitle" class="modal-title">Добавить заметку</h3>
+            <button class="modal-close" onclick="closeModal('noteModal')">&times;</button>
+        </div>
+        <form id="noteForm" onsubmit="saveNote(event)">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Заголовок <span class="required">*</span></label>
+                    <input type="text" id="noteTitle" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Содержание <span class="required">*</span></label>
+                    <textarea id="noteContent" class="form-input" rows="5" required style="resize: vertical;"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeModal('noteModal')">Отмена</button>
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,7 +1,6 @@
 """
 Blueprint для веб-страниц: авторизация, дашборды.
 """
-import os
 from pathlib import Path
 
 from flask import (
@@ -90,30 +89,104 @@ def login_page():
         flash("Вы успешно авторизовались", "success")
 
         if user.role == "Администратор":
-            return redirect(url_for("web.admin_dashboard"))
-        return redirect(url_for("web.user_dashboard"))
+            return redirect(url_for("web.admin_users"))
+        return redirect(url_for("web.dashboard"))
 
     return render_template("login.html", puzzle_solved=False)
 
 
-@web_bp.route("/admin-dashboard")
+@web_bp.route("/dashboard")
 @login_required
-def admin_dashboard():
-    """Дашборд администратора."""
+def dashboard():
+    """Главная страница с статистикой."""
+    return render_template(
+        "dashboard.html", user=current_user,
+        current_page="dashboard", page_title="Главная"
+    )
+
+
+@web_bp.route("/clients")
+@login_required
+def clients():
+    """Страница управления клиентами."""
+    return render_template(
+        "clients.html", user=current_user,
+        current_page="clients", page_title="Клиенты"
+    )
+
+
+@web_bp.route("/products")
+@login_required
+def products():
+    """Страница управления продукцией."""
+    return render_template(
+        "products.html", user=current_user,
+        current_page="products", page_title="Продукция"
+    )
+
+
+@web_bp.route("/materials")
+@login_required
+def materials():
+    """Страница управления материалами."""
+    return render_template(
+        "materials.html", user=current_user,
+        current_page="materials", page_title="Материалы"
+    )
+
+
+@web_bp.route("/operations")
+@login_required
+def operations():
+    """Страница управления операциями."""
+    return render_template(
+        "operations.html", user=current_user,
+        current_page="operations", page_title="Операции"
+    )
+
+
+@web_bp.route("/specifications")
+@login_required
+def specifications():
+    """Страница управления спецификациями."""
+    return render_template(
+        "specifications.html", user=current_user,
+        current_page="specifications", page_title="Спецификации"
+    )
+
+
+@web_bp.route("/sales-orders")
+@login_required
+def sales_orders():
+    """Страница управления заказами покупателей."""
+    return render_template(
+        "sales-orders.html", user=current_user,
+        current_page="sales-orders", page_title="Заказы покупателей"
+    )
+
+
+@web_bp.route("/admin/users")
+@login_required
+def admin_users():
+    """Страница управления пользователями (админ)."""
     if current_user.role != "Администратор":
         flash("Доступ запрещён", "error")
-        return redirect(url_for("web.user_dashboard"))
+        return redirect(url_for("web.dashboard"))
 
-    flash("Добро пожаловать в панель администратора!", "info")
-    return render_template("admin-dashboard.html", user=current_user)
+    return render_template(
+        "admin-dashboard.html", user=current_user,
+        current_page="admin-users", page_title="Пользователи"
+    )
 
 
-@web_bp.route("/user-dashboard")
+@web_bp.route("/notes")
 @login_required
-def user_dashboard():
-    """Дашборд обычного пользователя."""
-    flash("Добро пожаловать!", "info")
-    return render_template("user-dashboard.html", user=current_user)
+def notes():
+    """Страница управления заметками."""
+    return render_template(
+        "notes.html", user=current_user,
+        current_page="notes", page_title="Заметки"
+    )
 
 
 @web_bp.route("/image/<filename>")
@@ -133,3 +206,31 @@ def logout():
     session.clear()
     flash("Вы вышли из системы.", "info")
     return redirect(url_for("web.login_page"))
+
+
+@web_bp.route("/api/notes/", methods=["POST"])
+@login_required
+def create_note():
+    """Создание новой заметки."""
+    try:
+        data = request.get_json()
+        if not data or "title" not in data or "content" not in data:
+            return {"error": "Bad Request", "message": "Укажите title и content"}, 400
+
+        from app.models import Note
+        note = Note(
+            title=data["title"],
+            content=data["content"],
+            id_user=current_user.user_id
+        )
+        db.session.add(note)
+        db.session.commit()
+
+        from app.utils import build_note_response
+        return {
+            "message": "Заметка создана",
+            "note": build_note_response(note, current_user.login)
+        }, 201
+    except Exception:
+        db.session.rollback()
+        return {"error": "Internal Server Error", "message": "Ошибка БД"}, 500

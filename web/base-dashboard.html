@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Панель{% endblock %} — Производственная ИС</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <style>
+        .dashboard-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: var(--color-surface);
+            border-right: 1px solid var(--color-border);
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .sidebar-logo {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--color-primary) 0%, #7c3aed 100%);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: white;
+            font-weight: 700;
+            margin: 0 auto 12px;
+        }
+
+        .sidebar-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-text);
+            text-align: center;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 16px 12px;
+            overflow-y: auto;
+        }
+
+        .nav-section {
+            margin-bottom: 24px;
+        }
+
+        .nav-section-title {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--color-text-secondary);
+            padding: 0 12px;
+            margin-bottom: 8px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            border-radius: var(--radius-sm);
+            color: var(--color-text);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+        }
+
+        .nav-item:hover {
+            background: var(--color-background);
+            color: var(--color-primary);
+        }
+
+        .nav-item.active {
+            background: var(--color-primary-light);
+            color: var(--color-primary);
+        }
+
+        .nav-item-icon {
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .sidebar-footer {
+            padding: 16px;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: var(--color-background);
+        }
+
+        .top-bar {
+            background: var(--color-surface);
+            border-bottom: 1px solid var(--color-border);
+            padding: 0 32px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .page-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--color-text);
+        }
+
+        .top-bar-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .content-area {
+            flex: 1;
+            padding: 32px;
+        }
+
+        .data-table {
+            width: 100%;
+            background: var(--color-surface);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--color-border);
+            overflow: hidden;
+        }
+
+        .table-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .table-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-text);
+        }
+
+        .table-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: var(--color-background);
+        }
+
+        th {
+            padding: 14px 20px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--color-text-secondary);
+            border-bottom: 2px solid var(--color-border);
+        }
+
+        td {
+            padding: 16px 20px;
+            font-size: 14px;
+            color: var(--color-text);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        tbody tr {
+            transition: var(--transition);
+        }
+
+        tbody tr:hover {
+            background: var(--color-primary-light);
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9000;
+            animation: fadeIn 0.2s ease;
+        }
+
+        .modal {
+            background: var(--color-surface);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            width: 100%;
+            max-width: 520px;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95) translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 24px 28px 0;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-text);
+        }
+
+        .modal-close {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: var(--color-background);
+            border-radius: var(--radius-sm);
+            font-size: 18px;
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            background: var(--color-error-light);
+            color: var(--color-error);
+        }
+
+        .modal-body {
+            padding: 24px 28px;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            padding: 0 28px 24px;
+        }
+
+        .loading-spinner {
+            text-align: center;
+            padding: 40px;
+            color: var(--color-text-secondary);
+            font-size: 14px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 48px 20px;
+            color: var(--color-text-secondary);
+            font-size: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                left: -260px;
+                top: 0;
+                height: 100vh;
+                z-index: 1000;
+                transition: left 0.3s;
+            }
+
+            .sidebar.open {
+                left: 0;
+            }
+
+            .content-area {
+                padding: 20px 16px;
+            }
+
+            .top-bar {
+                padding: 0 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="notificationContainer" class="notification-container"></div>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">ПИС</div>
+                <div class="sidebar-title">Производственная ИС</div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Главное</div>
+                    <a href="/dashboard" class="nav-item{% if current_page == 'dashboard' %} active{% endif %}">
+                        <span class="nav-item-icon">📊</span>
+                        <span>Главная</span>
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Справочники</div>
+                    <a href="/clients" class="nav-item{% if current_page == 'clients' %} active{% endif %}">
+                        <span class="nav-item-icon">👥</span>
+                        <span>Клиенты</span>
+                    </a>
+                    <a href="/products" class="nav-item{% if current_page == 'products' %} active{% endif %}">
+                        <span class="nav-item-icon">📦</span>
+                        <span>Продукция</span>
+                    </a>
+                    <a href="/materials" class="nav-item{% if current_page == 'materials' %} active{% endif %}">
+                        <span class="nav-item-icon">🔧</span>
+                        <span>Материалы</span>
+                    </a>
+                    <a href="/operations" class="nav-item{% if current_page == 'operations' %} active{% endif %}">
+                        <span class="nav-item-icon">⚙️</span>
+                        <span>Операции</span>
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Документы</div>
+                    <a href="/specifications" class="nav-item{% if current_page == 'specifications' %} active{% endif %}">
+                        <span class="nav-item-icon">📋</span>
+                        <span>Спецификации</span>
+                    </a>
+                    <a href="/sales-orders" class="nav-item{% if current_page == 'sales-orders' %} active{% endif %}">
+                        <span class="nav-item-icon">🛒</span>
+                        <span>Заказы покупателей</span>
+                    </a>
+                </div>
+
+                {% if user.role == 'Администратор' %}
+                <div class="nav-section">
+                    <div class="nav-section-title">Администрирование</div>
+                    <a href="/admin/users" class="nav-item{% if current_page == 'admin-users' %} active{% endif %}">
+                        <span class="nav-item-icon">👤</span>
+                        <span>Пользователи</span>
+                    </a>
+                    <a href="/notes" class="nav-item{% if current_page == 'notes' %} active{% endif %}">
+                        <span class="nav-item-icon">📝</span>
+                        <span>Заметки</span>
+                    </a>
+                </div>
+                {% endif %}
+            </nav>
+
+            <div class="sidebar-footer">
+                <form method="POST" action="/logout" style="display: inline; width: 100%;">
+                    <button type="submit" class="nav-item" style="color: var(--color-error);">
+                        <span class="nav-item-icon">🚪</span>
+                        <span>Выйти</span>
+                    </button>
+                </form>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="top-bar">
+                <div class="page-title">{{ page_title }}</div>
+                <div class="top-bar-right">
+                    <div class="user-badge">
+                        <div class="user-avatar">{{ user.login[0]|upper }}</div>
+                        <div class="user-info">
+                            <div class="user-name">{{ user.login }}</div>
+                            <div class="user-role">{{ user.role }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-area">
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function showNotification(type, title, message) {
+            const container = document.getElementById('notificationContainer');
+            const icons = { error: '✕', warning: '!', info: 'ℹ', success: '✓' };
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <div class="notification-icon">${icons[type] || 'i'}</div>
+                <div class="notification-content">
+                    <div class="notification-title">${title}</div>
+                    <div class="notification-message">${message}</div>
+                </div>
+                <button class="notification-close" onclick="this.parentElement.remove()">&times;</button>
+            `;
+            container.appendChild(notification);
+            setTimeout(() => notification.remove(), 5000);
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        async function fetchData(url) {
+            try {
+                const response = await fetch(url, {
+                    credentials: 'include',
+                    headers: { 'Accept': 'application/json' }
+                });
+                if (!response.ok) throw new Error('Network error');
+                return await response.json();
+            } catch (error) {
+                showNotification('error', 'Ошибка', 'Не удалось загрузить данные');
+                return null;
+            }
+        }
+
+        async function postData(url, data) {
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                const result = await response.json();
+                if (!response.ok) throw new Error(result.message || 'Error');
+                showNotification('success', 'Успех', result.message || 'Операция выполнена');
+                return result;
+            } catch (error) {
+                showNotification('error', 'Ошибка', error.message);
+                return null;
+            }
+        }
+
+        async function putData(url, data) {
+            try {
+                const response = await fetch(url, {
+                    method: 'PUT',
+                    credentials: 'include',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                const result = await response.json();
+                if (!response.ok) throw new Error(result.message || 'Error');
+                showNotification('success', 'Успех', result.message || 'Операция выполнена');
+                return result;
+            } catch (error) {
+                showNotification('error', 'Ошибка', error.message);
+                return null;
+            }
+        }
+
+        async function deleteData(url) {
+            try {
+                const response = await fetch(url, {
+                    method: 'DELETE',
+                    credentials: 'include',
+                    headers: { 'Accept': 'application/json' }
+                });
+                const result = await response.json();
+                if (!response.ok) throw new Error(result.message || 'Error');
+                showNotification('success', 'Успех', result.message || 'Операция выполнена');
+                return result;
+            } catch (error) {
+                showNotification('error', 'Ошибка', error.message);
+                return null;
+            }
+        }
+    </script>
+</body>
+</html>

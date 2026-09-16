@@ -1,0 +1,84 @@
+{% extends "base-dashboard.html" %}
+
+{% block title %}Главная{% endblock %}
+{% block content %}
+<script>
+    async function loadStats() {
+        try {
+            const [clientsRes, productsRes, materialsRes, ordersRes] = await Promise.all([
+                fetch('/api/clients/', { credentials: 'include' }),
+                fetch('/api/products/', { credentials: 'include' }),
+                fetch('/api/materials/', { credentials: 'include' }),
+                fetch('/api/sales-orders/', { credentials: 'include' })
+            ]);
+
+            const clients = await clientsRes.json();
+            const products = await productsRes.json();
+            const materials = await materialsRes.json();
+            const orders = await ordersRes.json();
+
+            document.getElementById('clientsCount').textContent = clients.clients?.length || 0;
+            document.getElementById('productsCount').textContent = products.products?.length || 0;
+            document.getElementById('materialsCount').textContent = materials.materials?.length || 0;
+            document.getElementById('ordersCount').textContent = orders.sales_orders?.length || 0;
+        } catch (error) {
+            showNotification('error', 'Ошибка', 'Не удалось загрузить статистику');
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadStats);
+</script>
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-card-header">
+            <div>
+                <div class="stat-card-value" id="clientsCount">—</div>
+                <div class="stat-card-label">Клиенты</div>
+            </div>
+            <div class="stat-card-icon blue">👥</div>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-card-header">
+            <div>
+                <div class="stat-card-value" id="productsCount">—</div>
+                <div class="stat-card-label">Продукция</div>
+            </div>
+            <div class="stat-card-icon green">📦</div>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-card-header">
+            <div>
+                <div class="stat-card-value" id="materialsCount">—</div>
+                <div class="stat-card-label">Материалы</div>
+            </div>
+            <div class="stat-card-icon orange">🔧</div>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-card-header">
+            <div>
+                <div class="stat-card-value" id="ordersCount">—</div>
+                <div class="stat-card-label">Заказы</div>
+            </div>
+            <div class="stat-card-icon cyan">🛒</div>
+        </div>
+    </div>
+</div>
+
+<div class="dashboard-section">
+    <div class="section-header">
+        <h2 class="section-title">
+            <span class="section-title-icon">👋</span>
+            Добро пожаловать, {{ user.login }}!
+        </h2>
+    </div>
+    <p style="color: var(--color-text-secondary); font-size: 14px;">
+        Используйте навигацию слева для перехода к разделам системы.
+    </p>
+</div>
+{% endblock %}

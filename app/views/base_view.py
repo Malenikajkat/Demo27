@@ -29,6 +29,7 @@ jsonify(data), status — Flask позволяет возвращать корт
 """
 from flask import jsonify
 from flask.views import MethodView
+from flask_login import login_required
 
 
 class BaseAPIView(MethodView):
@@ -39,7 +40,7 @@ class BaseAPIView(MethodView):
     но могут использовать self._success_response(), self._error_response() и т.д.
     """
 
-    decorators = []
+    decorators = [login_required]
 
     def _success_response(self, data, status=200):
         return jsonify(data), status

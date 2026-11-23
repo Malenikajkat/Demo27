@@ -8,11 +8,12 @@
 Оба маршрута используют одну и ту же логику проверки паролей (app/auth.py).
 """
 from flask import Blueprint, request, jsonify
-from flask_login import login_user
+from flask_login import login_user, login_required
 
 from app.auth import hash_password, verify_password
 from app.extensions import db
 from app.models import User
+from app.views.admin_view import _require_admin
 
 auth_bp = Blueprint("auth", __name__)
 
@@ -34,6 +35,12 @@ def login():
         db.select(User).where(User.login == login_value)
     ).scalar_one_or_none()
 
+    if user.is_blocked:
+        return jsonify({
+            "error": "Forbidden",
+            "message": "Вы заблокированы",
+        }), 403
+
     if not user or not verify_password(password_value, user.password_hash):
         if user:
             user.failed_attempts += 1
@@ -45,12 +52,6 @@ def login():
             "error": "Unauthorized",
             "message": "Неверный логин или пароль",
         }), 401
-
-    if user.is_blocked:
-        return jsonify({
-            "error": "Forbidden",
-            "message": "Вы заблокированы",
-        }), 403
 
     login_user(user)
     user.failed_attempts = 0
@@ -86,20 +87,16 @@ def get_current_user():
     }), 200
 
 
+@login_required
 @auth_bp.route("/register", methods=["POST"])
 def register():
     """Регистрация нового пользователя.
-
-    Студенты: обратите внимание на параметр role.
-    - По умолчанию устанавливается "Пользователь".
-    - В продакшене регистрация через API — потенциальная уязвимость!
-      Злоумышленник может зарегистрироваться с role="Администратор".
-      Для защиты нужно:
-      1. Отключить публичную регистрацию.
-      2. Или проверять, что пользователь имеет право создавать админов.
-      3. Или использовать отдельный админ-панель для создания пользователей.
+    Доступна только администратору
     """
-    data = request.get_json()
+
+    admin_check = _require_admin()
+    if admin_check:
+        return admin_check
     data = request.get_json()
     if not data or "login" not in data or "password" not in data:
         return jsonify({

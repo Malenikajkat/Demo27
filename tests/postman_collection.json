@@ -1,0 +1,1533 @@
+{
+	"info": {
+		"_postman_id": "11ea0e82-b303-41d9-b71c-4c1b39b9d849",
+		"name": "Production IS API",
+		"description": "Базовая проверка всех маршрутов Flask-приложения.\nПеред запуском: `python run.py`, БД PostgreSQL, пользователь admin/12345.\nАутентификация — через cookie-сессию Flask-Login (`POST /api/auth/login`).\n\nVersion: 1.0.0",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Обновить пользователя (только admin)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"role\": \"Администратор\",\n  \"is_blocked\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/admin/users/:user_id",
+							"variable": [
+								{
+									"key": "user_id",
+									"value": ""
+								}
+							]
+						},
+						"auth": {
+							"type": "noauth"
+						},
+						"description": "**Parameters**\n\n- `user_id` (path, integer, required)"
+					}
+				},
+				{
+					"name": "Создать пользователя (только admin)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"login\": \"newuser\",\n  \"password\": \"newpass123\",\n  \"role\": \"Пользователь\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/admin/users/"
+						},
+						"auth": {
+							"type": "noauth"
+						}
+					}
+				},
+				{
+					"name": "Список пользователей (только admin)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/admin/users/"
+						},
+						"auth": {
+							"type": "noauth"
+						}
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/admin/users/"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n  \"users\": [\n    {\n      \"user_id\": 0,\n      \"login\": \"string\",\n      \"role\": \"Администратор\",\n      \"is_blocked\": true,\n      \"failed_attempts\": 0,\n      \"created_at\": \"2024-01-01T12:00:00Z\"\n    }\n  ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Удалить пользователя (нельзя себя)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/admin/users/:user_id",
+							"variable": [
+								{
+									"key": "user_id",
+									"value": ""
+								}
+							]
+						},
+						"auth": {
+							"type": "noauth"
+						},
+						"description": "**Parameters**\n\n- `user_id` (path, integer, required)"
+					}
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Авторизация через JSON API",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"login\": \"admin\",\n  \"password\": 12345\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/login"
+						}
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"login\": \"admin\",\n  \"password\": 12345\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/auth/login"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n  \"message\": \"Вы успешно авторизовались\",\n  \"user_id\": 1,\n  \"login\": \"admin\",\n  \"role\": \"Администратор\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Данные текущего пользователя",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/me"
+						},
+						"auth": {
+							"type": "noauth"
+						}
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/auth/me"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n  \"user_id\": 0,\n  \"login\": \"string\",\n  \"role\": \"string\",\n  \"is_blocked\": true\n}"
+						}
+					]
+				},
+				{
+					"name": "Регистрация нового пользователя",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"login\": \"testuser\",\n  \"password\": \"test123\",\n  \"role\": \"Пользователь\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/register"
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Clients",
+			"item": [
+				{
+					"name": "Обновить клиента",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"ООО Тест-Клиент\",\n  \"client_type\": \"Поставщик\",\n  \"inn\": \"7700000000\",\n  \"address\": \"г. Москва\",\n  \"phone\": \"+7-900-000-00-00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/clients/:client_id",
+							"variable": [
+								{
+									"key": "client_id",
+									"value": "1"
+								}
+							]
+						},
+						"auth": {
+							"type": "noauth"
+						},
+						"description": "**Parameters**\n\n- `client_id` (path, string, required)"
+					}
+				},
+				{
+					"name": "Получить клиента",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/clients/:client_id",
+							"variable": [
+								{
+									"key": "client_id",
+									"value": ""
+								}
+							]
+						},
+						"auth": {
+							"type": "noauth"
+						},
+						"description": "**Parameters**\n\n- `client_id` (path, string, required)"
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/clients/:client_id",
+									"variable": [
+										{
+											"key": "client_id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n  \"client_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"name\": \"string\",\n  \"inn\": \"string\",\n  \"address\": \"string\",\n  \"phone\": \"string\",\n  \"client_type\": \"Поставщик\",\n  \"created_at\": \"2024-01-01T12:00:00Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Создать клиента",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"ООО Тест-Клиент\",\n  \"client_type\": \"Поставщик\",\n  \"inn\": \"7700000000\",\n  \"address\": \"г. Москва\",\n  \"phone\": \"+7-900-000-00-00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/clients/"
+						},
+						"auth": {
+							"type": "noauth"
+						}
+					}
+				},
+				{
+					"name": "Список клиентов",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/clients/"
+						},
+						"auth": {
+							"type": "noauth"
+						}
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/clients/"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n  \"clients\": [\n    {\n      \"client_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n      \"name\": \"string\",\n      \"inn\": \"string\",\n      \"address\": \"string\",\n      \"phone\": \"string\",\n      \"client_type\": \"Поставщик\",\n      \"created_at\": \"2024-01-01T12:00:00Z\"\n    }\n  ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Удалить клиента",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/clients/:client_id",
+							"variable": [
+								{
+									"key": "client_id",
+									"value": ""
+								}
+							]
+						},
+						"auth": {
+							"type": "noauth"
+						},
+						"description": "**Parameters**\n\n- `client_id` (path, string, required)"
+					}
+				}
+			]
+		},
+		{
+			"name": "Materials",
+			"item": [
+				{
+					"name": "Обновить материал",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/materials/:material_id",
+							"variable": [
+								{
+									"key": "material_id",
+									"value": ""
+								}
+							]
+						},
+						"auth": {
+							"type": "noauth"
+						},
+						"description": "**Parameters**\n\n- `material_id` (path, string, required)"
+					}
+				},
+				{
+					"name": "Обновить цену материала",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"price\": 99.50\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/materials/:material_id/price",
+							"variable": [
+								{
+									"key": "material_id",
+									"value": ""
+								}
+							]
+						},
+						"auth": {
+							"type": "noauth"
+						},
+						"description": "**Parameters**\n\n- `material_id` (path, string, required)"
+					}
+				},
+				{
+					"name": "Получить материал",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/materials/:material_id",
+							"variable": [
+								{
+									"key": "material_id",
+									"value": ""
+								}
+							]
+						},
+						"auth": {
+							"type": "noauth"
+						},
+						"description": "**Parameters**\n\n- `material_id` (path, string, required)"
+					}
+				},
+				{
+					"name": "Создать материал",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Тестовый материал\",\n  \"code\": \"MAT-000001\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/materials/"
+						},
+						"auth": {
+							"type": "noauth"
+						}
+					}
+				},
+				{
+					"name": "Список материалов",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/materials/"
+						},
+						"auth": {
+							"type": "noauth"
+						}
+					}
+				},
+				{
+					"name": "Удалить материал",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/materials/:material_id",
+							"variable": [
+								{
+									"key": "material_id",
+									"value": ""
+								}
+							]
+						},
+						"auth": {
+							"type": "noauth"
+						},
+						"description": "**Parameters**\n\n- `material_id` (path, string, required)"
+					}
+				}
+			]
+		},
+		{
+			"name": "Notes",
+			"item": [
+				{
+					"name": "Получить заметку",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/notes/:note_id",
+							"variable": [
+								{
+									"key": "note_id",
+									"value": ""
+								}
+							]
+						},
+						"auth": {
+							"type": "noauth"
+						},
+						"description": "**Parameters**\n\n- `note_id` (path, integer, required)"
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/notes/:note_id",
+									"variable": [
+										{
+											"key": "note_id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n  \"id\": \"00001\",\n  \"title_user\": \"Заголовок - admin\",\n  \"content\": \"string\",\n  \"formatted_date\": \"15.01.2026\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Создать заметку",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Тестовая заметка\",\n  \"content\": \"Содержимое\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/notes/"
+						},
+						"auth": {
+							"type": "noauth"
+						}
+					}
+				},
+				{
+					"name": "Список заметок",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/notes/?skip=0\u0026limit=100"
+						},
+						"auth": {
+							"type": "noauth"
+						},
+						"description": "**Parameters**\n\n- `skip` (query, integer)\n- `limit` (query, integer)"
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/notes/?skip=0\u0026limit=100"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n  \"notes\": [\n    {\n      \"id\": \"00001\",\n      \"title_user\": \"Заголовок - admin\",\n      \"content\": \"string\",\n      \"formatted_date\": \"15.01.2026\"\n    }\n  ],\n  \"total\": 0\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Operations",
+			"item": [
+				{
+					"name": "Обновить операцию",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/operations/:operation_id",
+							"variable": [
+								{
+									"key": "operation_id",
+									"value": ""
+								}
+							]
+						},
+						"auth": {
+							"type": "noauth"
+						},
+						"description": "**Parameters**\n\n- `operation_id` (path, string, required)"
+					}
+				},
+				{
+					"name": "Обновить цену операции",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"price\": 500.00\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/operations/:operation_id/price",
+							"variable": [
+								{
+									"key": "operation_id",
+									"value": ""
+								}
+							]
+						},
+						"auth": {
+							"type": "noauth"
+						},
+						"description": "**Parameters**\n\n- `operation_id` (path, string, required)"
+					}
+				},
+				{
+					"name": "Получить операцию",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/operations/:operation_id",
+							"variable": [
+								{
+									"key": "operation_id",
+									"value": ""
+								}
+							]
+						},
+						"auth": {
+							"type": "noauth"
+						},
+						"description": "**Parameters**\n\n- `operation_id` (path, string, required)"
+					}
+				},
+				{
+					"name": "Создать операцию",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Тестовая операция\",\n  \"code\": \"OP-000001\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/operations/"
+						},
+						"auth": {
+							"type": "noauth"
+						}
+					}
+				},
+				{
+					"name": "Список операций",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/operations/"
+						},
+						"auth": {
+							"type": "noauth"
+						}
+					}
+				},
+				{
+					"name": "Удалить операцию",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/operations/:operation_id",
+							"variable": [
+								{
+									"key": "operation_id",
+									"value": ""
+								}
+							]
+						},
+						"auth": {
+							"type": "noauth"
+						},
+						"description": "**Parameters**\n\n- `operation_id` (path, string, required)"
+					}
+				}
+			]
+		},
+		{
+			"name": "ProductionOrders",
+			"item": [
+				{
+					"name": "Обновить заказ",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/production-orders/:order_id",
+							"variable": [
+								{
+									"key": "order_id",
+									"value": ""
+								}
+							]
+						},
+						"auth": {
+							"type": "noauth"
+						},
+						"description": "**Parameters**\n\n- `order_id` (path, string, required)"
+					}
+				},
+				{
+					"name": "Получить заказ с материалами/операциями",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/production-orders/:order_id",
+							"variable": [
+								{
+									"key": "order_id",
+									"value": ""
+								}
+							]
+						},
+						"auth": {
+							"type": "noauth"
+						},
+						"description": "**Parameters**\n\n- `order_id` (path, string, required)"
+					}
+				},
+				{
+					"name": "Создать заказ на производство (номер генерируется автоматически как ЗП-NNNNNN)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"order_date\": \"2026-02-01\",\n  \"subdivision\": \"Основное\",\n  \"client_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"items\": [\n    {\n      \"product_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n      \"quantity\": 0,\n      \"completed_quantity\": 0,\n      \"unit_price\": 0,\n      \"total_price\": 0\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/production-orders/"
+						},
+						"auth": {
+							"type": "noauth"
+						}
+					}
+				},
+				{
+					"name": "Список заказов на производство",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/production-orders/"
+						},
+						"auth": {
+							"type": "noauth"
+						}
+					}
+				},
+				{
+					"name": "Удалить заказ",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/production-orders/:order_id",
+							"variable": [
+								{
+									"key": "order_id",
+									"value": ""
+								}
+							]
+						},
+						"auth": {
+							"type": "noauth"
+						},
+						"description": "**Parameters**\n\n- `order_id` (path, string, required)"
+					}
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Обновить продукцию",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/products/:product_id",
+							"variable": [
+								{
+									"key": "product_id",
+									"value": ""
+								}
+							]
+						},
+						"auth": {
+							"type": "noauth"
+						},
+						"description": "**Parameters**\n\n- `product_id` (path, string, required)"
+					}
+				},
+				{
+					"name": "Обновить цену продукции",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"price\": 1500.00\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/products/:product_id/price",
+							"variable": [
+								{
+									"key": "product_id",
+									"value": ""
+								}
+							]
+						},
+						"auth": {
+							"type": "noauth"
+						},
+						"description": "**Parameters**\n\n- `product_id` (path, string, required)"
+					}
+				},
+				{
+					"name": "Получить продукцию",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/products/:product_id",
+							"variable": [
+								{
+									"key": "product_id",
+									"value": ""
+								}
+							]
+						},
+						"auth": {
+							"type": "noauth"
+						},
+						"description": "**Parameters**\n\n- `product_id` (path, string, required)"
+					}
+				},
+				{
+					"name": "Получить текущую цену продукции",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/products/:product_id/price",
+							"variable": [
+								{
+									"key": "product_id",
+									"value": ""
+								}
+							]
+						},
+						"auth": {
+							"type": "noauth"
+						},
+						"description": "**Parameters**\n\n- `product_id` (path, string, required)"
+					}
+				},
+				{
+					"name": "Создать продукцию",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Тестовый продукт\",\n  \"code\": \"TEST-000001\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/products/"
+						},
+						"auth": {
+							"type": "noauth"
+						}
+					}
+				},
+				{
+					"name": "Список продукции",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/products/"
+						},
+						"auth": {
+							"type": "noauth"
+						}
+					}
+				},
+				{
+					"name": "Удалить продукцию",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/products/:product_id",
+							"variable": [
+								{
+									"key": "product_id",
+									"value": ""
+								}
+							]
+						},
+						"auth": {
+							"type": "noauth"
+						},
+						"description": "**Parameters**\n\n- `product_id` (path, string, required)"
+					}
+				}
+			]
+		},
+		{
+			"name": "SalesOrders",
+			"item": [
+				{
+					"name": "Обновить заказ",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/sales-orders/:sales_order_id",
+							"variable": [
+								{
+									"key": "sales_order_id",
+									"value": ""
+								}
+							]
+						},
+						"auth": {
+							"type": "noauth"
+						},
+						"description": "**Parameters**\n\n- `sales_order_id` (path, string, required)"
+					}
+				},
+				{
+					"name": "Получить заказ",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/sales-orders/:sales_order_id",
+							"variable": [
+								{
+									"key": "sales_order_id",
+									"value": ""
+								}
+							]
+						},
+						"auth": {
+							"type": "noauth"
+						},
+						"description": "**Parameters**\n\n- `sales_order_id` (path, string, required)"
+					}
+				},
+				{
+					"name": "Получить связанный заказ на производство",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/sales-orders/:sales_order_id/production-order",
+							"variable": [
+								{
+									"key": "sales_order_id",
+									"value": ""
+								}
+							]
+						},
+						"auth": {
+							"type": "noauth"
+						},
+						"description": "**Parameters**\n\n- `sales_order_id` (path, string, required)"
+					}
+				},
+				{
+					"name": "Расчёт стоимости заказа (себестоимость + прибыль)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/sales-orders/:sales_order_id/cost-calculation",
+							"variable": [
+								{
+									"key": "sales_order_id",
+									"value": ""
+								}
+							]
+						},
+						"auth": {
+							"type": "noauth"
+						},
+						"description": "**Parameters**\n\n- `sales_order_id` (path, string, required)"
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/sales-orders/:sales_order_id/cost-calculation",
+									"variable": [
+										{
+											"key": "sales_order_id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n  \"total_amount\": 0,\n  \"total_cost\": 0,\n  \"gross_profit\": 0,\n  \"profitability\": 0,\n  \"items\": [\n    {}\n  ],\n  \"cost_detail\": {}\n}"
+						}
+					]
+				},
+				{
+					"name": "Создать заказ покупателя",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"order_date\": \"2026-01-15\",\n  \"client_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"executor_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"auto_create_production\": true,\n  \"items\": [\n    {\n      \"product_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n      \"quantity\": 2,\n      \"unit_price\": 1500.00,\n      \"discount\": 0\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/sales-orders/"
+						},
+						"auth": {
+							"type": "noauth"
+						},
+						"description": "**Внимание:** действует CHECK `client_id \u003c\u003e executor_id`.\nЕсли передать одинаковые ID — вернётся 400.\nПри `auto_create_production: true` автоматически создаётся связанный заказ на производство."
+					},
+					"response": [
+						{
+							"name": "201 Created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"order_date\": \"2026-01-15\",\n  \"client_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"executor_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"auto_create_production\": true,\n  \"items\": [\n    {\n      \"product_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n      \"quantity\": 2,\n      \"unit_price\": 1500.00,\n      \"discount\": 0\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/sales-orders/"
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n  \"sales_order_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"production_order_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"total_amount\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "Список заказов покупателей",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/sales-orders/"
+						},
+						"auth": {
+							"type": "noauth"
+						}
+					}
+				},
+				{
+					"name": "Удалить заказ (каскадно с заказом на производство)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/sales-orders/:sales_order_id",
+							"variable": [
+								{
+									"key": "sales_order_id",
+									"value": ""
+								}
+							]
+						},
+						"auth": {
+							"type": "noauth"
+						},
+						"description": "**Parameters**\n\n- `sales_order_id` (path, string, required)"
+					}
+				}
+			]
+		},
+		{
+			"name": "Specifications",
+			"item": [
+				{
+					"name": "Создать спецификацию материала",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"product_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"material_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"quantity_per_unit\": 2.5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/specifications/materials/"
+						}
+					}
+				},
+				{
+					"name": "Создать спецификацию операции",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"product_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"operation_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"time_norm\": 1.5,\n  \"op_quantity\": 1.0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/specifications/operations/"
+						}
+					}
+				},
+				{
+					"name": "Список спецификаций материалов",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/specifications/materials/"
+						}
+					}
+				},
+				{
+					"name": "Список спецификаций операций",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/specifications/operations/"
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Web",
+			"description": "HTML-страницы (не API, но нужны для проверки)",
+			"item": [
+				{
+					"name": "Выход из системы",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/logout"
+						}
+					}
+				},
+				{
+					"name": "Главная страница",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/dashboard"
+						}
+					}
+				},
+				{
+					"name": "Обработка формы логина (HTML)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "login",
+									"value": "admin",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12345",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/"
+						}
+					}
+				},
+				{
+					"name": "Раздача изображений пазл-капчи",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/image/:filename",
+							"variable": [
+								{
+									"key": "filename",
+									"value": "1.png"
+								}
+							]
+						},
+						"description": "**Parameters**\n\n- `filename` (path, string, required)"
+					}
+				},
+				{
+					"name": "Страница заказов на производство",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/production-orders"
+						}
+					}
+				},
+				{
+					"name": "Страница заказов покупателей",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/sales-orders"
+						}
+					}
+				},
+				{
+					"name": "Страница заметок",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/notes"
+						}
+					}
+				},
+				{
+					"name": "Страница клиентов",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/clients"
+						}
+					}
+				},
+				{
+					"name": "Страница логина",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/"
+						}
+					}
+				},
+				{
+					"name": "Страница материалов",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/materials"
+						}
+					}
+				},
+				{
+					"name": "Страница операций",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/operations"
+						}
+					}
+				},
+				{
+					"name": "Страница пользователей (admin)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/admin/users"
+						}
+					}
+				},
+				{
+					"name": "Страница продукции",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/products"
+						}
+					}
+				},
+				{
+					"name": "Страница спецификаций",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/specifications"
+						}
+					}
+				}
+			]
+		}
+	]
+}

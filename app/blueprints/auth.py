@@ -35,6 +35,12 @@ def login():
         db.select(User).where(User.login == login_value)
     ).scalar_one_or_none()
 
+    if user.is_blocked:
+        return jsonify({
+            "error": "Forbidden",
+            "message": "Вы заблокированы",
+        }), 403
+
     if not user or not verify_password(password_value, user.password_hash):
         if user:
             user.failed_attempts += 1
@@ -46,12 +52,6 @@ def login():
             "error": "Unauthorized",
             "message": "Неверный логин или пароль",
         }), 401
-
-    if user.is_blocked:
-        return jsonify({
-            "error": "Forbidden",
-            "message": "Вы заблокированы",
-        }), 403
 
     login_user(user)
     user.failed_attempts = 0

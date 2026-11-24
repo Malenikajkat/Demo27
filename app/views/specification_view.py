@@ -23,7 +23,7 @@ class SpecificationMaterialListAPI(BaseAPIView):
             ).order_by(MaterialPrice.effective_date.desc()).limit(1)
             price_record = db.session.execute(price_stmt).scalar_one_or_none()
             material_price = float(price_record.price) if price_record else 0.0
-            
+
             specs_list.append({
                 "spec_mat_id": str(s.spec_mat_id),
                 "product_id": str(s.product_id),
@@ -75,7 +75,7 @@ class SpecificationOperationListAPI(BaseAPIView):
             ).order_by(OperationPrice.effective_date.desc()).limit(1)
             price_record = db.session.execute(price_stmt).scalar_one_or_none()
             operation_price = float(price_record.price) if price_record else 0.0
-            
+
             specs_list.append({
                 "spec_op_id": str(s.spec_op_id),
                 "product_id": str(s.product_id),

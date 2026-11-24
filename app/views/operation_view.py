@@ -27,7 +27,7 @@ class OperationListAPI(BaseAPIView):
             ).order_by(OperationPrice.effective_date.desc()).limit(1)
             price_record = db.session.execute(price_stmt).scalar_one_or_none()
             current_price = float(price_record.price) if price_record else 0.0
-            
+
             operation_data = o.to_dict()
             operation_data["current_price"] = current_price
             result.append(operation_data)
@@ -133,7 +133,6 @@ class OperationPriceAPI(BaseAPIView):
         db.session.commit()
 
         return self._success_response({"message": "Цена обновлена", "price": float(new_price.price)})
-
 
 
 operations_bp.add_url_rule("/", view_func=OperationListAPI.as_view("operations_list"))

@@ -23,7 +23,7 @@ class ProductionOrderService(BaseService):
 
     def get_order_with_details(self, order_id) -> dict:
         """Получить заказ на производство с материалами и операциями."""
-        from app.models import SpecificationMaterial, SpecificationOperation, MaterialPrice, OperationPrice
+        from app.models import MaterialPrice, OperationPrice
         from app.extensions import db
         from sqlalchemy import select
 
@@ -45,7 +45,7 @@ class ProductionOrderService(BaseService):
 
         for item in order.items:
             product = item.product
-            
+
             # Проверяем, существует ли продукт
             if not product:
                 product_data = {
@@ -62,7 +62,7 @@ class ProductionOrderService(BaseService):
                 }
                 result["items"].append(product_data)
                 continue
-            
+
             product_data = {
                 "order_item_id": str(item.order_item_id),
                 "product_id": str(product.product_id),
@@ -82,7 +82,7 @@ class ProductionOrderService(BaseService):
                 material = spec_mat.material
                 mat_qty_per_unit = float(spec_mat.quantity_per_unit)
                 mat_qty = mat_qty_per_unit * float(item.quantity)
-                
+
                 # Получаем цену материала
                 price_stmt = select(MaterialPrice).where(
                     MaterialPrice.material_id == spec_mat.material_id
@@ -90,7 +90,7 @@ class ProductionOrderService(BaseService):
                 price_record = db.session.execute(price_stmt).scalar_one_or_none()
                 mat_price = float(price_record.price) if price_record else 0.0
                 mat_total = mat_qty * mat_price
-                
+
                 product_data["materials"].append({
                     "material_id": str(material.material_id),
                     "material_name": material.name,
@@ -108,7 +108,7 @@ class ProductionOrderService(BaseService):
                 time_norm = float(spec_op.time_norm)
                 op_qty = float(spec_op.op_quantity)
                 total_time = time_norm * op_qty * float(item.quantity)
-                
+
                 # Получаем цену операции
                 price_stmt = select(OperationPrice).where(
                     OperationPrice.operation_id == spec_op.operation_id
@@ -116,7 +116,7 @@ class ProductionOrderService(BaseService):
                 price_record = db.session.execute(price_stmt).scalar_one_or_none()
                 op_price = float(price_record.price) if price_record else 0.0
                 op_total = total_time * op_price
-                
+
                 product_data["operations"].append({
                     "operation_id": str(operation.operation_id),
                     "operation_name": operation.name,

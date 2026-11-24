@@ -23,14 +23,14 @@ class SalesOrderService(BaseService):
 
     def calculate_cost(self, order_id: str) -> dict:
         """Расчёт стоимости заказа с учётом себестоимости.
-        
+
         Возвращает:
         - items_detail: детали по каждой позиции (продажа)
         - cost_detail: себестоимость (материалы + операции)
         - total_amount: общая сумма продажи
         - total_cost: общая себестоимость
         """
-        from app.models import ProductPrice, MaterialPrice, OperationPrice, SpecificationMaterial, SpecificationOperation
+        from app.models import MaterialPrice, OperationPrice
         from app.extensions import db
         from sqlalchemy import select
 
@@ -52,7 +52,7 @@ class SalesOrderService(BaseService):
             discount = float(item.discount) if item.discount else 0.0
             item_total = quantity * unit_price * (1 - discount / 100)
             total_amount += item_total
-            
+
             # Добавляем деталь по позиции
             items_detail.append({
                 "product_id": str(item.product_id),
@@ -66,13 +66,13 @@ class SalesOrderService(BaseService):
             # Расчёт себестоимости на основе спецификаций
             product = item.product
             product_cost = 0.0
-            
+
             # 1. Материальные затраты
             spec_mats = product.spec_materials
             for spec_mat in spec_mats:
                 mat_qty_per_unit = float(spec_mat.quantity_per_unit)
                 mat_qty = mat_qty_per_unit * quantity
-                
+
                 # Получаем цену материала
                 price_stmt = select(MaterialPrice).where(
                     MaterialPrice.material_id == spec_mat.material_id
@@ -81,7 +81,7 @@ class SalesOrderService(BaseService):
                 mat_price = float(price_record.price) if price_record else 0.0
                 mat_total = mat_qty * mat_price
                 product_cost += mat_total
-                
+
                 material = spec_mat.material
                 cost_detail["material_costs"]["items"].append({
                     "material_id": str(material.material_id),
@@ -91,14 +91,14 @@ class SalesOrderService(BaseService):
                     "price": mat_price,
                     "total": mat_total
                 })
-            
+
             # 2. Затраты на операции
             spec_ops = product.spec_operations
             for spec_op in spec_ops:
                 time_norm = float(spec_op.time_norm)
                 op_qty = float(spec_op.op_quantity)
                 total_time = time_norm * op_qty * quantity
-                
+
                 # Получаем цену операции
                 price_stmt = select(OperationPrice).where(
                     OperationPrice.operation_id == spec_op.operation_id
@@ -107,7 +107,7 @@ class SalesOrderService(BaseService):
                 op_price = float(price_record.price) if price_record else 0.0
                 op_total = total_time * op_price
                 product_cost += op_total
-                
+
                 operation = spec_op.operation
                 cost_detail["operation_costs"]["items"].append({
                     "operation_id": str(operation.operation_id),
@@ -118,7 +118,7 @@ class SalesOrderService(BaseService):
                     "price": op_price,
                     "total": op_total
                 })
-            
+
             total_cost += product_cost
 
         # Суммируем затраты

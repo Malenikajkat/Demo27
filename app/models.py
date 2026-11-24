@@ -247,7 +247,11 @@ class ProductionOrder(db.Model):
     order_date = Column(Date, nullable=False)
     subdivision = Column(String(100))
     client_id = Column(UUID(as_uuid=True), ForeignKey("clients.client_id"), nullable=True)
-    sales_order_id = Column(UUID(as_uuid=True), ForeignKey("sales_orders.sales_order_id", ondelete="CASCADE"), nullable=True)
+    sales_order_id = Column(
+        UUID(as_uuid=True),
+        ForeignKey("sales_orders.sales_order_id", ondelete="CASCADE"),
+        nullable=True,
+    )
     total_amount = Column(Numeric(12, 2), server_default="0.00")
     status = Column(String(20), nullable=False, server_default="Новый")
     created_at = Column(DateTime, server_default=func.now())

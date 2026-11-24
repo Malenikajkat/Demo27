@@ -27,7 +27,7 @@ class ProductListAPI(BaseAPIView):
             ).order_by(ProductPrice.effective_date.desc()).limit(1)
             price_record = db.session.execute(price_stmt).scalar_one_or_none()
             current_price = float(price_record.price) if price_record else 0.0
-            
+
             product_data = p.to_dict()
             product_data["current_price"] = current_price
             result.append(product_data)
@@ -112,10 +112,10 @@ class ProductPriceAPI(BaseAPIView):
             ProductPrice.product_id == product_uuid
         ).order_by(ProductPrice.effective_date.desc()).limit(1)
         price_record = db.session.execute(stmt).scalar_one_or_none()
-        
+
         if not price_record:
             return self._success_response({"product_id": str(product_uuid), "price": 0.0})
-        
+
         return self._success_response({
             "product_id": str(product_uuid),
             "price": float(price_record.price)
@@ -163,7 +163,7 @@ class ProductPriceListAPI(BaseAPIView):
         prices = db.session.execute(
             select(ProductPrice).order_by(ProductPrice.effective_date.desc())
         ).scalars().all()
-        
+
         result = []
         for p in prices:
             result.append({
@@ -173,7 +173,7 @@ class ProductPriceListAPI(BaseAPIView):
                 "price": float(p.price),
                 "effective_date": p.effective_date.isoformat() if p.effective_date else None
             })
-        
+
         return self._success_response({"prices": result})
 
 

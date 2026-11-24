@@ -15,7 +15,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
-from sqlalchemy.sql import func
+from sqlalchemy.sql import false, func
 
 from app.extensions import db
 
@@ -388,7 +388,7 @@ class User(db.Model):
     login = Column(String(50), unique=True, nullable=False, index=True)
     password_hash = Column(String(255), nullable=False)
     role = Column(String(20), nullable=False, server_default="Пользователь")
-    is_blocked = Column(Boolean, nullable=False, server_default="false")
+    is_blocked = Column(Boolean, nullable=False, server_default=false())
     failed_attempts = Column(Integer, nullable=False, server_default="0")
     blocked_until = Column(DateTime)
     created_at = Column(DateTime, server_default=func.now())

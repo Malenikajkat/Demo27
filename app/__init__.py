@@ -26,6 +26,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 from flask import Flask, flash, redirect, request, url_for
+from sqlalchemy.exc import OperationalError
 
 from app.extensions import db, login_manager, migrate
 from app.config import get_config
@@ -58,7 +59,7 @@ def create_app(config_name=None):
 
     # Загрузка конфигурации: читает класс из config_by_name в app/config.py.
     # Например, если FLASK_ENV=development, будет использован DevelopmentConfig.
-    config_class = get_config()
+    config_class = get_config(config_name)
     app.config.from_object(config_class)
 
     # Финальная проверка: без DATABASE_URL приложение не сможет работать с БД.
@@ -137,13 +138,24 @@ def create_app(config_name=None):
     def not_found(e):
         return {"error": "Not Found", "message": "Ресурс не найден"}, 404
 
+    @app.errorhandler(OperationalError)
+    def database_unavailable(e):
+        """БД недоступна или отвергла соединение."""
+        db.session.rollback()
+        logging.error("Ошибка подключения к базе данных: %s", e)
+        return {
+            "error": "Internal Server Error",
+            "message": "Ошибка подключения к базе данных",
+        }, 500
+
     @app.errorhandler(500)
     def internal_error(e):
         # При ошибке откатываем транзакцию, чтобы не оставить БД в несогласованном состоянии.
         db.session.rollback()
+        logging.exception("Необработанная ошибка сервера")
         return {
             "error": "Internal Server Error",
-            "message": "Ошибка подключения к базе данных",
+            "message": "Внутренняя ошибка сервера",
         }, 500
 
     # Проверка подключения к базе данных при запуске.

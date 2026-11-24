@@ -23,7 +23,7 @@ class SalesOrderListAPI(BaseAPIView):
     def post(self):
         """Создание заказа."""
         from app.extensions import db
-        from sqlalchemy import text
+        
         
         data = request.get_json()
         required_fields = ["order_date", "client_id", "executor_id"]
@@ -277,7 +277,7 @@ class SalesOrderDetailAPI(BaseAPIView):
     def put(self, sales_order_id):
         """Обновление заказа."""
         from app.extensions import db
-        from sqlalchemy import text
+        
         
         try:
             order_uuid = uuid.UUID(sales_order_id)

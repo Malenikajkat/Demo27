@@ -72,29 +72,20 @@ def login_page():
             db.select(User).where(User.login == login_value)
         ).scalar_one_or_none()
 
+        if user and user.is_blocked:
+            flash("Вы заблокированы. Обратитесь к администратору", "error")
+            return render_template("login.html", puzzle_solved=True,
+                                   error_message="Вы заблокированы", login=login_value)
+
         if not user or not verify_password(password_value, user.password_hash):
             if user:
                 user.failed_attempts += 1
                 if user.failed_attempts >= 3:
                     user.is_blocked = True
                 db.session.commit()
-
             flash("Неверный логин или пароль", "error")
-            return render_template(
-                "login.html",
-                puzzle_solved=True,
-                error_message="Неверный логин или пароль",
-                login=login_value,
-            )
-
-        if user.is_blocked:
-            flash("Вы заблокированы. Обратитесь к администратору", "error")
-            return render_template(
-                "login.html",
-                puzzle_solved=True,
-                error_message="Вы заблокированы",
-                login=login_value,
-            )
+            return render_template("login.html", puzzle_solved=True,
+                                   error_message="Неверный логин или пароль", login=login_value)
 
         login_user(user)
         user.failed_attempts = 0

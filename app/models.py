@@ -12,6 +12,7 @@ from sqlalchemy import (
     ForeignKey,
     Numeric,
     CheckConstraint,
+    UniqueConstraint,
 )
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
@@ -136,6 +137,7 @@ class ProductPrice(db.Model):
 
     __table_args__ = (
         CheckConstraint("price >= 0", name="chk_product_price_positive"),
+        UniqueConstraint("product_id", "effective_date", name="uq_product_price"),
     )
 
     product = relationship("Product", back_populates="prices")
@@ -158,6 +160,7 @@ class MaterialPrice(db.Model):
 
     __table_args__ = (
         CheckConstraint("price >= 0", name="chk_material_price_positive"),
+        UniqueConstraint("material_id", "effective_date", name="uq_material_price"),
     )
 
     material = relationship("Material", back_populates="prices")
@@ -180,6 +183,7 @@ class OperationPrice(db.Model):
 
     __table_args__ = (
         CheckConstraint("price >= 0", name="chk_operation_price_positive"),
+        UniqueConstraint("operation_id", "effective_date", name="uq_operation_price"),
     )
 
     operation = relationship("Operation", back_populates="prices")
@@ -372,7 +376,10 @@ class SalesOrderItem(db.Model):
     __table_args__ = (
         CheckConstraint("quantity > 0", name="chk_sales_qty_positive"),
         CheckConstraint("unit_price >= 0", name="chk_sales_price_positive"),
-        CheckConstraint("discount >= 0", name="chk_sales_discount_positive"),
+        CheckConstraint(
+            "discount >= 0 AND discount <= 100",
+            name="chk_sales_discount_percentage",
+        ),
     )
 
     # ondelete="RESTRICT" — нельзя удалить Product, если он есть в SalesOrderItem.

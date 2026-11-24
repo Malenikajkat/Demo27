@@ -372,12 +372,16 @@ class SalesOrderItem(db.Model):
     __table_args__ = (
         CheckConstraint("quantity > 0", name="chk_sales_qty_positive"),
         CheckConstraint("unit_price >= 0", name="chk_sales_price_positive"),
-        CheckConstraint("discount >= 0", name="chk_sales_discount_positive"),
+        CheckConstraint(
+            "discount >= 0 AND discount <= 100",
+            name="chk_sales_discount_range",
+        ),
     )
 
     # ondelete="RESTRICT" — нельзя удалить Product, если он есть в SalesOrderItem.
     sales_order = relationship("SalesOrder", back_populates="items")
     product = relationship("Product", back_populates="sales_order_items")
+
 
 
 class User(db.Model):

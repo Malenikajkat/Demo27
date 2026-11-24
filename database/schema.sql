@@ -159,7 +159,7 @@ CREATE TABLE sales_order_items (
     product_id UUID NOT NULL REFERENCES products(product_id) ON DELETE RESTRICT,
     quantity DECIMAL(10,2) NOT NULL CHECK (quantity > 0),
     unit_price DECIMAL(10,2) NOT NULL CHECK (unit_price >= 0),
-    discount DECIMAL(10,2) NOT NULL DEFAULT 0.00 CHECK (discount >= 0)
+    discount DECIMAL(10,2) NOT NULL DEFAULT 0.00 CHECK (discount >= 0 AND discount <= 100)
 );
 
 -- ============================================================

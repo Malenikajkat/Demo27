@@ -138,3 +138,59 @@ def test_get_current_user_authenticated(client):
     data = response.get_json()
     assert data["login"] == "admin"
     assert data["role"] == "Администратор"
+
+def test_register_success(client):
+    """Тест: успешная регистрация обычного пользователя."""
+    response = client.post(
+        "/api/auth/register",
+        json={"login": "new_user", "password": "password123"},
+    )
+
+    assert response.status_code == 201
+    assert response.get_json()["role"] == "Пользователь"
+
+
+def test_register_cannot_assign_admin_role(client):
+    """Тест: нельзя получить права администратора при регистрации."""
+    response = client.post(
+        "/api/auth/register",
+        json={
+            "login": "new_admin",
+            "password": "password123",
+            "role": "Администратор",
+        },
+    )
+
+    assert response.status_code == 201
+    assert response.get_json()["role"] == "Пользователь"
+
+
+def test_register_empty_login(client):
+    """Тест: пустой логин запрещён."""
+    response = client.post(
+        "/api/auth/register",
+        json={"login": "   ", "password": "password123"},
+    )
+
+    assert response.status_code == 400
+
+
+def test_register_empty_password(client):
+    """Тест: пустой пароль запрещён."""
+    response = client.post(
+        "/api/auth/register",
+        json={"login": "new_user", "password": "   "},
+    )
+
+    assert response.status_code == 400
+
+
+def test_register_existing_user(client):
+    """Тест: повторная регистрация запрещена."""
+    response = client.post(
+        "/api/auth/register",
+        json={"login": "admin", "password": "password123"},
+    )
+
+    assert response.status_code == 400
+

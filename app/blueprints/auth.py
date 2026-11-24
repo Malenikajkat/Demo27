@@ -1,4 +1,4 @@
-"""Blueprint для API авторизации.
+﻿"""Blueprint для API авторизации.
 
 Студенты: этот Blueprint предоставляет JSON API для авторизации.
 Отличие от web_bp (app/blueprints/web.py):
@@ -88,27 +88,31 @@ def get_current_user():
 
 @auth_bp.route("/register", methods=["POST"])
 def register():
-    """Регистрация нового пользователя.
+    """Регистрация нового пользователя с обычными правами."""
+    data = request.get_json(silent=True)
 
-    Студенты: обратите внимание на параметр role.
-    - По умолчанию устанавливается "Пользователь".
-    - В продакшене регистрация через API — потенциальная уязвимость!
-      Злоумышленник может зарегистрироваться с role="Администратор".
-      Для защиты нужно:
-      1. Отключить публичную регистрацию.
-      2. Или проверять, что пользователь имеет право создавать админов.
-      3. Или использовать отдельный админ-панель для создания пользователей.
-    """
-    data = request.get_json()
-    data = request.get_json()
-    if not data or "login" not in data or "password" not in data:
+    if not isinstance(data, dict):
         return jsonify({
             "error": "Bad Request",
-            "message": "Необходимо указать login и password",
+            "message": "Необходимо передать JSON с login и password",
         }), 400
 
-    login_value = data["login"].strip()
-    password_value = data["password"]
+    login_value = data.get("login")
+    password_value = data.get("password")
+
+    if not isinstance(login_value, str) or not login_value.strip():
+        return jsonify({
+            "error": "Bad Request",
+            "message": "Логин не может быть пустым",
+        }), 400
+
+    if not isinstance(password_value, str) or not password_value.strip():
+        return jsonify({
+            "error": "Bad Request",
+            "message": "Пароль не может быть пустым",
+        }), 400
+
+    login_value = login_value.strip()
 
     existing = db.session.execute(
         db.select(User).where(User.login == login_value)
@@ -120,14 +124,14 @@ def register():
             "message": f"Пользователь '{login_value}' уже существует",
         }), 400
 
-    role = data.get("role", "Пользователь")
     new_user = User(
         login=login_value,
         password_hash=hash_password(password_value),
-        role=role,
+        role="Пользователь",
         is_blocked=False,
         failed_attempts=0,
     )
+
     db.session.add(new_user)
     db.session.commit()
 

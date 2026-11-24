@@ -57,3 +57,10 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Review temp files
+/flake8_out.txt
+
+/pytest_report.txt
+
+/pytest_report.txt

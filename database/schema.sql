@@ -150,6 +150,16 @@ CREATE TABLE sales_orders (
     CONSTRAINT fk_sales_client CHECK (client_id <> executor_id)
 );
 
+-- Связь с заказом покупателя добавляется после создания sales_orders,
+-- так как production_orders объявлена выше по файлу.
+ALTER TABLE production_orders
+    ADD COLUMN sales_order_id UUID;
+ALTER TABLE production_orders
+    ADD CONSTRAINT fk_production_orders_sales_order
+    FOREIGN KEY (sales_order_id)
+    REFERENCES sales_orders(sales_order_id)
+    ON DELETE CASCADE;
+
 -- ============================================================
 -- Таблица: Товары в заказе покупателя
 -- ============================================================
@@ -159,7 +169,8 @@ CREATE TABLE sales_order_items (
     product_id UUID NOT NULL REFERENCES products(product_id) ON DELETE RESTRICT,
     quantity DECIMAL(10,2) NOT NULL CHECK (quantity > 0),
     unit_price DECIMAL(10,2) NOT NULL CHECK (unit_price >= 0),
-    discount DECIMAL(10,2) NOT NULL DEFAULT 0.00 CHECK (discount >= 0)
+    discount DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+    CONSTRAINT chk_sales_discount_percentage CHECK (discount >= 0 AND discount <= 100)
 );
 
 -- ============================================================
@@ -173,6 +184,7 @@ CREATE INDEX idx_spec_materials_material ON specification_materials(material_id)
 CREATE INDEX idx_spec_operations_product ON specification_operations(product_id);
 CREATE INDEX idx_spec_operations_operation ON specification_operations(operation_id);
 CREATE INDEX idx_prod_orders_date ON production_orders(order_date);
+CREATE INDEX idx_prod_orders_sales_order ON production_orders(sales_order_id);
 CREATE INDEX idx_sales_orders_date ON sales_orders(order_date);
 CREATE INDEX idx_sales_orders_client ON sales_orders(client_id);
 CREATE INDEX idx_sales_orders_executor ON sales_orders(executor_id);
@@ -282,9 +294,9 @@ CREATE INDEX idx_notes_user ON notes(id_user);
 
 -- Вставка тестовых пользователей (пароль: admin123, user123)
 INSERT INTO users (login, password_hash, role) VALUES
-('admin', 'pbkdf2:sha256:260000$admin$dummyhash', 'Администратор'),
-('user1', 'pbkdf2:sha256:260000$user1$dummyhash', 'Пользователь'),
-('user2', 'pbkdf2:sha256:260000$user2$dummyhash', 'Пользователь');
+('admin', 'pbkdf2:sha256:260000$admin$f5d57f628ef48f4484f033ddcbf0dfe753a49284b58623e7ba1db67e0b80f824', 'Администратор'),
+('user1', 'pbkdf2:sha256:260000$user1$71b5decc6e3cf7fd0d7b181cca5bc933a7ee831405b5c2281bd6a8b688779121', 'Пользователь'),
+('user2', 'pbkdf2:sha256:260000$user2$58b5afab9b3380c8673ae9ab3a05533b4a80c5da6486acd456d92ea29f9f01ee', 'Пользователь');
 
 -- Вставка тестовых заметок
 INSERT INTO notes (title, content, id_user) VALUES

@@ -1,0 +1,49 @@
+STATIC REVIEW OUTPUT (fallback for flake8)
+Date: 2026-11-24
+Scope: 67 Python files in app/, tests/, run.py
+
+Command: python -m compileall -q app tests run.py
+Result: PASS (exit code 0)
+
+AST checks:
+- Python files parsed: 67
+- Parse errors: 0
+- Lines longer than 88 characters: 112
+- Trailing-whitespace lines: 84
+- Broad except Exception handlers: 9
+- Modules without module docstring: 0
+
+Top files by long lines:
+- app/models.py: 17
+- app/views/sales_order_view.py: 14
+- app/views/specification_view.py: 8
+- app/views/product_view.py: 7
+- app/blueprints/production_orders.py: 6
+- app/views/admin_view.py: 6
+- app/views/material_view.py: 6
+- app/views/operation_view.py: 6
+
+Top files by trailing whitespace:
+- app/views/sales_order_view.py: 57
+- app/services/sales_order_service.py: 9
+- app/services/production_order_service.py: 6
+- app/views/product_view.py: 5
+- app/views/production_order_view.py: 3
+
+flake8: NOT RUN. Executable is not installed and is not declared in requirements.txt.
+pylint: NOT RUN. Executable is not installed and is not declared in requirements.txt.
+
+Environment limitation:
+- pytest collection fails with ModuleNotFoundError: No module named 'flask'.
+- pip installation was attempted but PyPI name resolution is unavailable in this environment.
+- No flake8/pylint output is fabricated; this file records the exact fallback checks that were actually run.
+
+POST-FIX RECHECK (2026-11-24)
+- Python files parsed: 68
+- AST parse errors: 0
+- compileall: PASS
+- Lines longer than 88 characters: 114
+- Trailing-whitespace lines: 79
+- Broad except Exception handlers: 9
+- Test functions present: 24
+- pytest execution: BLOCKED at collection by missing Flask dependency

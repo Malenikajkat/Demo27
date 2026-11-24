@@ -38,13 +38,7 @@ if env_path.exists():
 
 
 def create_app(config_name=None):
-    """Создаёт и настраивает Flask-приложение.
-
-    Студенты: обратите внимание — эта функция принимает config_name, но в текущей
-    реализации он не используется напрямую. Вместо этого get() считывает FLASK_ENV
-    из переменных окружения. Это распространённая практика для переключения
-    между development/production/testing конфигурациями.
-    """
+    """Создаёт и настраивает Flask-приложение для выбранного окружения."""
     if config_name is None:
         config_name = os.getenv("FLASK_ENV", "development")
 
@@ -56,12 +50,14 @@ def create_app(config_name=None):
         static_url_path="/static",
     )
 
-    # Загрузка конфигурации: читает класс из config_by_name в app/config.py.
-    # Например, если FLASK_ENV=development, будет использован DevelopmentConfig.
-    config_class = get_config()
+    # Конфигурация выбирается по аргументу фабрики или FLASK_ENV.
+    config_class = get_config(config_name)
     app.config.from_object(config_class)
 
-    # Финальная проверка: без DATABASE_URL приложение не сможет работать с БД.
+    if not app.config.get("SECRET_KEY"):
+        raise RuntimeError("SECRET_KEY must be configured in the environment")
+
+    # Без URL базы данных приложение не сможет работать с БД.
     if not app.config.get("SQLALCHEMY_DATABASE_URI"):
         raise RuntimeError(
             "SQLALCHEMY_DATABASE_URI is not set. "
@@ -138,21 +134,21 @@ def create_app(config_name=None):
     # Проверка подключения к базе данных при запуске.
     # Если БД недоступна — логируем ошибку, но не прерываем работу приложения.
     def check_db_connection():
-        """Проверка подключения к PostgreSQL."""
+        """Проверяет доступность настроенной базы данных."""
         try:
-            with app.app_context():
-                db.engine.connect()
-                logging.info("Успешное подключение к PostgreSQL")
-                return True
-        except Exception as e:
-            logging.error(f"Ошибка подключения к базе данных: {e}")
+            with db.engine.connect():
+                pass
+            logging.info("Успешное подключение к базе данных")
+            return True
+        except Exception:
+            logging.exception("Не удалось подключиться к базе данных")
             return False
 
-    # Создание таблиц БД (для разработки).
-    # Студенты: в продакшене обычно используют миграции (Alembic/Flask-Migrate),
-    # а не db.create_all(). Этот код удобен для быстрого старта, но не заменяет миграции.
+    # Автоматическое создание таблиц разрешено только в development/testing.
+    # В production структуру БД изменяют миграциями Alembic/Flask-Migrate.
     with app.app_context():
-        check_db_connection()
-        db.create_all()
+        database_available = check_db_connection()
+        if database_available and app.config.get("AUTO_CREATE_DB", False):
+            db.create_all()
 
     return app

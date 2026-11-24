@@ -1,12 +1,15 @@
 """
-Конфигурация pytest.
-Устанавливает SQLite для тестов до импорта приложения.
+Pytest configuration.
+
+Tests always use an isolated in-memory SQLite database, regardless of the
+application environment variables configured on the developer machine.
 """
 import os
 import sys
 
-# Устанавливаем SQLite до импорта app
-os.environ["DATABASE_URL"] = "sqlite:///:memory:"
+# Prevent tests from accidentally connecting to a developer or production DB.
+os.environ["TEST_DATABASE_URL"] = "sqlite:///:memory:"
+os.environ.setdefault("SECRET_KEY", "pytest-only-secret-key")
 
-# Добавляем корень проекта в sys.path
+# Add the project root to sys.path for direct pytest execution.
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))

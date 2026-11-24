@@ -88,24 +88,10 @@ def get_current_user():
 
 @auth_bp.route("/register", methods=["POST"])
 def register():
-    """Регистрация нового пользователя.
-
-    Студенты: обратите внимание на параметр role.
-    - По умолчанию устанавливается "Пользователь".
-    - В продакшене регистрация через API — потенциальная уязвимость!
-      Злоумышленник может зарегистрироваться с role="Администратор".
-      Для защиты нужно:
-      1. Отключить публичную регистрацию.
-      2. Или проверять, что пользователь имеет право создавать админов.
-      3. Или использовать отдельный админ-панель для создания пользователей.
-    """
-    data = request.get_json()
+    """Регистрация нового пользователя (всегда роль «Пользователь»)."""
     data = request.get_json()
     if not data or "login" not in data or "password" not in data:
-        return jsonify({
-            "error": "Bad Request",
-            "message": "Необходимо указать login и password",
-        }), 400
+        return jsonify({"error": "Bad Request", "message": "Необходимо указать login и password"}), 400
 
     login_value = data["login"].strip()
     password_value = data["password"]
@@ -113,18 +99,13 @@ def register():
     existing = db.session.execute(
         db.select(User).where(User.login == login_value)
     ).scalar_one_or_none()
-
     if existing:
-        return jsonify({
-            "error": "Bad Request",
-            "message": f"Пользователь '{login_value}' уже существует",
-        }), 400
+        return jsonify({"error": "Bad Request", "message": f"Пользователь '{login_value}' уже существует"}), 400
 
-    role = data.get("role", "Пользователь")
     new_user = User(
         login=login_value,
         password_hash=hash_password(password_value),
-        role=role,
+        role="Пользователь",  # роль больше не берётся из запроса
         is_blocked=False,
         failed_attempts=0,
     )

@@ -25,7 +25,7 @@ import os
 from pathlib import Path
 
 from dotenv import load_dotenv
-from flask import Flask
+from flask import Flask, flash, redirect, request, url_for
 
 from app.extensions import db, login_manager, migrate
 from app.config import get_config
@@ -76,6 +76,17 @@ def create_app(config_name=None):
     login_manager.init_app(app)
     login_manager.login_view = "web.login_page"
     login_manager.login_message = "Пожалуйста, войдите в систему"
+
+    @login_manager.unauthorized_handler
+    def unauthorized():
+        """Для /api/* — JSON 401, для страниц — редирект на форму входа."""
+        if request.path.startswith("/api/"):
+            return {
+                "error": "Unauthorized",
+                "message": "Необходима авторизация",
+            }, 401
+        flash(login_manager.login_message, "error")
+        return redirect(url_for(login_manager.login_view))
 
     # Flask-Login использует этот callback для восстановления сессии.
     # При каждом запросе Flask-Login вызывает load_user(user_id), чтобы

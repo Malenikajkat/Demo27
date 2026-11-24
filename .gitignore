@@ -59,4 +59,8 @@ Thumbs.db
 *.log
 
 # Review temp files
-flake8_out.txt
+/flake8_out.txt
+
+/pytest_report.txt
+
+/pytest_report.txt

@@ -1,0 +1,893 @@
+app/__init__.py:6:80: E501 line too long (87 > 79 characters)
+app/__init__.py:7:80: E501 line too long (91 > 79 characters)
+app/__init__.py:9:80: E501 line too long (85 > 79 characters)
+app/__init__.py:43:80: E501 line too long (81 > 79 characters)
+app/__init__.py:44:80: E501 line too long (82 > 79 characters)
+app/__init__.py:60:80: E501 line too long (80 > 79 characters)
+app/__init__.py:73:80: E501 line too long (80 > 79 characters)
+app/__init__.py:89:80: E501 line too long (96 > 79 characters)
+app/__init__.py:114:80: E501 line too long (85 > 79 characters)
+app/__init__.py:131:80: E501 line too long (93 > 79 characters)
+app/__init__.py:152:80: E501 line too long (80 > 79 characters)
+app/__init__.py:153:80: E501 line too long (89 > 79 characters)
+app/auth.py:7:80: E501 line too long (98 > 79 characters)
+app/auth.py:8:80: E501 line too long (84 > 79 characters)
+app/auth.py:9:80: E501 line too long (83 > 79 characters)
+app/auth.py:10:80: E501 line too long (81 > 79 characters)
+app/auth.py:15:80: E501 line too long (81 > 79 characters)
+app/blueprints/admin.py:15:80: E501 line too long (91 > 79 characters)
+app/blueprints/admin.py:17:80: E501 line too long (81 > 79 characters)
+app/blueprints/admin.py:38:80: E501 line too long (81 > 79 characters)
+app/blueprints/admin.py:55:80: E501 line too long (92 > 79 characters)
+app/blueprints/admin.py:61:80: E501 line too long (84 > 79 characters)
+app/blueprints/admin.py:68:80: E501 line too long (108 > 79 characters)
+app/blueprints/admin.py:72:80: E501 line too long (81 > 79 characters)
+app/blueprints/admin.py:100:80: E501 line too long (88 > 79 characters)
+app/blueprints/admin.py:109:80: E501 line too long (85 > 79 characters)
+app/blueprints/admin.py:130:80: E501 line too long (87 > 79 characters)
+app/blueprints/admin.py:134:80: E501 line too long (88 > 79 characters)
+app/blueprints/auth.py:6:80: E501 line too long (99 > 79 characters)
+app/blueprints/auth.py:79:80: E501 line too long (96 > 79 characters)
+app/blueprints/clients.py:38:80: E501 line too long (81 > 79 characters)
+app/blueprints/clients.py:90:80: E501 line too long (88 > 79 characters)
+app/blueprints/clients.py:94:80: E501 line too long (82 > 79 characters)
+app/blueprints/clients.py:116:80: E501 line too long (88 > 79 characters)
+app/blueprints/clients.py:120:80: E501 line too long (82 > 79 characters)
+app/blueprints/materials.py:19:80: E501 line too long (81 > 79 characters)
+app/blueprints/notes.py:52:80: E501 line too long (88 > 79 characters)
+app/blueprints/operations.py:19:80: E501 line too long (81 > 79 characters)
+app/blueprints/production_orders.py:20:80: E501 line too long (81 > 79 characters)
+app/blueprints/production_orders.py:25:80: E501 line too long (81 > 79 characters)
+app/blueprints/production_orders.py:43:80: E501 line too long (118 > 79 characters)
+app/blueprints/production_orders.py:50:80: E501 line too long (92 > 79 characters)
+app/blueprints/production_orders.py:93:80: E501 line too long (88 > 79 characters)
+app/blueprints/production_orders.py:97:80: E501 line too long (97 > 79 characters)
+app/blueprints/production_orders.py:114:80: E501 line too long (81 > 79 characters)
+app/blueprints/production_orders.py:119:80: E501 line too long (81 > 79 characters)
+app/blueprints/production_orders.py:130:80: E501 line too long (88 > 79 characters)
+app/blueprints/production_orders.py:134:80: E501 line too long (97 > 79 characters)
+app/blueprints/production_orders.py:144:80: E501 line too long (80 > 79 characters)
+app/blueprints/production_orders.py:154:80: E501 line too long (96 > 79 characters)
+app/blueprints/production_orders.py:172:80: E501 line too long (88 > 79 characters)
+app/blueprints/production_orders.py:176:80: E501 line too long (97 > 79 characters)
+app/blueprints/products.py:19:80: E501 line too long (81 > 79 characters)
+app/blueprints/puzzle_captcha.py:51:80: E501 line too long (81 > 79 characters)
+app/blueprints/puzzle_captcha.py:78:80: E501 line too long (81 > 79 characters)
+app/blueprints/sales_orders.py:3:80: E501 line too long (82 > 79 characters)
+app/blueprints/specifications.py:12:80: E501 line too long (80 > 79 characters)
+app/blueprints/specifications.py:30:80: E501 line too long (108 > 79 characters)
+app/blueprints/specifications.py:53:80: E501 line too long (81 > 79 characters)
+app/blueprints/web.py:38:80: E501 line too long (82 > 79 characters)
+app/blueprints/web.py:247:80: E501 line too long (86 > 79 characters)
+app/config.py:4:80: E501 line too long (95 > 79 characters)
+app/config.py:18:80: E501 line too long (84 > 79 characters)
+app/config.py:23:80: E501 line too long (84 > 79 characters)
+app/config.py:39:80: E501 line too long (81 > 79 characters)
+app/config.py:59:80: E501 line too long (85 > 79 characters)
+app/dtos/client_dto.py:22:80: E501 line too long (87 > 79 characters)
+app/dtos/client_dto.py:23:80: E501 line too long (84 > 79 characters)
+app/dtos/material_dto.py:19:80: E501 line too long (108 > 79 characters)
+app/dtos/operation_dto.py:19:80: E501 line too long (111 > 79 characters)
+app/dtos/product_dto.py:19:80: E501 line too long (105 > 79 characters)
+app/dtos/production_order_dto.py:52:80: E501 line too long (106 > 79 characters)
+app/dtos/production_order_dto.py:56:80: E501 line too long (82 > 79 characters)
+app/dtos/production_order_dto.py:59:80: E501 line too long (87 > 79 characters)
+app/dtos/production_order_dto.py:60:80: E501 line too long (80 > 79 characters)
+app/dtos/production_order_dto.py:62:80: E501 line too long (82 > 79 characters)
+app/dtos/sales_order_dto.py:46:80: E501 line too long (101 > 79 characters)
+app/dtos/sales_order_dto.py:48:80: E501 line too long (86 > 79 characters)
+app/dtos/sales_order_dto.py:49:80: E501 line too long (82 > 79 characters)
+app/dtos/sales_order_dto.py:51:80: E501 line too long (80 > 79 characters)
+app/dtos/sales_order_dto.py:52:80: E501 line too long (82 > 79 characters)
+app/dtos/specification_dto.py:18:80: E501 line too long (95 > 79 characters)
+app/dtos/specification_dto.py:40:80: E501 line too long (81 > 79 characters)
+app/dtos/user_dto.py:22:80: E501 line too long (80 > 79 characters)
+app/extensions.py:4:80: E501 line too long (80 > 79 characters)
+app/extensions.py:8:80: E501 line too long (82 > 79 characters)
+app/extensions.py:30:80: E501 line too long (91 > 79 characters)
+app/models.py:46:80: E501 line too long (82 > 79 characters)
+app/models.py:49:80: E501 line too long (86 > 79 characters)
+app/models.py:52:80: E501 line too long (87 > 79 characters)
+app/models.py:53:80: E501 line too long (82 > 79 characters)
+app/models.py:56:80: E501 line too long (82 > 79 characters)
+app/models.py:59:80: E501 line too long (86 > 79 characters)
+app/models.py:77:80: E501 line too long (81 > 79 characters)
+app/models.py:78:80: E501 line too long (104 > 79 characters)
+app/models.py:79:80: E501 line too long (98 > 79 characters)
+app/models.py:81:80: E501 line too long (97 > 79 characters)
+app/models.py:83:80: E501 line too long (87 > 79 characters)
+app/models.py:86:80: E501 line too long (88 > 79 characters)
+app/models.py:88:80: E501 line too long (84 > 79 characters)
+app/models.py:89:80: E501 line too long (80 > 79 characters)
+app/models.py:103:80: E501 line too long (99 > 79 characters)
+app/models.py:104:80: E501 line too long (85 > 79 characters)
+app/models.py:118:80: E501 line too long (101 > 79 characters)
+app/models.py:119:80: E501 line too long (88 > 79 characters)
+app/models.py:135:80: E501 line too long (85 > 79 characters)
+app/models.py:157:80: E501 line too long (85 > 79 characters)
+app/models.py:179:80: E501 line too long (85 > 79 characters)
+app/models.py:208:80: E501 line too long (83 > 79 characters)
+app/models.py:249:80: E501 line too long (90 > 79 characters)
+app/models.py:250:80: E501 line too long (125 > 79 characters)
+app/models.py:263:80: E501 line too long (83 > 79 characters)
+app/models.py:265:80: E501 line too long (82 > 79 characters)
+app/models.py:268:80: E501 line too long (80 > 79 characters)
+app/models.py:270:80: E501 line too long (94 > 79 characters)
+app/models.py:292:80: E501 line too long (86 > 79 characters)
+app/models.py:298:80: E501 line too long (97 > 79 characters)
+app/models.py:299:80: E501 line too long (90 > 79 characters)
+app/models.py:300:80: E501 line too long (92 > 79 characters)
+app/models.py:303:80: E501 line too long (98 > 79 characters)
+app/models.py:318:80: E501 line too long (91 > 79 characters)
+app/models.py:319:80: E501 line too long (93 > 79 characters)
+app/models.py:327:80: E501 line too long (90 > 79 characters)
+app/models.py:330:80: E501 line too long (96 > 79 characters)
+app/models.py:334:80: E501 line too long (85 > 79 characters)
+app/models.py:338:80: E501 line too long (83 > 79 characters)
+app/models.py:341:80: E501 line too long (87 > 79 characters)
+app/models.py:344:80: E501 line too long (85 > 79 characters)
+app/models.py:347:80: E501 line too long (84 > 79 characters)
+app/models.py:378:80: E501 line too long (82 > 79 characters)
+app/models.py:410:80: E501 line too long (83 > 79 characters)
+app/models.py:415:80: E501 line too long (87 > 79 characters)
+app/models.py:418:80: E501 line too long (91 > 79 characters)
+app/models.py:447:80: E501 line too long (86 > 79 characters)
+app/puzzle_captcha.py:27:80: E501 line too long (82 > 79 characters)
+app/puzzle_captcha.py:66:80: E501 line too long (92 > 79 characters)
+app/puzzle_captcha.py:150:80: E501 line too long (82 > 79 characters)
+app/puzzle_captcha.py:152:80: E501 line too long (93 > 79 characters)
+app/puzzle_captcha.py:191:80: E501 line too long (82 > 79 characters)
+app/puzzle_captcha.py:223:80: E501 line too long (93 > 79 characters)
+app/puzzle_captcha.py:250:80: E501 line too long (88 > 79 characters)
+app/puzzle_captcha.py:259:80: E501 line too long (84 > 79 characters)
+app/puzzle_captcha.py:266:80: E501 line too long (84 > 79 characters)
+app/repositories/base_repository.py:15:80: E501 line too long (91 > 79 characters)
+app/repositories/base_repository.py:48:80: E501 line too long (98 > 79 characters)
+app/repositories/base_repository.py:69:80: E501 line too long (83 > 79 characters)
+app/repositories/base_repository.py:80:80: E501 line too long (89 > 79 characters)
+app/repositories/user_repository.py:16:80: E501 line too long (95 > 79 characters)
+app/services/client_service.py:24:80: E501 line too long (93 > 79 characters)
+app/services/client_service.py:27:80: E501 line too long (85 > 79 characters)
+app/services/client_service.py:30:80: E501 line too long (104 > 79 characters)
+app/services/client_service.py:33:80: E501 line too long (96 > 79 characters)
+app/services/material_service.py:14:80: E501 line too long (80 > 79 characters)
+app/services/operation_service.py:14:80: E501 line too long (81 > 79 characters)
+app/services/production_order_service.py:4:80: E501 line too long (82 > 79 characters)
+app/services/production_order_service.py:14:80: E501 line too long (87 > 79 characters)
+app/services/production_order_service.py:26:9: F401 'app.models.SpecificationMaterial' imported but unused
+app/services/production_order_service.py:26:9: F401 'app.models.SpecificationOperation' imported but unused
+app/services/production_order_service.py:26:80: E501 line too long (107 > 79 characters)
+app/services/production_order_service.py:37:80: E501 line too long (85 > 79 characters)
+app/services/production_order_service.py:40:80: E501 line too long (83 > 79 characters)
+app/services/production_order_service.py:42:80: E501 line too long (85 > 79 characters)
+app/services/production_order_service.py:48:1: W293 blank line contains whitespace
+app/services/production_order_service.py:65:1: W293 blank line contains whitespace
+app/services/production_order_service.py:85:1: W293 blank line contains whitespace
+app/services/production_order_service.py:90:80: E501 line too long (82 > 79 characters)
+app/services/production_order_service.py:93:1: W293 blank line contains whitespace
+app/services/production_order_service.py:111:1: W293 blank line contains whitespace
+app/services/production_order_service.py:116:80: E501 line too long (82 > 79 characters)
+app/services/production_order_service.py:119:1: W293 blank line contains whitespace
+app/services/sales_order_service.py:14:80: E501 line too long (82 > 79 characters)
+app/services/sales_order_service.py:26:1: W293 blank line contains whitespace
+app/services/sales_order_service.py:33:9: F401 'app.models.ProductPrice' imported but unused
+app/services/sales_order_service.py:33:9: F401 'app.models.SpecificationMaterial' imported but unused
+app/services/sales_order_service.py:33:9: F401 'app.models.SpecificationOperation' imported but unused
+app/services/sales_order_service.py:33:80: E501 line too long (121 > 79 characters)
+app/services/sales_order_service.py:55:1: W293 blank line contains whitespace
+app/services/sales_order_service.py:69:1: W293 blank line contains whitespace
+app/services/sales_order_service.py:75:1: W293 blank line contains whitespace
+app/services/sales_order_service.py:80:80: E501 line too long (82 > 79 characters)
+app/services/sales_order_service.py:84:1: W293 blank line contains whitespace
+app/services/sales_order_service.py:94:1: W293 blank line contains whitespace
+app/services/sales_order_service.py:101:1: W293 blank line contains whitespace
+app/services/sales_order_service.py:106:80: E501 line too long (82 > 79 characters)
+app/services/sales_order_service.py:110:1: W293 blank line contains whitespace
+app/services/sales_order_service.py:121:1: W293 blank line contains whitespace
+app/services/sales_order_service.py:133:80: E501 line too long (86 > 79 characters)
+app/services/specification_service.py:11:80: E501 line too long (83 > 79 characters)
+app/services/specification_service.py:19:80: E501 line too long (84 > 79 characters)
+app/services/user_service.py:20:80: E501 line too long (81 > 79 characters)
+app/services/user_service.py:28:80: E501 line too long (80 > 79 characters)
+app/utils.py:35:80: E501 line too long (81 > 79 characters)
+app/utils.py:36:80: E501 line too long (98 > 79 characters)
+app/views/admin_view.py:13:80: E501 line too long (91 > 79 characters)
+app/views/admin_view.py:15:80: E501 line too long (81 > 79 characters)
+app/views/admin_view.py:60:80: E501 line too long (83 > 79 characters)
+app/views/admin_view.py:66:80: E501 line too long (96 > 79 characters)
+app/views/admin_view.py:67:80: E501 line too long (120 > 79 characters)
+app/views/admin_view.py:97:80: E501 line too long (82 > 79 characters)
+app/views/admin_view.py:119:80: E501 line too long (89 > 79 characters)
+app/views/admin_view.py:122:80: E501 line too long (88 > 79 characters)
+app/views/admin_view.py:123:80: E501 line too long (92 > 79 characters)
+app/views/admin_view.py:124:80: E501 line too long (104 > 79 characters)
+app/views/base_view.py:19:80: E501 line too long (94 > 79 characters)
+app/views/base_view.py:27:80: E501 line too long (82 > 79 characters)
+app/views/base_view.py:37:80: E501 line too long (88 > 79 characters)
+app/views/base_view.py:39:80: E501 line too long (81 > 79 characters)
+app/views/base_view.py:51:80: E501 line too long (87 > 79 characters)
+app/views/client_view.py:19:80: E501 line too long (82 > 79 characters)
+app/views/client_view.py:30:80: E501 line too long (89 > 79 characters)
+app/views/client_view.py:32:80: E501 line too long (107 > 79 characters)
+app/views/client_view.py:94:80: E501 line too long (91 > 79 characters)
+app/views/material_view.py:30:1: W293 blank line contains whitespace
+app/views/material_view.py:43:80: E501 line too long (89 > 79 characters)
+app/views/material_view.py:44:80: E501 line too long (115 > 79 characters)
+app/views/material_view.py:79:80: E501 line too long (112 > 79 characters)
+app/views/material_view.py:122:80: E501 line too long (83 > 79 characters)
+app/views/material_view.py:135:80: E501 line too long (101 > 79 characters)
+app/views/material_view.py:139:1: E303 too many blank lines (3)
+app/views/material_view.py:139:80: E501 line too long (83 > 79 characters)
+app/views/material_view.py:140:80: E501 line too long (99 > 79 characters)
+app/views/material_view.py:141:80: E501 line too long (103 > 79 characters)
+app/views/note_view.py:20:80: E501 line too long (93 > 79 characters)
+app/views/note_view.py:22:80: E501 line too long (106 > 79 characters)
+app/views/note_view.py:32:80: E501 line too long (87 > 79 characters)
+app/views/note_view.py:41:80: E501 line too long (88 > 79 characters)
+app/views/note_view.py:49:80: E501 line too long (87 > 79 characters)
+app/views/operation_view.py:30:1: W293 blank line contains whitespace
+app/views/operation_view.py:43:80: E501 line too long (91 > 79 characters)
+app/views/operation_view.py:44:80: E501 line too long (119 > 79 characters)
+app/views/operation_view.py:79:80: E501 line too long (115 > 79 characters)
+app/views/operation_view.py:122:80: E501 line too long (87 > 79 characters)
+app/views/operation_view.py:135:80: E501 line too long (101 > 79 characters)
+app/views/operation_view.py:139:1: E303 too many blank lines (3)
+app/views/operation_view.py:139:80: E501 line too long (86 > 79 characters)
+app/views/operation_view.py:140:80: E501 line too long (103 > 79 characters)
+app/views/operation_view.py:141:80: E501 line too long (107 > 79 characters)
+app/views/product_view.py:30:1: W293 blank line contains whitespace
+app/views/product_view.py:43:80: E501 line too long (87 > 79 characters)
+app/views/product_view.py:44:80: E501 line too long (114 > 79 characters)
+app/views/product_view.py:79:80: E501 line too long (109 > 79 characters)
+app/views/product_view.py:115:1: W293 blank line contains whitespace
+app/views/product_view.py:117:80: E501 line too long (90 > 79 characters)
+app/views/product_view.py:118:1: W293 blank line contains whitespace
+app/views/product_view.py:155:80: E501 line too long (101 > 79 characters)
+app/views/product_view.py:166:1: W293 blank line contains whitespace
+app/views/product_view.py:174:80: E501 line too long (92 > 79 characters)
+app/views/product_view.py:176:1: W293 blank line contains whitespace
+app/views/product_view.py:180:80: E501 line too long (80 > 79 characters)
+app/views/product_view.py:181:80: E501 line too long (95 > 79 characters)
+app/views/product_view.py:182:80: E501 line too long (99 > 79 characters)
+app/views/production_order_view.py:29:1: W293 blank line contains whitespace
+app/views/production_order_view.py:50:80: E501 line too long (114 > 79 characters)
+app/views/production_order_view.py:52:1: W293 blank line contains whitespace
+app/views/production_order_view.py:63:1: W293 blank line contains whitespace
+app/views/production_order_view.py:97:80: E501 line too long (93 > 79 characters)
+app/views/production_order_view.py:141:80: E501 line too long (84 > 79 characters)
+app/views/production_order_view.py:149:80: E501 line too long (84 > 79 characters)
+app/views/production_order_view.py:166:80: E501 line too long (82 > 79 characters)
+app/views/production_order_view.py:169:80: E501 line too long (106 > 79 characters)
+app/views/production_order_view.py:170:80: E501 line too long (119 > 79 characters)
+app/views/sales_order_view.py:21:80: E501 line too long (86 > 79 characters)
+app/views/sales_order_view.py:27:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:31:80: E501 line too long (85 > 79 characters)
+app/views/sales_order_view.py:47:80: E501 line too long (109 > 79 characters)
+app/views/sales_order_view.py:49:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:60:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:73:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:83:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:87:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:101:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:109:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:116:13: F401 'app.models.SpecificationMaterial' imported but unused
+app/views/sales_order_view.py:116:13: F401 'app.models.SpecificationOperation' imported but unused
+app/views/sales_order_view.py:116:80: E501 line too long (118 > 79 characters)
+app/views/sales_order_view.py:119:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:124:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:134:80: E501 line too long (118 > 79 characters)
+app/views/sales_order_view.py:136:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:146:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:148:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:160:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:161:80: E501 line too long (82 > 79 characters)
+app/views/sales_order_view.py:163:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:167:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:172:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:183:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:186:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:192:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:197:80: E501 line too long (86 > 79 characters)
+app/views/sales_order_view.py:198:80: E501 line too long (82 > 79 characters)
+app/views/sales_order_view.py:201:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:208:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:213:80: E501 line too long (86 > 79 characters)
+app/views/sales_order_view.py:214:80: E501 line too long (81 > 79 characters)
+app/views/sales_order_view.py:217:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:221:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:224:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:227:80: E501 line too long (110 > 79 characters)
+app/views/sales_order_view.py:230:39: W291 trailing whitespace
+app/views/sales_order_view.py:269:80: E501 line too long (89 > 79 characters)
+app/views/sales_order_view.py:272:80: E501 line too long (87 > 79 characters)
+app/views/sales_order_view.py:280:9: F401 'sqlalchemy.text' imported but unused
+app/views/sales_order_view.py:281:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:298:80: E501 line too long (84 > 79 characters)
+app/views/sales_order_view.py:299:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:305:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:322:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:331:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:335:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:349:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:357:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:359:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:362:13: F401 'app.models.SpecificationMaterial' imported but unused
+app/views/sales_order_view.py:362:13: F401 'app.models.SpecificationOperation' imported but unused
+app/views/sales_order_view.py:362:80: E501 line too long (101 > 79 characters)
+app/views/sales_order_view.py:365:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:369:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:374:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:377:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:381:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:382:80: E501 line too long (140 > 79 characters)
+app/views/sales_order_view.py:383:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:387:80: E501 line too long (82 > 79 characters)
+app/views/sales_order_view.py:389:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:400:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:403:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:408:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:411:80: E501 line too long (80 > 79 characters)
+app/views/sales_order_view.py:412:80: E501 line too long (90 > 79 characters)
+app/views/sales_order_view.py:413:80: E501 line too long (86 > 79 characters)
+app/views/sales_order_view.py:416:80: E501 line too long (160 > 79 characters)
+app/views/sales_order_view.py:417:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:423:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:426:80: E501 line too long (81 > 79 characters)
+app/views/sales_order_view.py:427:80: E501 line too long (90 > 79 characters)
+app/views/sales_order_view.py:428:80: E501 line too long (85 > 79 characters)
+app/views/sales_order_view.py:431:80: E501 line too long (197 > 79 characters)
+app/views/sales_order_view.py:432:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:435:80: E501 line too long (86 > 79 characters)
+app/views/sales_order_view.py:436:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:438:80: E501 line too long (106 > 79 characters)
+app/views/sales_order_view.py:439:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:452:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:466:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:471:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:475:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:479:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:516:80: E501 line too long (80 > 79 characters)
+app/views/sales_order_view.py:518:80: E501 line too long (80 > 79 characters)
+app/views/sales_order_view.py:519:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:536:80: E501 line too long (82 > 79 characters)
+app/views/sales_order_view.py:543:1: W293 blank line contains whitespace
+app/views/sales_order_view.py:553:80: E501 line too long (91 > 79 characters)
+app/views/sales_order_view.py:554:80: E501 line too long (110 > 79 characters)
+app/views/specification_view.py:5:80: E501 line too long (99 > 79 characters)
+app/views/specification_view.py:17:80: E501 line too long (84 > 79 characters)
+app/views/specification_view.py:26:1: W293 blank line contains whitespace
+app/views/specification_view.py:44:80: E501 line too long (112 > 79 characters)
+app/views/specification_view.py:45:80: E501 line too long (93 > 79 characters)
+app/views/specification_view.py:60:80: E501 line too long (94 > 79 characters)
+app/views/specification_view.py:69:80: E501 line too long (85 > 79 characters)
+app/views/specification_view.py:77:80: E501 line too long (80 > 79 characters)
+app/views/specification_view.py:78:1: W293 blank line contains whitespace
+app/views/specification_view.py:90:80: E501 line too long (90 > 79 characters)
+app/views/specification_view.py:114:80: E501 line too long (92 > 79 characters)
+app/views/specification_view.py:118:80: E501 line too long (116 > 79 characters)
+app/views/specification_view.py:119:80: E501 line too long (119 > 79 characters)
+2     E303 too many blank lines (3)
+272   E501 line too long (87 > 79 characters)
+10    F401 'app.models.SpecificationMaterial' imported but unused
+1     W291 trailing whitespace
+83    W293 blank line contains whitespace
+[1mapp/blueprints/admin.py[m[36m:[m68[36m:[m101[36m:[m [1m[31mE501[m line too long (108 > 100 characters)
+[1mapp/blueprints/production_orders.py[m[36m:[m43[36m:[m101[36m:[m [1m[31mE501[m line too long (118 > 100 characters)
+[1mapp/blueprints/specifications.py[m[36m:[m30[36m:[m101[36m:[m [1m[31mE501[m line too long (108 > 100 characters)
+[1mapp/dtos/material_dto.py[m[36m:[m19[36m:[m101[36m:[m [1m[31mE501[m line too long (108 > 100 characters)
+[1mapp/dtos/operation_dto.py[m[36m:[m19[36m:[m101[36m:[m [1m[31mE501[m line too long (111 > 100 characters)
+[1mapp/dtos/product_dto.py[m[36m:[m19[36m:[m101[36m:[m [1m[31mE501[m line too long (105 > 100 characters)
+[1mapp/dtos/production_order_dto.py[m[36m:[m52[36m:[m101[36m:[m [1m[31mE501[m line too long (106 > 100 characters)
+[1mapp/dtos/sales_order_dto.py[m[36m:[m46[36m:[m101[36m:[m [1m[31mE501[m line too long (101 > 100 characters)
+[1mapp/models.py[m[36m:[m78[36m:[m101[36m:[m [1m[31mE501[m line too long (104 > 100 characters)
+[1mapp/models.py[m[36m:[m118[36m:[m101[36m:[m [1m[31mE501[m line too long (101 > 100 characters)
+[1mapp/models.py[m[36m:[m250[36m:[m101[36m:[m [1m[31mE501[m line too long (125 > 100 characters)
+[1mapp/services/client_service.py[m[36m:[m30[36m:[m101[36m:[m [1m[31mE501[m line too long (104 > 100 characters)
+[1mapp/services/production_order_service.py[m[36m:[m26[36m:[m9[36m:[m [1m[31mF401[m 'app.models.SpecificationMaterial' imported but unused
+[1mapp/services/production_order_service.py[m[36m:[m26[36m:[m9[36m:[m [1m[31mF401[m 'app.models.SpecificationOperation' imported but unused
+[1mapp/services/production_order_service.py[m[36m:[m26[36m:[m101[36m:[m [1m[31mE501[m line too long (107 > 100 characters)
+[1mapp/services/production_order_service.py[m[36m:[m48[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/services/production_order_service.py[m[36m:[m65[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/services/production_order_service.py[m[36m:[m85[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/services/production_order_service.py[m[36m:[m93[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/services/production_order_service.py[m[36m:[m111[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/services/production_order_service.py[m[36m:[m119[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/services/sales_order_service.py[m[36m:[m26[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/services/sales_order_service.py[m[36m:[m33[36m:[m9[36m:[m [1m[31mF401[m 'app.models.ProductPrice' imported but unused
+[1mapp/services/sales_order_service.py[m[36m:[m33[36m:[m9[36m:[m [1m[31mF401[m 'app.models.SpecificationMaterial' imported but unused
+[1mapp/services/sales_order_service.py[m[36m:[m33[36m:[m9[36m:[m [1m[31mF401[m 'app.models.SpecificationOperation' imported but unused
+[1mapp/services/sales_order_service.py[m[36m:[m33[36m:[m101[36m:[m [1m[31mE501[m line too long (121 > 100 characters)
+[1mapp/services/sales_order_service.py[m[36m:[m55[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/services/sales_order_service.py[m[36m:[m69[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/services/sales_order_service.py[m[36m:[m75[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/services/sales_order_service.py[m[36m:[m84[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/services/sales_order_service.py[m[36m:[m94[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/services/sales_order_service.py[m[36m:[m101[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/services/sales_order_service.py[m[36m:[m110[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/services/sales_order_service.py[m[36m:[m121[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/admin_view.py[m[36m:[m67[36m:[m101[36m:[m [1m[31mE501[m line too long (120 > 100 characters)
+[1mapp/views/admin_view.py[m[36m:[m124[36m:[m101[36m:[m [1m[31mE501[m line too long (104 > 100 characters)
+[1mapp/views/client_view.py[m[36m:[m32[36m:[m101[36m:[m [1m[31mE501[m line too long (107 > 100 characters)
+[1mapp/views/material_view.py[m[36m:[m30[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/material_view.py[m[36m:[m44[36m:[m101[36m:[m [1m[31mE501[m line too long (115 > 100 characters)
+[1mapp/views/material_view.py[m[36m:[m79[36m:[m101[36m:[m [1m[31mE501[m line too long (112 > 100 characters)
+[1mapp/views/material_view.py[m[36m:[m135[36m:[m101[36m:[m [1m[31mE501[m line too long (101 > 100 characters)
+[1mapp/views/material_view.py[m[36m:[m139[36m:[m1[36m:[m [1m[31mE303[m too many blank lines (3)
+[1mapp/views/material_view.py[m[36m:[m141[36m:[m101[36m:[m [1m[31mE501[m line too long (103 > 100 characters)
+[1mapp/views/note_view.py[m[36m:[m22[36m:[m101[36m:[m [1m[31mE501[m line too long (106 > 100 characters)
+[1mapp/views/operation_view.py[m[36m:[m30[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/operation_view.py[m[36m:[m44[36m:[m101[36m:[m [1m[31mE501[m line too long (119 > 100 characters)
+[1mapp/views/operation_view.py[m[36m:[m79[36m:[m101[36m:[m [1m[31mE501[m line too long (115 > 100 characters)
+[1mapp/views/operation_view.py[m[36m:[m135[36m:[m101[36m:[m [1m[31mE501[m line too long (101 > 100 characters)
+[1mapp/views/operation_view.py[m[36m:[m139[36m:[m1[36m:[m [1m[31mE303[m too many blank lines (3)
+[1mapp/views/operation_view.py[m[36m:[m140[36m:[m101[36m:[m [1m[31mE501[m line too long (103 > 100 characters)
+[1mapp/views/operation_view.py[m[36m:[m141[36m:[m101[36m:[m [1m[31mE501[m line too long (107 > 100 characters)
+[1mapp/views/product_view.py[m[36m:[m30[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/product_view.py[m[36m:[m44[36m:[m101[36m:[m [1m[31mE501[m line too long (114 > 100 characters)
+[1mapp/views/product_view.py[m[36m:[m79[36m:[m101[36m:[m [1m[31mE501[m line too long (109 > 100 characters)
+[1mapp/views/product_view.py[m[36m:[m115[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/product_view.py[m[36m:[m118[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/product_view.py[m[36m:[m155[36m:[m101[36m:[m [1m[31mE501[m line too long (101 > 100 characters)
+[1mapp/views/product_view.py[m[36m:[m166[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/product_view.py[m[36m:[m176[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/production_order_view.py[m[36m:[m29[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/production_order_view.py[m[36m:[m50[36m:[m101[36m:[m [1m[31mE501[m line too long (114 > 100 characters)
+[1mapp/views/production_order_view.py[m[36m:[m52[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/production_order_view.py[m[36m:[m63[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/production_order_view.py[m[36m:[m169[36m:[m101[36m:[m [1m[31mE501[m line too long (106 > 100 characters)
+[1mapp/views/production_order_view.py[m[36m:[m170[36m:[m101[36m:[m [1m[31mE501[m line too long (119 > 100 characters)
+[1mapp/views/sales_order_view.py[m[36m:[m27[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m47[36m:[m101[36m:[m [1m[31mE501[m line too long (109 > 100 characters)
+[1mapp/views/sales_order_view.py[m[36m:[m49[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m60[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m73[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m83[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m87[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m101[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m109[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m116[36m:[m13[36m:[m [1m[31mF401[m 'app.models.SpecificationMaterial' imported but unused
+[1mapp/views/sales_order_view.py[m[36m:[m116[36m:[m13[36m:[m [1m[31mF401[m 'app.models.SpecificationOperation' imported but unused
+[1mapp/views/sales_order_view.py[m[36m:[m116[36m:[m101[36m:[m [1m[31mE501[m line too long (118 > 100 characters)
+[1mapp/views/sales_order_view.py[m[36m:[m119[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m124[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m134[36m:[m101[36m:[m [1m[31mE501[m line too long (118 > 100 characters)
+[1mapp/views/sales_order_view.py[m[36m:[m136[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m146[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m148[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m160[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m163[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m167[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m172[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m183[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m186[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m192[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m201[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m208[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m217[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m221[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m224[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m227[36m:[m101[36m:[m [1m[31mE501[m line too long (110 > 100 characters)
+[1mapp/views/sales_order_view.py[m[36m:[m230[36m:[m39[36m:[m [1m[31mW291[m trailing whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m280[36m:[m9[36m:[m [1m[31mF401[m 'sqlalchemy.text' imported but unused
+[1mapp/views/sales_order_view.py[m[36m:[m281[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m299[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m305[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m322[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m331[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m335[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m349[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m357[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m359[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m362[36m:[m13[36m:[m [1m[31mF401[m 'app.models.SpecificationMaterial' imported but unused
+[1mapp/views/sales_order_view.py[m[36m:[m362[36m:[m13[36m:[m [1m[31mF401[m 'app.models.SpecificationOperation' imported but unused
+[1mapp/views/sales_order_view.py[m[36m:[m362[36m:[m101[36m:[m [1m[31mE501[m line too long (101 > 100 characters)
+[1mapp/views/sales_order_view.py[m[36m:[m365[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m369[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m374[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m377[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m381[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m382[36m:[m101[36m:[m [1m[31mE501[m line too long (140 > 100 characters)
+[1mapp/views/sales_order_view.py[m[36m:[m383[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m389[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m400[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m403[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m408[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m416[36m:[m101[36m:[m [1m[31mE501[m line too long (160 > 100 characters)
+[1mapp/views/sales_order_view.py[m[36m:[m417[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m423[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m431[36m:[m101[36m:[m [1m[31mE501[m line too long (197 > 100 characters)
+[1mapp/views/sales_order_view.py[m[36m:[m432[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m436[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m438[36m:[m101[36m:[m [1m[31mE501[m line too long (106 > 100 characters)
+[1mapp/views/sales_order_view.py[m[36m:[m439[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m452[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m466[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m471[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m475[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m479[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m519[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m543[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m554[36m:[m101[36m:[m [1m[31mE501[m line too long (110 > 100 characters)
+[1mapp/views/specification_view.py[m[36m:[m26[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/specification_view.py[m[36m:[m44[36m:[m101[36m:[m [1m[31mE501[m line too long (112 > 100 characters)
+[1mapp/views/specification_view.py[m[36m:[m78[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/specification_view.py[m[36m:[m118[36m:[m101[36m:[m [1m[31mE501[m line too long (116 > 100 characters)
+[1mapp/views/specification_view.py[m[36m:[m119[36m:[m101[36m:[m [1m[31mE501[m line too long (119 > 100 characters)
+2     E303 too many blank lines (3)
+46    E501 line too long (108 > 100 characters)
+10    F401 'app.models.SpecificationMaterial' imported but unused
+1     W291 trailing whitespace
+83    W293 blank line contains whitespace
+[1mapp/__init__.py[m[36m:[m6[36m:[m80[36m:[m [1m[31mE501[m line too long (87 > 79 characters)
+[1mapp/__init__.py[m[36m:[m7[36m:[m80[36m:[m [1m[31mE501[m line too long (91 > 79 characters)
+[1mapp/__init__.py[m[36m:[m9[36m:[m80[36m:[m [1m[31mE501[m line too long (85 > 79 characters)
+[1mapp/__init__.py[m[36m:[m43[36m:[m80[36m:[m [1m[31mE501[m line too long (81 > 79 characters)
+[1mapp/__init__.py[m[36m:[m44[36m:[m80[36m:[m [1m[31mE501[m line too long (82 > 79 characters)
+[1mapp/__init__.py[m[36m:[m60[36m:[m80[36m:[m [1m[31mE501[m line too long (80 > 79 characters)
+[1mapp/__init__.py[m[36m:[m73[36m:[m80[36m:[m [1m[31mE501[m line too long (80 > 79 characters)
+[1mapp/__init__.py[m[36m:[m89[36m:[m80[36m:[m [1m[31mE501[m line too long (96 > 79 characters)
+[1mapp/__init__.py[m[36m:[m114[36m:[m80[36m:[m [1m[31mE501[m line too long (85 > 79 characters)
+[1mapp/__init__.py[m[36m:[m131[36m:[m80[36m:[m [1m[31mE501[m line too long (93 > 79 characters)
+[1mapp/__init__.py[m[36m:[m152[36m:[m80[36m:[m [1m[31mE501[m line too long (80 > 79 characters)
+[1mapp/__init__.py[m[36m:[m153[36m:[m80[36m:[m [1m[31mE501[m line too long (89 > 79 characters)
+[1mapp/auth.py[m[36m:[m7[36m:[m80[36m:[m [1m[31mE501[m line too long (98 > 79 characters)
+[1mapp/auth.py[m[36m:[m8[36m:[m80[36m:[m [1m[31mE501[m line too long (84 > 79 characters)
+[1mapp/auth.py[m[36m:[m9[36m:[m80[36m:[m [1m[31mE501[m line too long (83 > 79 characters)
+[1mapp/auth.py[m[36m:[m10[36m:[m80[36m:[m [1m[31mE501[m line too long (81 > 79 characters)
+[1mapp/auth.py[m[36m:[m15[36m:[m80[36m:[m [1m[31mE501[m line too long (81 > 79 characters)
+[1mapp/blueprints/admin.py[m[36m:[m15[36m:[m80[36m:[m [1m[31mE501[m line too long (91 > 79 characters)
+[1mapp/blueprints/admin.py[m[36m:[m17[36m:[m80[36m:[m [1m[31mE501[m line too long (81 > 79 characters)
+[1mapp/blueprints/admin.py[m[36m:[m38[36m:[m80[36m:[m [1m[31mE501[m line too long (81 > 79 characters)
+[1mapp/blueprints/admin.py[m[36m:[m55[36m:[m80[36m:[m [1m[31mE501[m line too long (92 > 79 characters)
+[1mapp/blueprints/admin.py[m[36m:[m61[36m:[m80[36m:[m [1m[31mE501[m line too long (84 > 79 characters)
+[1mapp/blueprints/admin.py[m[36m:[m68[36m:[m80[36m:[m [1m[31mE501[m line too long (108 > 79 characters)
+[1mapp/blueprints/admin.py[m[36m:[m72[36m:[m80[36m:[m [1m[31mE501[m line too long (81 > 79 characters)
+[1mapp/blueprints/admin.py[m[36m:[m100[36m:[m80[36m:[m [1m[31mE501[m line too long (88 > 79 characters)
+[1mapp/blueprints/admin.py[m[36m:[m109[36m:[m80[36m:[m [1m[31mE501[m line too long (85 > 79 characters)
+[1mapp/blueprints/admin.py[m[36m:[m130[36m:[m80[36m:[m [1m[31mE501[m line too long (87 > 79 characters)
+[1mapp/blueprints/admin.py[m[36m:[m134[36m:[m80[36m:[m [1m[31mE501[m line too long (88 > 79 characters)
+[1mapp/blueprints/auth.py[m[36m:[m6[36m:[m80[36m:[m [1m[31mE501[m line too long (99 > 79 characters)
+[1mapp/blueprints/auth.py[m[36m:[m79[36m:[m80[36m:[m [1m[31mE501[m line too long (96 > 79 characters)
+[1mapp/blueprints/clients.py[m[36m:[m38[36m:[m80[36m:[m [1m[31mE501[m line too long (81 > 79 characters)
+[1mapp/blueprints/clients.py[m[36m:[m90[36m:[m80[36m:[m [1m[31mE501[m line too long (88 > 79 characters)
+[1mapp/blueprints/clients.py[m[36m:[m94[36m:[m80[36m:[m [1m[31mE501[m line too long (82 > 79 characters)
+[1mapp/blueprints/clients.py[m[36m:[m116[36m:[m80[36m:[m [1m[31mE501[m line too long (88 > 79 characters)
+[1mapp/blueprints/clients.py[m[36m:[m120[36m:[m80[36m:[m [1m[31mE501[m line too long (82 > 79 characters)
+[1mapp/blueprints/materials.py[m[36m:[m19[36m:[m80[36m:[m [1m[31mE501[m line too long (81 > 79 characters)
+[1mapp/blueprints/notes.py[m[36m:[m52[36m:[m80[36m:[m [1m[31mE501[m line too long (88 > 79 characters)
+[1mapp/blueprints/operations.py[m[36m:[m19[36m:[m80[36m:[m [1m[31mE501[m line too long (81 > 79 characters)
+[1mapp/blueprints/production_orders.py[m[36m:[m20[36m:[m80[36m:[m [1m[31mE501[m line too long (81 > 79 characters)
+[1mapp/blueprints/production_orders.py[m[36m:[m25[36m:[m80[36m:[m [1m[31mE501[m line too long (81 > 79 characters)
+[1mapp/blueprints/production_orders.py[m[36m:[m43[36m:[m80[36m:[m [1m[31mE501[m line too long (118 > 79 characters)
+[1mapp/blueprints/production_orders.py[m[36m:[m50[36m:[m80[36m:[m [1m[31mE501[m line too long (92 > 79 characters)
+[1mapp/blueprints/production_orders.py[m[36m:[m93[36m:[m80[36m:[m [1m[31mE501[m line too long (88 > 79 characters)
+[1mapp/blueprints/production_orders.py[m[36m:[m97[36m:[m80[36m:[m [1m[31mE501[m line too long (97 > 79 characters)
+[1mapp/blueprints/production_orders.py[m[36m:[m114[36m:[m80[36m:[m [1m[31mE501[m line too long (81 > 79 characters)
+[1mapp/blueprints/production_orders.py[m[36m:[m119[36m:[m80[36m:[m [1m[31mE501[m line too long (81 > 79 characters)
+[1mapp/blueprints/production_orders.py[m[36m:[m130[36m:[m80[36m:[m [1m[31mE501[m line too long (88 > 79 characters)
+[1mapp/blueprints/production_orders.py[m[36m:[m134[36m:[m80[36m:[m [1m[31mE501[m line too long (97 > 79 characters)
+[1mapp/blueprints/production_orders.py[m[36m:[m144[36m:[m80[36m:[m [1m[31mE501[m line too long (80 > 79 characters)
+[1mapp/blueprints/production_orders.py[m[36m:[m154[36m:[m80[36m:[m [1m[31mE501[m line too long (96 > 79 characters)
+[1mapp/blueprints/production_orders.py[m[36m:[m172[36m:[m80[36m:[m [1m[31mE501[m line too long (88 > 79 characters)
+[1mapp/blueprints/production_orders.py[m[36m:[m176[36m:[m80[36m:[m [1m[31mE501[m line too long (97 > 79 characters)
+[1mapp/blueprints/products.py[m[36m:[m19[36m:[m80[36m:[m [1m[31mE501[m line too long (81 > 79 characters)
+[1mapp/blueprints/puzzle_captcha.py[m[36m:[m51[36m:[m80[36m:[m [1m[31mE501[m line too long (81 > 79 characters)
+[1mapp/blueprints/puzzle_captcha.py[m[36m:[m78[36m:[m80[36m:[m [1m[31mE501[m line too long (81 > 79 characters)
+[1mapp/blueprints/sales_orders.py[m[36m:[m3[36m:[m80[36m:[m [1m[31mE501[m line too long (82 > 79 characters)
+[1mapp/blueprints/specifications.py[m[36m:[m12[36m:[m80[36m:[m [1m[31mE501[m line too long (80 > 79 characters)
+[1mapp/blueprints/specifications.py[m[36m:[m30[36m:[m80[36m:[m [1m[31mE501[m line too long (108 > 79 characters)
+[1mapp/blueprints/specifications.py[m[36m:[m53[36m:[m80[36m:[m [1m[31mE501[m line too long (81 > 79 characters)
+[1mapp/blueprints/web.py[m[36m:[m38[36m:[m80[36m:[m [1m[31mE501[m line too long (82 > 79 characters)
+[1mapp/blueprints/web.py[m[36m:[m247[36m:[m80[36m:[m [1m[31mE501[m line too long (86 > 79 characters)
+[1mapp/config.py[m[36m:[m4[36m:[m80[36m:[m [1m[31mE501[m line too long (95 > 79 characters)
+[1mapp/config.py[m[36m:[m18[36m:[m80[36m:[m [1m[31mE501[m line too long (84 > 79 characters)
+[1mapp/config.py[m[36m:[m23[36m:[m80[36m:[m [1m[31mE501[m line too long (84 > 79 characters)
+[1mapp/config.py[m[36m:[m39[36m:[m80[36m:[m [1m[31mE501[m line too long (81 > 79 characters)
+[1mapp/config.py[m[36m:[m59[36m:[m80[36m:[m [1m[31mE501[m line too long (85 > 79 characters)
+[1mapp/dtos/client_dto.py[m[36m:[m22[36m:[m80[36m:[m [1m[31mE501[m line too long (87 > 79 characters)
+[1mapp/dtos/client_dto.py[m[36m:[m23[36m:[m80[36m:[m [1m[31mE501[m line too long (84 > 79 characters)
+[1mapp/dtos/material_dto.py[m[36m:[m19[36m:[m80[36m:[m [1m[31mE501[m line too long (108 > 79 characters)
+[1mapp/dtos/operation_dto.py[m[36m:[m19[36m:[m80[36m:[m [1m[31mE501[m line too long (111 > 79 characters)
+[1mapp/dtos/product_dto.py[m[36m:[m19[36m:[m80[36m:[m [1m[31mE501[m line too long (105 > 79 characters)
+[1mapp/dtos/production_order_dto.py[m[36m:[m52[36m:[m80[36m:[m [1m[31mE501[m line too long (106 > 79 characters)
+[1mapp/dtos/production_order_dto.py[m[36m:[m56[36m:[m80[36m:[m [1m[31mE501[m line too long (82 > 79 characters)
+[1mapp/dtos/production_order_dto.py[m[36m:[m59[36m:[m80[36m:[m [1m[31mE501[m line too long (87 > 79 characters)
+[1mapp/dtos/production_order_dto.py[m[36m:[m60[36m:[m80[36m:[m [1m[31mE501[m line too long (80 > 79 characters)
+[1mapp/dtos/production_order_dto.py[m[36m:[m62[36m:[m80[36m:[m [1m[31mE501[m line too long (82 > 79 characters)
+[1mapp/dtos/sales_order_dto.py[m[36m:[m46[36m:[m80[36m:[m [1m[31mE501[m line too long (101 > 79 characters)
+[1mapp/dtos/sales_order_dto.py[m[36m:[m48[36m:[m80[36m:[m [1m[31mE501[m line too long (86 > 79 characters)
+[1mapp/dtos/sales_order_dto.py[m[36m:[m49[36m:[m80[36m:[m [1m[31mE501[m line too long (82 > 79 characters)
+[1mapp/dtos/sales_order_dto.py[m[36m:[m51[36m:[m80[36m:[m [1m[31mE501[m line too long (80 > 79 characters)
+[1mapp/dtos/sales_order_dto.py[m[36m:[m52[36m:[m80[36m:[m [1m[31mE501[m line too long (82 > 79 characters)
+[1mapp/dtos/specification_dto.py[m[36m:[m18[36m:[m80[36m:[m [1m[31mE501[m line too long (95 > 79 characters)
+[1mapp/dtos/specification_dto.py[m[36m:[m40[36m:[m80[36m:[m [1m[31mE501[m line too long (81 > 79 characters)
+[1mapp/dtos/user_dto.py[m[36m:[m22[36m:[m80[36m:[m [1m[31mE501[m line too long (80 > 79 characters)
+[1mapp/extensions.py[m[36m:[m4[36m:[m80[36m:[m [1m[31mE501[m line too long (80 > 79 characters)
+[1mapp/extensions.py[m[36m:[m8[36m:[m80[36m:[m [1m[31mE501[m line too long (82 > 79 characters)
+[1mapp/extensions.py[m[36m:[m30[36m:[m80[36m:[m [1m[31mE501[m line too long (91 > 79 characters)
+[1mapp/models.py[m[36m:[m46[36m:[m80[36m:[m [1m[31mE501[m line too long (82 > 79 characters)
+[1mapp/models.py[m[36m:[m49[36m:[m80[36m:[m [1m[31mE501[m line too long (86 > 79 characters)
+[1mapp/models.py[m[36m:[m52[36m:[m80[36m:[m [1m[31mE501[m line too long (87 > 79 characters)
+[1mapp/models.py[m[36m:[m53[36m:[m80[36m:[m [1m[31mE501[m line too long (82 > 79 characters)
+[1mapp/models.py[m[36m:[m56[36m:[m80[36m:[m [1m[31mE501[m line too long (82 > 79 characters)
+[1mapp/models.py[m[36m:[m59[36m:[m80[36m:[m [1m[31mE501[m line too long (86 > 79 characters)
+[1mapp/models.py[m[36m:[m77[36m:[m80[36m:[m [1m[31mE501[m line too long (81 > 79 characters)
+[1mapp/models.py[m[36m:[m78[36m:[m80[36m:[m [1m[31mE501[m line too long (104 > 79 characters)
+[1mapp/models.py[m[36m:[m79[36m:[m80[36m:[m [1m[31mE501[m line too long (98 > 79 characters)
+[1mapp/models.py[m[36m:[m81[36m:[m80[36m:[m [1m[31mE501[m line too long (97 > 79 characters)
+[1mapp/models.py[m[36m:[m83[36m:[m80[36m:[m [1m[31mE501[m line too long (87 > 79 characters)
+[1mapp/models.py[m[36m:[m86[36m:[m80[36m:[m [1m[31mE501[m line too long (88 > 79 characters)
+[1mapp/models.py[m[36m:[m88[36m:[m80[36m:[m [1m[31mE501[m line too long (84 > 79 characters)
+[1mapp/models.py[m[36m:[m89[36m:[m80[36m:[m [1m[31mE501[m line too long (80 > 79 characters)
+[1mapp/models.py[m[36m:[m103[36m:[m80[36m:[m [1m[31mE501[m line too long (99 > 79 characters)
+[1mapp/models.py[m[36m:[m104[36m:[m80[36m:[m [1m[31mE501[m line too long (85 > 79 characters)
+[1mapp/models.py[m[36m:[m118[36m:[m80[36m:[m [1m[31mE501[m line too long (101 > 79 characters)
+[1mapp/models.py[m[36m:[m119[36m:[m80[36m:[m [1m[31mE501[m line too long (88 > 79 characters)
+[1mapp/models.py[m[36m:[m135[36m:[m80[36m:[m [1m[31mE501[m line too long (85 > 79 characters)
+[1mapp/models.py[m[36m:[m157[36m:[m80[36m:[m [1m[31mE501[m line too long (85 > 79 characters)
+[1mapp/models.py[m[36m:[m179[36m:[m80[36m:[m [1m[31mE501[m line too long (85 > 79 characters)
+[1mapp/models.py[m[36m:[m208[36m:[m80[36m:[m [1m[31mE501[m line too long (83 > 79 characters)
+[1mapp/models.py[m[36m:[m249[36m:[m80[36m:[m [1m[31mE501[m line too long (90 > 79 characters)
+[1mapp/models.py[m[36m:[m250[36m:[m80[36m:[m [1m[31mE501[m line too long (125 > 79 characters)
+[1mapp/models.py[m[36m:[m263[36m:[m80[36m:[m [1m[31mE501[m line too long (83 > 79 characters)
+[1mapp/models.py[m[36m:[m265[36m:[m80[36m:[m [1m[31mE501[m line too long (82 > 79 characters)
+[1mapp/models.py[m[36m:[m268[36m:[m80[36m:[m [1m[31mE501[m line too long (80 > 79 characters)
+[1mapp/models.py[m[36m:[m270[36m:[m80[36m:[m [1m[31mE501[m line too long (94 > 79 characters)
+[1mapp/models.py[m[36m:[m292[36m:[m80[36m:[m [1m[31mE501[m line too long (86 > 79 characters)
+[1mapp/models.py[m[36m:[m298[36m:[m80[36m:[m [1m[31mE501[m line too long (97 > 79 characters)
+[1mapp/models.py[m[36m:[m299[36m:[m80[36m:[m [1m[31mE501[m line too long (90 > 79 characters)
+[1mapp/models.py[m[36m:[m300[36m:[m80[36m:[m [1m[31mE501[m line too long (92 > 79 characters)
+[1mapp/models.py[m[36m:[m303[36m:[m80[36m:[m [1m[31mE501[m line too long (98 > 79 characters)
+[1mapp/models.py[m[36m:[m318[36m:[m80[36m:[m [1m[31mE501[m line too long (91 > 79 characters)
+[1mapp/models.py[m[36m:[m319[36m:[m80[36m:[m [1m[31mE501[m line too long (93 > 79 characters)
+[1mapp/models.py[m[36m:[m327[36m:[m80[36m:[m [1m[31mE501[m line too long (90 > 79 characters)
+[1mapp/models.py[m[36m:[m330[36m:[m80[36m:[m [1m[31mE501[m line too long (96 > 79 characters)
+[1mapp/models.py[m[36m:[m334[36m:[m80[36m:[m [1m[31mE501[m line too long (85 > 79 characters)
+[1mapp/models.py[m[36m:[m338[36m:[m80[36m:[m [1m[31mE501[m line too long (83 > 79 characters)
+[1mapp/models.py[m[36m:[m341[36m:[m80[36m:[m [1m[31mE501[m line too long (87 > 79 characters)
+[1mapp/models.py[m[36m:[m344[36m:[m80[36m:[m [1m[31mE501[m line too long (85 > 79 characters)
+[1mapp/models.py[m[36m:[m347[36m:[m80[36m:[m [1m[31mE501[m line too long (84 > 79 characters)
+[1mapp/models.py[m[36m:[m378[36m:[m80[36m:[m [1m[31mE501[m line too long (82 > 79 characters)
+[1mapp/models.py[m[36m:[m410[36m:[m80[36m:[m [1m[31mE501[m line too long (83 > 79 characters)
+[1mapp/models.py[m[36m:[m415[36m:[m80[36m:[m [1m[31mE501[m line too long (87 > 79 characters)
+[1mapp/models.py[m[36m:[m418[36m:[m80[36m:[m [1m[31mE501[m line too long (91 > 79 characters)
+[1mapp/models.py[m[36m:[m447[36m:[m80[36m:[m [1m[31mE501[m line too long (86 > 79 characters)
+[1mapp/puzzle_captcha.py[m[36m:[m27[36m:[m80[36m:[m [1m[31mE501[m line too long (82 > 79 characters)
+[1mapp/puzzle_captcha.py[m[36m:[m66[36m:[m80[36m:[m [1m[31mE501[m line too long (92 > 79 characters)
+[1mapp/puzzle_captcha.py[m[36m:[m150[36m:[m80[36m:[m [1m[31mE501[m line too long (82 > 79 characters)
+[1mapp/puzzle_captcha.py[m[36m:[m152[36m:[m80[36m:[m [1m[31mE501[m line too long (93 > 79 characters)
+[1mapp/puzzle_captcha.py[m[36m:[m191[36m:[m80[36m:[m [1m[31mE501[m line too long (82 > 79 characters)
+[1mapp/puzzle_captcha.py[m[36m:[m223[36m:[m80[36m:[m [1m[31mE501[m line too long (93 > 79 characters)
+[1mapp/puzzle_captcha.py[m[36m:[m250[36m:[m80[36m:[m [1m[31mE501[m line too long (88 > 79 characters)
+[1mapp/puzzle_captcha.py[m[36m:[m259[36m:[m80[36m:[m [1m[31mE501[m line too long (84 > 79 characters)
+[1mapp/puzzle_captcha.py[m[36m:[m266[36m:[m80[36m:[m [1m[31mE501[m line too long (84 > 79 characters)
+[1mapp/repositories/base_repository.py[m[36m:[m15[36m:[m80[36m:[m [1m[31mE501[m line too long (91 > 79 characters)
+[1mapp/repositories/base_repository.py[m[36m:[m48[36m:[m80[36m:[m [1m[31mE501[m line too long (98 > 79 characters)
+[1mapp/repositories/base_repository.py[m[36m:[m69[36m:[m80[36m:[m [1m[31mE501[m line too long (83 > 79 characters)
+[1mapp/repositories/base_repository.py[m[36m:[m80[36m:[m80[36m:[m [1m[31mE501[m line too long (89 > 79 characters)
+[1mapp/repositories/user_repository.py[m[36m:[m16[36m:[m80[36m:[m [1m[31mE501[m line too long (95 > 79 characters)
+[1mapp/services/client_service.py[m[36m:[m24[36m:[m80[36m:[m [1m[31mE501[m line too long (93 > 79 characters)
+[1mapp/services/client_service.py[m[36m:[m27[36m:[m80[36m:[m [1m[31mE501[m line too long (85 > 79 characters)
+[1mapp/services/client_service.py[m[36m:[m30[36m:[m80[36m:[m [1m[31mE501[m line too long (104 > 79 characters)
+[1mapp/services/client_service.py[m[36m:[m33[36m:[m80[36m:[m [1m[31mE501[m line too long (96 > 79 characters)
+[1mapp/services/material_service.py[m[36m:[m14[36m:[m80[36m:[m [1m[31mE501[m line too long (80 > 79 characters)
+[1mapp/services/operation_service.py[m[36m:[m14[36m:[m80[36m:[m [1m[31mE501[m line too long (81 > 79 characters)
+[1mapp/services/production_order_service.py[m[36m:[m4[36m:[m80[36m:[m [1m[31mE501[m line too long (82 > 79 characters)
+[1mapp/services/production_order_service.py[m[36m:[m14[36m:[m80[36m:[m [1m[31mE501[m line too long (87 > 79 characters)
+[1mapp/services/production_order_service.py[m[36m:[m26[36m:[m9[36m:[m [1m[31mF401[m 'app.models.SpecificationMaterial' imported but unused
+[1mapp/services/production_order_service.py[m[36m:[m26[36m:[m9[36m:[m [1m[31mF401[m 'app.models.SpecificationOperation' imported but unused
+[1mapp/services/production_order_service.py[m[36m:[m26[36m:[m80[36m:[m [1m[31mE501[m line too long (107 > 79 characters)
+[1mapp/services/production_order_service.py[m[36m:[m37[36m:[m80[36m:[m [1m[31mE501[m line too long (85 > 79 characters)
+[1mapp/services/production_order_service.py[m[36m:[m40[36m:[m80[36m:[m [1m[31mE501[m line too long (83 > 79 characters)
+[1mapp/services/production_order_service.py[m[36m:[m42[36m:[m80[36m:[m [1m[31mE501[m line too long (85 > 79 characters)
+[1mapp/services/production_order_service.py[m[36m:[m48[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/services/production_order_service.py[m[36m:[m65[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/services/production_order_service.py[m[36m:[m85[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/services/production_order_service.py[m[36m:[m90[36m:[m80[36m:[m [1m[31mE501[m line too long (82 > 79 characters)
+[1mapp/services/production_order_service.py[m[36m:[m93[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/services/production_order_service.py[m[36m:[m111[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/services/production_order_service.py[m[36m:[m116[36m:[m80[36m:[m [1m[31mE501[m line too long (82 > 79 characters)
+[1mapp/services/production_order_service.py[m[36m:[m119[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/services/sales_order_service.py[m[36m:[m14[36m:[m80[36m:[m [1m[31mE501[m line too long (82 > 79 characters)
+[1mapp/services/sales_order_service.py[m[36m:[m26[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/services/sales_order_service.py[m[36m:[m33[36m:[m9[36m:[m [1m[31mF401[m 'app.models.ProductPrice' imported but unused
+[1mapp/services/sales_order_service.py[m[36m:[m33[36m:[m9[36m:[m [1m[31mF401[m 'app.models.SpecificationMaterial' imported but unused
+[1mapp/services/sales_order_service.py[m[36m:[m33[36m:[m9[36m:[m [1m[31mF401[m 'app.models.SpecificationOperation' imported but unused
+[1mapp/services/sales_order_service.py[m[36m:[m33[36m:[m80[36m:[m [1m[31mE501[m line too long (121 > 79 characters)
+[1mapp/services/sales_order_service.py[m[36m:[m55[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/services/sales_order_service.py[m[36m:[m69[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/services/sales_order_service.py[m[36m:[m75[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/services/sales_order_service.py[m[36m:[m80[36m:[m80[36m:[m [1m[31mE501[m line too long (82 > 79 characters)
+[1mapp/services/sales_order_service.py[m[36m:[m84[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/services/sales_order_service.py[m[36m:[m94[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/services/sales_order_service.py[m[36m:[m101[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/services/sales_order_service.py[m[36m:[m106[36m:[m80[36m:[m [1m[31mE501[m line too long (82 > 79 characters)
+[1mapp/services/sales_order_service.py[m[36m:[m110[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/services/sales_order_service.py[m[36m:[m121[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/services/sales_order_service.py[m[36m:[m133[36m:[m80[36m:[m [1m[31mE501[m line too long (86 > 79 characters)
+[1mapp/services/specification_service.py[m[36m:[m11[36m:[m80[36m:[m [1m[31mE501[m line too long (83 > 79 characters)
+[1mapp/services/specification_service.py[m[36m:[m19[36m:[m80[36m:[m [1m[31mE501[m line too long (84 > 79 characters)
+[1mapp/services/user_service.py[m[36m:[m20[36m:[m80[36m:[m [1m[31mE501[m line too long (81 > 79 characters)
+[1mapp/services/user_service.py[m[36m:[m28[36m:[m80[36m:[m [1m[31mE501[m line too long (80 > 79 characters)
+[1mapp/utils.py[m[36m:[m35[36m:[m80[36m:[m [1m[31mE501[m line too long (81 > 79 characters)
+[1mapp/utils.py[m[36m:[m36[36m:[m80[36m:[m [1m[31mE501[m line too long (98 > 79 characters)
+[1mapp/views/admin_view.py[m[36m:[m13[36m:[m80[36m:[m [1m[31mE501[m line too long (91 > 79 characters)
+[1mapp/views/admin_view.py[m[36m:[m15[36m:[m80[36m:[m [1m[31mE501[m line too long (81 > 79 characters)
+[1mapp/views/admin_view.py[m[36m:[m60[36m:[m80[36m:[m [1m[31mE501[m line too long (83 > 79 characters)
+[1mapp/views/admin_view.py[m[36m:[m66[36m:[m80[36m:[m [1m[31mE501[m line too long (96 > 79 characters)
+[1mapp/views/admin_view.py[m[36m:[m67[36m:[m80[36m:[m [1m[31mE501[m line too long (120 > 79 characters)
+[1mapp/views/admin_view.py[m[36m:[m97[36m:[m80[36m:[m [1m[31mE501[m line too long (82 > 79 characters)
+[1mapp/views/admin_view.py[m[36m:[m119[36m:[m80[36m:[m [1m[31mE501[m line too long (89 > 79 characters)
+[1mapp/views/admin_view.py[m[36m:[m122[36m:[m80[36m:[m [1m[31mE501[m line too long (88 > 79 characters)
+[1mapp/views/admin_view.py[m[36m:[m123[36m:[m80[36m:[m [1m[31mE501[m line too long (92 > 79 characters)
+[1mapp/views/admin_view.py[m[36m:[m124[36m:[m80[36m:[m [1m[31mE501[m line too long (104 > 79 characters)
+[1mapp/views/base_view.py[m[36m:[m19[36m:[m80[36m:[m [1m[31mE501[m line too long (94 > 79 characters)
+[1mapp/views/base_view.py[m[36m:[m27[36m:[m80[36m:[m [1m[31mE501[m line too long (82 > 79 characters)
+[1mapp/views/base_view.py[m[36m:[m37[36m:[m80[36m:[m [1m[31mE501[m line too long (88 > 79 characters)
+[1mapp/views/base_view.py[m[36m:[m39[36m:[m80[36m:[m [1m[31mE501[m line too long (81 > 79 characters)
+[1mapp/views/base_view.py[m[36m:[m51[36m:[m80[36m:[m [1m[31mE501[m line too long (87 > 79 characters)
+[1mapp/views/client_view.py[m[36m:[m19[36m:[m80[36m:[m [1m[31mE501[m line too long (82 > 79 characters)
+[1mapp/views/client_view.py[m[36m:[m30[36m:[m80[36m:[m [1m[31mE501[m line too long (89 > 79 characters)
+[1mapp/views/client_view.py[m[36m:[m32[36m:[m80[36m:[m [1m[31mE501[m line too long (107 > 79 characters)
+[1mapp/views/client_view.py[m[36m:[m94[36m:[m80[36m:[m [1m[31mE501[m line too long (91 > 79 characters)
+[1mapp/views/material_view.py[m[36m:[m30[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/material_view.py[m[36m:[m43[36m:[m80[36m:[m [1m[31mE501[m line too long (89 > 79 characters)
+[1mapp/views/material_view.py[m[36m:[m44[36m:[m80[36m:[m [1m[31mE501[m line too long (115 > 79 characters)
+[1mapp/views/material_view.py[m[36m:[m79[36m:[m80[36m:[m [1m[31mE501[m line too long (112 > 79 characters)
+[1mapp/views/material_view.py[m[36m:[m122[36m:[m80[36m:[m [1m[31mE501[m line too long (83 > 79 characters)
+[1mapp/views/material_view.py[m[36m:[m135[36m:[m80[36m:[m [1m[31mE501[m line too long (101 > 79 characters)
+[1mapp/views/material_view.py[m[36m:[m139[36m:[m1[36m:[m [1m[31mE303[m too many blank lines (3)
+[1mapp/views/material_view.py[m[36m:[m139[36m:[m80[36m:[m [1m[31mE501[m line too long (83 > 79 characters)
+[1mapp/views/material_view.py[m[36m:[m140[36m:[m80[36m:[m [1m[31mE501[m line too long (99 > 79 characters)
+[1mapp/views/material_view.py[m[36m:[m141[36m:[m80[36m:[m [1m[31mE501[m line too long (103 > 79 characters)
+[1mapp/views/note_view.py[m[36m:[m20[36m:[m80[36m:[m [1m[31mE501[m line too long (93 > 79 characters)
+[1mapp/views/note_view.py[m[36m:[m22[36m:[m80[36m:[m [1m[31mE501[m line too long (106 > 79 characters)
+[1mapp/views/note_view.py[m[36m:[m32[36m:[m80[36m:[m [1m[31mE501[m line too long (87 > 79 characters)
+[1mapp/views/note_view.py[m[36m:[m41[36m:[m80[36m:[m [1m[31mE501[m line too long (88 > 79 characters)
+[1mapp/views/note_view.py[m[36m:[m49[36m:[m80[36m:[m [1m[31mE501[m line too long (87 > 79 characters)
+[1mapp/views/operation_view.py[m[36m:[m30[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/operation_view.py[m[36m:[m43[36m:[m80[36m:[m [1m[31mE501[m line too long (91 > 79 characters)
+[1mapp/views/operation_view.py[m[36m:[m44[36m:[m80[36m:[m [1m[31mE501[m line too long (119 > 79 characters)
+[1mapp/views/operation_view.py[m[36m:[m79[36m:[m80[36m:[m [1m[31mE501[m line too long (115 > 79 characters)
+[1mapp/views/operation_view.py[m[36m:[m122[36m:[m80[36m:[m [1m[31mE501[m line too long (87 > 79 characters)
+[1mapp/views/operation_view.py[m[36m:[m135[36m:[m80[36m:[m [1m[31mE501[m line too long (101 > 79 characters)
+[1mapp/views/operation_view.py[m[36m:[m139[36m:[m1[36m:[m [1m[31mE303[m too many blank lines (3)
+[1mapp/views/operation_view.py[m[36m:[m139[36m:[m80[36m:[m [1m[31mE501[m line too long (86 > 79 characters)
+[1mapp/views/operation_view.py[m[36m:[m140[36m:[m80[36m:[m [1m[31mE501[m line too long (103 > 79 characters)
+[1mapp/views/operation_view.py[m[36m:[m141[36m:[m80[36m:[m [1m[31mE501[m line too long (107 > 79 characters)
+[1mapp/views/product_view.py[m[36m:[m30[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/product_view.py[m[36m:[m43[36m:[m80[36m:[m [1m[31mE501[m line too long (87 > 79 characters)
+[1mapp/views/product_view.py[m[36m:[m44[36m:[m80[36m:[m [1m[31mE501[m line too long (114 > 79 characters)
+[1mapp/views/product_view.py[m[36m:[m79[36m:[m80[36m:[m [1m[31mE501[m line too long (109 > 79 characters)
+[1mapp/views/product_view.py[m[36m:[m115[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/product_view.py[m[36m:[m117[36m:[m80[36m:[m [1m[31mE501[m line too long (90 > 79 characters)
+[1mapp/views/product_view.py[m[36m:[m118[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/product_view.py[m[36m:[m155[36m:[m80[36m:[m [1m[31mE501[m line too long (101 > 79 characters)
+[1mapp/views/product_view.py[m[36m:[m166[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/product_view.py[m[36m:[m174[36m:[m80[36m:[m [1m[31mE501[m line too long (92 > 79 characters)
+[1mapp/views/product_view.py[m[36m:[m176[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/product_view.py[m[36m:[m180[36m:[m80[36m:[m [1m[31mE501[m line too long (80 > 79 characters)
+[1mapp/views/product_view.py[m[36m:[m181[36m:[m80[36m:[m [1m[31mE501[m line too long (95 > 79 characters)
+[1mapp/views/product_view.py[m[36m:[m182[36m:[m80[36m:[m [1m[31mE501[m line too long (99 > 79 characters)
+[1mapp/views/production_order_view.py[m[36m:[m29[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/production_order_view.py[m[36m:[m50[36m:[m80[36m:[m [1m[31mE501[m line too long (114 > 79 characters)
+[1mapp/views/production_order_view.py[m[36m:[m52[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/production_order_view.py[m[36m:[m63[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/production_order_view.py[m[36m:[m97[36m:[m80[36m:[m [1m[31mE501[m line too long (93 > 79 characters)
+[1mapp/views/production_order_view.py[m[36m:[m141[36m:[m80[36m:[m [1m[31mE501[m line too long (84 > 79 characters)
+[1mapp/views/production_order_view.py[m[36m:[m149[36m:[m80[36m:[m [1m[31mE501[m line too long (84 > 79 characters)
+[1mapp/views/production_order_view.py[m[36m:[m166[36m:[m80[36m:[m [1m[31mE501[m line too long (82 > 79 characters)
+[1mapp/views/production_order_view.py[m[36m:[m169[36m:[m80[36m:[m [1m[31mE501[m line too long (106 > 79 characters)
+[1mapp/views/production_order_view.py[m[36m:[m170[36m:[m80[36m:[m [1m[31mE501[m line too long (119 > 79 characters)
+[1mapp/views/sales_order_view.py[m[36m:[m21[36m:[m80[36m:[m [1m[31mE501[m line too long (86 > 79 characters)
+[1mapp/views/sales_order_view.py[m[36m:[m27[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m31[36m:[m80[36m:[m [1m[31mE501[m line too long (85 > 79 characters)
+[1mapp/views/sales_order_view.py[m[36m:[m47[36m:[m80[36m:[m [1m[31mE501[m line too long (109 > 79 characters)
+[1mapp/views/sales_order_view.py[m[36m:[m49[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m60[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m73[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m83[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m87[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m101[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m109[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m116[36m:[m13[36m:[m [1m[31mF401[m 'app.models.SpecificationMaterial' imported but unused
+[1mapp/views/sales_order_view.py[m[36m:[m116[36m:[m13[36m:[m [1m[31mF401[m 'app.models.SpecificationOperation' imported but unused
+[1mapp/views/sales_order_view.py[m[36m:[m116[36m:[m80[36m:[m [1m[31mE501[m line too long (118 > 79 characters)
+[1mapp/views/sales_order_view.py[m[36m:[m119[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m124[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m134[36m:[m80[36m:[m [1m[31mE501[m line too long (118 > 79 characters)
+[1mapp/views/sales_order_view.py[m[36m:[m136[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m146[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m148[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m160[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m161[36m:[m80[36m:[m [1m[31mE501[m line too long (82 > 79 characters)
+[1mapp/views/sales_order_view.py[m[36m:[m163[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m167[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m172[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m183[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m186[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m192[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m197[36m:[m80[36m:[m [1m[31mE501[m line too long (86 > 79 characters)
+[1mapp/views/sales_order_view.py[m[36m:[m198[36m:[m80[36m:[m [1m[31mE501[m line too long (82 > 79 characters)
+[1mapp/views/sales_order_view.py[m[36m:[m201[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m208[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m213[36m:[m80[36m:[m [1m[31mE501[m line too long (86 > 79 characters)
+[1mapp/views/sales_order_view.py[m[36m:[m214[36m:[m80[36m:[m [1m[31mE501[m line too long (81 > 79 characters)
+[1mapp/views/sales_order_view.py[m[36m:[m217[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m221[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m224[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m227[36m:[m80[36m:[m [1m[31mE501[m line too long (110 > 79 characters)
+[1mapp/views/sales_order_view.py[m[36m:[m230[36m:[m39[36m:[m [1m[31mW291[m trailing whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m269[36m:[m80[36m:[m [1m[31mE501[m line too long (89 > 79 characters)
+[1mapp/views/sales_order_view.py[m[36m:[m272[36m:[m80[36m:[m [1m[31mE501[m line too long (87 > 79 characters)
+[1mapp/views/sales_order_view.py[m[36m:[m280[36m:[m9[36m:[m [1m[31mF401[m 'sqlalchemy.text' imported but unused
+[1mapp/views/sales_order_view.py[m[36m:[m281[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m298[36m:[m80[36m:[m [1m[31mE501[m line too long (84 > 79 characters)
+[1mapp/views/sales_order_view.py[m[36m:[m299[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m305[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m322[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m331[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m335[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m349[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m357[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m359[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m362[36m:[m13[36m:[m [1m[31mF401[m 'app.models.SpecificationMaterial' imported but unused
+[1mapp/views/sales_order_view.py[m[36m:[m362[36m:[m13[36m:[m [1m[31mF401[m 'app.models.SpecificationOperation' imported but unused
+[1mapp/views/sales_order_view.py[m[36m:[m362[36m:[m80[36m:[m [1m[31mE501[m line too long (101 > 79 characters)
+[1mapp/views/sales_order_view.py[m[36m:[m365[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m369[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m374[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m377[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m381[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m382[36m:[m80[36m:[m [1m[31mE501[m line too long (140 > 79 characters)
+[1mapp/views/sales_order_view.py[m[36m:[m383[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m387[36m:[m80[36m:[m [1m[31mE501[m line too long (82 > 79 characters)
+[1mapp/views/sales_order_view.py[m[36m:[m389[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m400[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m403[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m408[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m411[36m:[m80[36m:[m [1m[31mE501[m line too long (80 > 79 characters)
+[1mapp/views/sales_order_view.py[m[36m:[m412[36m:[m80[36m:[m [1m[31mE501[m line too long (90 > 79 characters)
+[1mapp/views/sales_order_view.py[m[36m:[m413[36m:[m80[36m:[m [1m[31mE501[m line too long (86 > 79 characters)
+[1mapp/views/sales_order_view.py[m[36m:[m416[36m:[m80[36m:[m [1m[31mE501[m line too long (160 > 79 characters)
+[1mapp/views/sales_order_view.py[m[36m:[m417[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m423[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m426[36m:[m80[36m:[m [1m[31mE501[m line too long (81 > 79 characters)
+[1mapp/views/sales_order_view.py[m[36m:[m427[36m:[m80[36m:[m [1m[31mE501[m line too long (90 > 79 characters)
+[1mapp/views/sales_order_view.py[m[36m:[m428[36m:[m80[36m:[m [1m[31mE501[m line too long (85 > 79 characters)
+[1mapp/views/sales_order_view.py[m[36m:[m431[36m:[m80[36m:[m [1m[31mE501[m line too long (197 > 79 characters)
+[1mapp/views/sales_order_view.py[m[36m:[m432[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m435[36m:[m80[36m:[m [1m[31mE501[m line too long (86 > 79 characters)
+[1mapp/views/sales_order_view.py[m[36m:[m436[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m438[36m:[m80[36m:[m [1m[31mE501[m line too long (106 > 79 characters)
+[1mapp/views/sales_order_view.py[m[36m:[m439[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m452[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m466[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m471[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m475[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m479[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m516[36m:[m80[36m:[m [1m[31mE501[m line too long (80 > 79 characters)
+[1mapp/views/sales_order_view.py[m[36m:[m518[36m:[m80[36m:[m [1m[31mE501[m line too long (80 > 79 characters)
+[1mapp/views/sales_order_view.py[m[36m:[m519[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m536[36m:[m80[36m:[m [1m[31mE501[m line too long (82 > 79 characters)
+[1mapp/views/sales_order_view.py[m[36m:[m543[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/sales_order_view.py[m[36m:[m553[36m:[m80[36m:[m [1m[31mE501[m line too long (91 > 79 characters)
+[1mapp/views/sales_order_view.py[m[36m:[m554[36m:[m80[36m:[m [1m[31mE501[m line too long (110 > 79 characters)
+[1mapp/views/specification_view.py[m[36m:[m5[36m:[m80[36m:[m [1m[31mE501[m line too long (99 > 79 characters)
+[1mapp/views/specification_view.py[m[36m:[m17[36m:[m80[36m:[m [1m[31mE501[m line too long (84 > 79 characters)
+[1mapp/views/specification_view.py[m[36m:[m26[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/specification_view.py[m[36m:[m44[36m:[m80[36m:[m [1m[31mE501[m line too long (112 > 79 characters)
+[1mapp/views/specification_view.py[m[36m:[m45[36m:[m80[36m:[m [1m[31mE501[m line too long (93 > 79 characters)
+[1mapp/views/specification_view.py[m[36m:[m60[36m:[m80[36m:[m [1m[31mE501[m line too long (94 > 79 characters)
+[1mapp/views/specification_view.py[m[36m:[m69[36m:[m80[36m:[m [1m[31mE501[m line too long (85 > 79 characters)
+[1mapp/views/specification_view.py[m[36m:[m77[36m:[m80[36m:[m [1m[31mE501[m line too long (80 > 79 characters)
+[1mapp/views/specification_view.py[m[36m:[m78[36m:[m1[36m:[m [1m[31mW293[m blank line contains whitespace
+[1mapp/views/specification_view.py[m[36m:[m90[36m:[m80[36m:[m [1m[31mE501[m line too long (90 > 79 characters)
+[1mapp/views/specification_view.py[m[36m:[m114[36m:[m80[36m:[m [1m[31mE501[m line too long (92 > 79 characters)
+[1mapp/views/specification_view.py[m[36m:[m118[36m:[m80[36m:[m [1m[31mE501[m line too long (116 > 79 characters)
+[1mapp/views/specification_view.py[m[36m:[m119[36m:[m80[36m:[m [1m[31mE501[m line too long (119 > 79 characters)
+2     E303 too many blank lines (3)
+272   E501 line too long (87 > 79 characters)
+10    F401 'app.models.SpecificationMaterial' imported but unused
+1     W291 trailing whitespace
+83    W293 blank line contains whitespace

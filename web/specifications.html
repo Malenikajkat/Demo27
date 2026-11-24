@@ -52,8 +52,8 @@
             data.specifications.forEach(spec => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td>${spec.product_name || '—'}</td>
-                    <td>${spec.material_name || '—'}</td>
+                    <td>${escapeHtml(spec.product_name) || '—'}</td>
+                    <td>${escapeHtml(spec.material_name) || '—'}</td>
                     <td>${spec.quantity_per_unit}</td>
                     <td>${spec.material_price} ₽</td>
                     <td>${spec.total_price.toFixed(2)} ₽</td>
@@ -80,8 +80,8 @@
             data.specifications.forEach(spec => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td>${spec.product_name || '—'}</td>
-                    <td>${spec.operation_name || '—'}</td>
+                    <td>${escapeHtml(spec.product_name) || '—'}</td>
+                    <td>${escapeHtml(spec.operation_name) || '—'}</td>
                     <td>${spec.time_norm} ч</td>
                     <td>${spec.op_quantity}</td>
                     <td>${spec.operation_price} ₽/ч</td>
@@ -111,19 +111,19 @@
     function populateProductSelect(selectId, currentValue) {
         const select = document.getElementById(selectId);
         select.innerHTML = '<option value="">Выберите продукцию...</option>' + 
-            productsList.map(p => `<option value="${p.product_id}" ${p.product_id === currentValue ? 'selected' : ''}>${p.name} (${p.code})</option>`).join('');
+            productsList.map(p => `<option value="${p.product_id}" ${p.product_id === currentValue ? 'selected' : ''}>${escapeHtml(p.name)} (${escapeHtml(p.code)})</option>`).join('');
     }
 
     function populateMaterialSelect(selectId, currentValue) {
         const select = document.getElementById(selectId);
         select.innerHTML = '<option value="">Выберите материал...</option>' + 
-            materialsList.map(m => `<option value="${m.material_id}" ${m.material_id === currentValue ? 'selected' : ''}>${m.name} (${m.code})</option>`).join('');
+            materialsList.map(m => `<option value="${m.material_id}" ${m.material_id === currentValue ? 'selected' : ''}>${escapeHtml(m.name)} (${escapeHtml(m.code)})</option>`).join('');
     }
 
     function populateOperationSelect(selectId, currentValue) {
         const select = document.getElementById(selectId);
         select.innerHTML = '<option value="">Выберите операцию...</option>' + 
-            operationsList.map(o => `<option value="${o.operation_id}" ${o.operation_id === currentValue ? 'selected' : ''}>${o.name} (${o.code})</option>`).join('');
+            operationsList.map(o => `<option value="${o.operation_id}" ${o.operation_id === currentValue ? 'selected' : ''}>${escapeHtml(o.name)} (${escapeHtml(o.code)})</option>`).join('');
     }
 
     async function saveSpecMaterial(event) {

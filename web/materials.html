@@ -18,12 +18,12 @@
             data.materials.forEach(material => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td>${material.name}</td>
-                    <td>${material.code}</td>
+                    <td>${escapeHtml(material.name)}</td>
+                    <td>${escapeHtml(material.code)}</td>
                     <td>${material.current_price ? material.current_price + ' ₽' : '—'}</td>
                     <td>${material.created_at ? new Date(material.created_at).toLocaleDateString('ru-RU') : '—'}</td>
                     <td>
-                        <button class="btn btn-sm btn-outline" onclick='editMaterial(${JSON.stringify(material)})'>✏️</button>
+                        <button class="btn btn-sm btn-outline" data-json="${escapeHtml(JSON.stringify(material))}" onclick="editMaterial(JSON.parse(this.dataset.json))">✏️</button>
                         <button class="btn btn-sm btn-warning" onclick="editMaterialPrice('${material.material_id}', ${material.current_price || 0})">💰</button>
                         <button class="btn btn-sm btn-danger" onclick="deleteMaterial('${material.material_id}')">🗑️</button>
                     </td>

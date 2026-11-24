@@ -23,12 +23,12 @@
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td>${client.client_id.substring(0, 8)}...</td>
-                    <td>${client.name}</td>
-                    <td>${client.inn || '—'}</td>
-                    <td><span class="badge badge-${client.client_type === 'Поставщик' ? 'info' : 'success'}">${client.client_type}</span></td>
-                    <td>${client.phone || '—'}</td>
+                    <td>${escapeHtml(client.name)}</td>
+                    <td>${escapeHtml(client.inn) || '—'}</td>
+                    <td><span class="badge badge-${client.client_type === 'Поставщик' ? 'info' : 'success'}">${escapeHtml(client.client_type)}</span></td>
+                    <td>${escapeHtml(client.phone) || '—'}</td>
                     <td>
-                        <button class="btn btn-sm btn-outline" onclick='editClient(${JSON.stringify(client)})'>✏️</button>
+                        <button class="btn btn-sm btn-outline" data-json="${escapeHtml(JSON.stringify(client))}" onclick="editClient(JSON.parse(this.dataset.json))">✏️</button>
                         <button class="btn btn-sm btn-danger" onclick="deleteClient('${client.client_id}')">🗑️</button>
                     </td>
                 `;

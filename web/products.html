@@ -18,12 +18,12 @@
             data.products.forEach(product => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td>${product.name}</td>
-                    <td>${product.code}</td>
+                    <td>${escapeHtml(product.name)}</td>
+                    <td>${escapeHtml(product.code)}</td>
                     <td>${product.current_price ? product.current_price + ' ₽' : '—'}</td>
                     <td>${product.created_at ? new Date(product.created_at).toLocaleDateString('ru-RU') : '—'}</td>
                     <td>
-                        <button class="btn btn-sm btn-outline" onclick='editProduct(${JSON.stringify(product)})'>✏️</button>
+                        <button class="btn btn-sm btn-outline" data-json="${escapeHtml(JSON.stringify(product))}" onclick="editProduct(JSON.parse(this.dataset.json))">✏️</button>
                         <button class="btn btn-sm btn-warning" onclick="editProductPrice('${product.product_id}', ${product.current_price || 0})">💰</button>
                         <button class="btn btn-sm btn-danger" onclick="deleteProduct('${product.product_id}')">🗑️</button>
                     </td>

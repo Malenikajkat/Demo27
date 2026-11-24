@@ -12,7 +12,7 @@ from werkzeug.security import generate_password_hash
 def app():
     """Создаёт тестовое приложение с in-memory SQLite."""
     from app import create_app
-    app = create_app()
+    app = create_app("testing")
     app.config["TESTING"] = True
 
     with app.app_context():
@@ -44,8 +44,14 @@ def app():
 
 @pytest.fixture
 def client(app):
-    """Тестовый клиент Flask."""
-    return app.test_client()
+    """Тестовый клиент Flask с авторизованным тестовым пользователем."""
+    client = app.test_client()
+    response = client.post(
+        "/api/auth/login",
+        json={"login": "testuser", "password": "test123"},
+    )
+    assert response.status_code == 200
+    return client
 
 
 def test_get_notes_returns_200(client):
@@ -127,4 +133,33 @@ def test_get_notes_single(client):
 def test_get_notes_not_found(client):
     """Тест: несуществующая заметка возвращает 404."""
     response = client.get("/api/notes/99999")
+    assert response.status_code == 404
+
+
+def test_get_notes_requires_authentication(app):
+    response = app.test_client().get("/api/notes/")
+    assert response.status_code == 401
+
+
+def test_get_note_from_another_user_is_hidden(client, app):
+    from werkzeug.security import generate_password_hash
+
+    with app.app_context():
+        other_user = User(
+            login="other_user",
+            password_hash=generate_password_hash("other123"),
+            role="Пользователь",
+        )
+        db.session.add(other_user)
+        db.session.commit()
+        private_note = Note(
+            title="Private note",
+            content="Not visible to testuser",
+            id_user=other_user.user_id,
+        )
+        db.session.add(private_note)
+        db.session.commit()
+        private_note_id = private_note.note_id
+
+    response = client.get(f"/api/notes/{private_note_id}")
     assert response.status_code == 404

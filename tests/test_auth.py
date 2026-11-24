@@ -12,7 +12,7 @@ from werkzeug.security import generate_password_hash
 def app():
     """Создаёт тестовое приложение с in-memory SQLite."""
     from app import create_app
-    app = create_app()
+    app = create_app("testing")
     app.config["TESTING"] = True
 
     with app.app_context():
@@ -138,3 +138,32 @@ def test_get_current_user_authenticated(client):
     data = response.get_json()
     assert data["login"] == "admin"
     assert data["role"] == "Администратор"
+
+
+def test_public_registration_cannot_assign_admin_role(client):
+    response = client.post(
+        "/api/auth/register",
+        json={"login": "attacker", "password": "secure123", "role": "Администратор"},
+    )
+
+    assert response.status_code == 400
+    assert "только администратором" in response.get_json()["message"]
+
+
+def test_public_registration_assigns_user_role(client):
+    response = client.post(
+        "/api/auth/register",
+        json={"login": "new_user", "password": "secure123"},
+    )
+
+    assert response.status_code == 201
+    assert response.get_json()["role"] == "Пользователь"
+
+
+def test_login_rejects_non_string_credentials(client):
+    response = client.post(
+        "/api/auth/login",
+        json={"login": ["admin"], "password": 123},
+    )
+
+    assert response.status_code == 400

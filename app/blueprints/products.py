@@ -1,4 +1,5 @@
 """Blueprint для управления продукцией."""
+from flask_login import login_required
 from flask import Blueprint, request, jsonify
 from app.models import Product
 from app.extensions import db
@@ -7,6 +8,7 @@ products_bp = Blueprint("products", __name__)
 
 
 @products_bp.route("/", methods=["GET"])
+@login_required
 def list_products():
     """Список всей продукции."""
     products = db.session.execute(db.select(Product)).scalars().all()

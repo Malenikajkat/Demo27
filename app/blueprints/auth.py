@@ -19,13 +19,9 @@ auth_bp = Blueprint("auth", __name__)
 
 @auth_bp.route("/login", methods=["POST"])
 def login():
-    """Авторизация пользователя через JSON API."""
     data = request.get_json()
     if not data or "login" not in data or "password" not in data:
-        return jsonify({
-            "error": "Bad Request",
-            "message": "Поля login и password обязательны",
-        }), 400
+        return jsonify({"error": "Bad Request", "message": "Поля login и password обязательны"}), 400
 
     login_value = data["login"].strip()
     password_value = data["password"]
@@ -34,33 +30,25 @@ def login():
         db.select(User).where(User.login == login_value)
     ).scalar_one_or_none()
 
+    # 1. Блокировка — до проверки пароля
+    if user and user.is_blocked:
+        return jsonify({"error": "Forbidden", "message": "Вы заблокированы"}), 403
+
+    # 2. Пароль
     if not user or not verify_password(password_value, user.password_hash):
         if user:
             user.failed_attempts += 1
             if user.failed_attempts >= 3:
                 user.is_blocked = True
             db.session.commit()
-
-        return jsonify({
-            "error": "Unauthorized",
-            "message": "Неверный логин или пароль",
-        }), 401
-
-    if user.is_blocked:
-        return jsonify({
-            "error": "Forbidden",
-            "message": "Вы заблокированы",
-        }), 403
+        return jsonify({"error": "Unauthorized", "message": "Неверный логин или пароль"}), 401
 
     login_user(user)
     user.failed_attempts = 0
     db.session.commit()
-
     return jsonify({
         "message": "Вы успешно авторизовались",
-        "user_id": user.user_id,
-        "login": user.login,
-        "role": user.role,
+        "user_id": user.user_id, "login": user.login, "role": user.role,
     }), 200
 
 
@@ -88,24 +76,10 @@ def get_current_user():
 
 @auth_bp.route("/register", methods=["POST"])
 def register():
-    """Регистрация нового пользователя.
-
-    Студенты: обратите внимание на параметр role.
-    - По умолчанию устанавливается "Пользователь".
-    - В продакшене регистрация через API — потенциальная уязвимость!
-      Злоумышленник может зарегистрироваться с role="Администратор".
-      Для защиты нужно:
-      1. Отключить публичную регистрацию.
-      2. Или проверять, что пользователь имеет право создавать админов.
-      3. Или использовать отдельный админ-панель для создания пользователей.
-    """
-    data = request.get_json()
+    """Регистрация нового пользователя (всегда роль «Пользователь»)."""
     data = request.get_json()
     if not data or "login" not in data or "password" not in data:
-        return jsonify({
-            "error": "Bad Request",
-            "message": "Необходимо указать login и password",
-        }), 400
+        return jsonify({"error": "Bad Request", "message": "Необходимо указать login и password"}), 400
 
     login_value = data["login"].strip()
     password_value = data["password"]
@@ -113,18 +87,13 @@ def register():
     existing = db.session.execute(
         db.select(User).where(User.login == login_value)
     ).scalar_one_or_none()
-
     if existing:
-        return jsonify({
-            "error": "Bad Request",
-            "message": f"Пользователь '{login_value}' уже существует",
-        }), 400
+        return jsonify({"error": "Bad Request", "message": f"Пользователь '{login_value}' уже существует"}), 400
 
-    role = data.get("role", "Пользователь")
     new_user = User(
         login=login_value,
         password_hash=hash_password(password_value),
-        role=role,
+        role="Пользователь",  # роль больше не берётся из запроса
         is_blocked=False,
         failed_attempts=0,
     )

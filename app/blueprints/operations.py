@@ -1,4 +1,5 @@
 """Blueprint для управления операциями."""
+from flask_login import login_required
 from flask import Blueprint, request, jsonify
 from app.models import Operation
 from app.extensions import db
@@ -7,6 +8,7 @@ operations_bp = Blueprint("operations", __name__)
 
 
 @operations_bp.route("/", methods=["GET"])
+@login_required
 def list_operations():
     """Список всех операций."""
     operations = db.session.execute(db.select(Operation)).scalars().all()

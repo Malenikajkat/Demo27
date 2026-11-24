@@ -1,4 +1,5 @@
 """API для заказов покупателей."""
+import math
 import uuid
 from datetime import date
 from flask import request, Blueprint
@@ -7,6 +8,50 @@ from app.services.sales_order_service import SalesOrderService
 from app.models import SalesOrder, SalesOrderItem, Product, ProductionOrder
 
 sales_orders_bp = Blueprint("sales_orders", __name__)
+
+
+_ORDER_DATE_ERROR = (
+    "\u0414\u0430\u0442\u0430 \u0437\u0430\u043a\u0430\u0437\u0430 \u0434\u043e\u043b\u0436\u043d\u0430 \u0431\u044b\u0442\u044c \u0432 \u0444\u043e\u0440\u043c\u0430\u0442\u0435 YYYY-MM-DD"
+)
+
+
+def _parse_order_date(value):
+    """Validates an ISO-8601 order date from the JSON API."""
+    if not isinstance(value, str):
+        raise ValueError(_ORDER_DATE_ERROR)
+    try:
+        return date.fromisoformat(value)
+    except ValueError:
+        raise ValueError(_ORDER_DATE_ERROR) from None
+
+
+def _parse_order_item(item_data):
+    """Проверяет позицию заказа и возвращает нормализованные значения."""
+    if not isinstance(item_data, dict):
+        raise ValueError("Каждая позиция заказа должна быть JSON-объектом")
+
+    product_id = item_data.get("product_id")
+    if not isinstance(product_id, str):
+        raise ValueError("Для позиции требуется product_id в формате UUID")
+
+    try:
+        product_uuid = uuid.UUID(product_id)
+        quantity = float(item_data.get("quantity", 1))
+        unit_price = float(item_data.get("unit_price", 0))
+        discount = float(item_data.get("discount", 0))
+    except (TypeError, ValueError, AttributeError):
+        raise ValueError("Поля позиции должны содержать корректные UUID и числа") from None
+
+    if not all(math.isfinite(value) for value in (quantity, unit_price, discount)):
+        raise ValueError("Числовые значения позиции должны быть конечными")
+    if quantity <= 0:
+        raise ValueError("Количество продукции должно быть больше нуля")
+    if unit_price < 0:
+        raise ValueError("Цена продукции не может быть отрицательной")
+    if not 0 <= discount <= 100:
+        raise ValueError("Скидка должна находиться в диапазоне от 0 до 100 процентов")
+
+    return product_uuid, quantity, unit_price, discount
 
 
 class SalesOrderListAPI(BaseAPIView):
@@ -25,9 +70,9 @@ class SalesOrderListAPI(BaseAPIView):
         from app.extensions import db
         from sqlalchemy import text
         
-        data = request.get_json()
+        data = request.get_json(silent=True)
         required_fields = ["order_date", "client_id", "executor_id"]
-        if not data or not all(field in data for field in required_fields):
+        if not isinstance(data, dict) or not all(field in data for field in required_fields):
             return self._error_response("Укажите order_date, client_id, executor_id")
 
         try:
@@ -36,8 +81,10 @@ class SalesOrderListAPI(BaseAPIView):
         except (ValueError, AttributeError):
             return self._error_response("Неверный формат UUID")
 
-        od = data["order_date"]
-        order_date = date.fromisoformat(od) if isinstance(od, str) else od
+        try:
+            order_date = _parse_order_date(data["order_date"])
+        except ValueError as error:
+            return self._error_response(str(error))
 
         # Автоматическая генерация номера заказа
         order_number = data.get("order_number")
@@ -67,24 +114,22 @@ class SalesOrderListAPI(BaseAPIView):
         db.session.add(new_order)
         db.session.flush()  # Получаем ID заказа без коммита
 
-        # Создаём позиции и сразу считаем сумму
+        # Создаём позиции и сразу считаем сумму.
         total_amount = 0.0
         items_list = []
-        
+
+        if "items" in data and not isinstance(data["items"], list):
+            db.session.rollback()
+            return self._error_response("Поле items должно быть массивом")
+
         if "items" in data:
             for item_data in data["items"]:
-                product_id_str = item_data.get("product_id")
-                if not product_id_str:
-                    continue
                 try:
-                    product_uuid = uuid.UUID(product_id_str)
-                except (ValueError, AttributeError):
-                    continue
-                
-                quantity = float(item_data.get("quantity", 1))
-                unit_price = float(item_data.get("unit_price", 0))
-                discount = float(item_data.get("discount", 0))
-                
+                    product_uuid, quantity, unit_price, discount = _parse_order_item(item_data)
+                except ValueError as error:
+                    db.session.rollback()
+                    return self._error_response(str(error))
+
                 item = SalesOrderItem(
                     sales_order=new_order, product_id=product_uuid,
                     quantity=quantity,
@@ -288,9 +333,11 @@ class SalesOrderDetailAPI(BaseAPIView):
         if not order:
             return self._not_found_response("Заказ")
 
-        data = request.get_json()
-        if not data:
-            return self._error_response("Нет данных")
+        data = request.get_json(silent=True)
+        if not isinstance(data, dict):
+            return self._error_response("Ожидается JSON-объект")
+        if "items" in data and not isinstance(data["items"], list):
+            return self._error_response("Поле items должно быть массивом")
 
         # Обновляем основные поля
         if "order_date" in data:
@@ -321,18 +368,12 @@ class SalesOrderDetailAPI(BaseAPIView):
             items_list = []
             
             for item_data in data["items"]:
-                product_id_str = item_data.get("product_id")
-                if not product_id_str:
-                    continue
                 try:
-                    product_uuid = uuid.UUID(product_id_str)
-                except (ValueError, AttributeError):
-                    continue
-                
-                quantity = float(item_data.get("quantity", 1))
-                unit_price = float(item_data.get("unit_price", 0))
-                discount = float(item_data.get("discount", 0))
-                
+                    product_uuid, quantity, unit_price, discount = _parse_order_item(item_data)
+                except ValueError as error:
+                    db.session.rollback()
+                    return self._error_response(str(error))
+
                 item = SalesOrderItem(
                     sales_order=order, product_id=product_uuid,
                     quantity=quantity,

@@ -1,4 +1,5 @@
 """Blueprint для управления материалами."""
+from flask_login import login_required
 from flask import Blueprint, request, jsonify
 from app.models import Material
 from app.extensions import db
@@ -7,6 +8,7 @@ materials_bp = Blueprint("materials", __name__)
 
 
 @materials_bp.route("/", methods=["GET"])
+@login_required
 def list_materials():
     """Список всех материалов."""
     materials = db.session.execute(db.select(Material)).scalars().all()

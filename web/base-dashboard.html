@@ -439,14 +439,33 @@
             const icons = { error: '✕', warning: '!', info: 'ℹ', success: '✓' };
             const notification = document.createElement('div');
             notification.className = `notification notification-${type}`;
-            notification.innerHTML = `
-                <div class="notification-icon">${icons[type] || 'i'}</div>
-                <div class="notification-content">
-                    <div class="notification-title">${title}</div>
-                    <div class="notification-message">${message}</div>
-                </div>
-                <button class="notification-close" onclick="this.parentElement.remove()">&times;</button>
-            `;
+
+            const icon = document.createElement('div');
+            icon.className = 'notification-icon';
+            icon.textContent = icons[type] || 'i';
+
+            const content = document.createElement('div');
+            content.className = 'notification-content';
+
+            const notificationTitle = document.createElement('div');
+            notificationTitle.className = 'notification-title';
+            notificationTitle.textContent = title;
+
+            const notificationMessage = document.createElement('div');
+            notificationMessage.className = 'notification-message';
+            notificationMessage.textContent = message;
+
+            const closeButton = document.createElement('button');
+            closeButton.className = 'notification-close';
+            closeButton.textContent = '×';
+            closeButton.onclick = () => notification.remove();
+
+            content.appendChild(notificationTitle);
+            content.appendChild(notificationMessage);
+            notification.appendChild(icon);
+            notification.appendChild(content);
+            notification.appendChild(closeButton);
+
             container.appendChild(notification);
             setTimeout(() => notification.remove(), 5000);
         }

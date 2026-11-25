@@ -120,7 +120,7 @@ def register():
             "message": f"Пользователь '{login_value}' уже существует",
         }), 400
 
-    role = data.get("role", "Пользователь")
+    role = "Пользователь"
     new_user = User(
         login=login_value,
         password_hash=hash_password(password_value),

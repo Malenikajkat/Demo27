@@ -19,12 +19,12 @@
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td>${user.user_id}</td>
-                    <td>${user.login}</td>
-                    <td>${user.role}</td>
+                    <td>${escapeHtml(user.login)}</td>
+                    <td>${escapeHtml(user.role)}</td>
                     <td>${user.is_blocked ? '<span class="badge badge-danger">Заблокирован</span>' : '<span class="badge badge-success">Активен</span>'}</td>
                     <td>${user.failed_attempts}</td>
                     <td>
-                        <button class="btn btn-sm btn-outline" onclick='editUser(${user.user_id}, \'${user.login}\', \'${user.role}\')'>✏️</button>
+                        <button class="btn btn-sm btn-outline" onclick='editUser(${user.user_id}, \'${escapeHtml(user.login)}\', \'${escapeHtml(user.role)}\')'>✏️</button>
                         ${!user.is_blocked ?
                             `<button class="btn btn-sm btn-outline" onclick="blockUser(${user.user_id})">🔒</button>` :
                             `<button class="btn btn-sm btn-success" onclick="unblockUser(${user.user_id})">🔓</button>`

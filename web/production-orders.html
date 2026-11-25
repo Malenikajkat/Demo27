@@ -45,12 +45,12 @@ async function loadOrders() {
                                order.status === 'В работе' ? 'status-progress' : 
                                order.status === 'Завершён' ? 'status-done' : 'status-cancelled';
             tr.innerHTML = `
-                <td>${order.order_number}</td>
+                <td>${escapeHtml(order.order_number)}</td>
                 <td>${order.order_date ? new Date(order.order_date).toLocaleDateString('ru-RU') : '—'}</td>
-                <td>${order.subdivision || '—'}</td>
+                <td>${escapeHtml(order.subdivision) || '—'}</td>
                 <td>${order.client_id ? order.client_id.substring(0, 8) + '...' : '—'}</td>
                 <td>${order.total_amount || 0} ₽</td>
-                <td><span class="status-badge ${statusClass}">${order.status}</span></td>
+                <td><span class="status-badge ${statusClass}">${escapeHtml(order.status)}</span></td>
                 <td>
                     <button class="btn btn-sm btn-outline" onclick="viewOrder('${order.order_id}')">👁️</button>
                     <button class="btn btn-sm btn-warning" onclick="editOrder('${order.order_id}')">✏️</button>
@@ -95,7 +95,7 @@ function addOrderItemRow() {
                 <label class="form-label" style="font-size: 12px;">Продукция</label>
                 <select class="form-input" onchange="loadProductInfo(this.value, '${rowId}'); updateItemTotal('${rowId}')">
                     <option value="">Выберите...</option>
-                    ${productsList.map(p => `<option value="${p.product_id}" data-name="${p.name}" data-code="${p.code}">${p.name} (${p.code})</option>`).join('')}
+                    ${productsList.map(p => `<option value="${p.product_id}" data-name="${escapeHtml(p.name)}" data-code="${escapeHtml(p.code)}">${escapeHtml(p.name)} (${escapeHtml(p.code)})</option>`).join('')}
                 </select>
             </div>
             <div class="form-group" style="margin: 0;">
@@ -159,8 +159,8 @@ async function viewOrder(orderId) {
                 productsHtml += `
                     <tr>
                         <td>${index + 1}</td>
-                        <td>${item.product_name || 'Продукция'}</td>
-                        <td>${item.product_code || ''}</td>
+                        <td>${escapeHtml(item.product_name) || 'Продукция'}</td>
+                        <td>${escapeHtml(item.product_code) || ''}</td>
                         <td>${qty}</td>
                         <td>шт</td>
                     </tr>
@@ -175,8 +175,8 @@ async function viewOrder(orderId) {
                         productMaterialCost += matTotal;
                         materialsDetailHtml += `
                             <tr>
-                                <td style="padding-left: 24px;">● ${mat.material_name}</td>
-                                <td>${mat.material_code}</td>
+                                <td style="padding-left: 24px;">● ${escapeHtml(mat.material_name)}</td>
+                                <td>${escapeHtml(mat.material_code)}</td>
                                 <td style="text-align: center;">${mat.total_quantity.toFixed(3)}</td>
                                 <td style="text-align: center;">шт</td>
                                 <td style="text-align: right;">${mat.material_price} ₽</td>
@@ -195,8 +195,8 @@ async function viewOrder(orderId) {
                         productOperationCost += opTotal;
                         operationsDetailHtml += `
                             <tr>
-                                <td style="padding-left: 24px;">● ${op.operation_name}</td>
-                                <td>${op.operation_code}</td>
+                                <td style="padding-left: 24px;">● ${escapeHtml(op.operation_name)}</td>
+                                <td>${escapeHtml(op.operation_code)}</td>
                                 <td style="text-align: center;">${op.total_time.toFixed(2)}</td>
                                 <td style="text-align: center;">ч</td>
                                 <td style="text-align: right;">${op.operation_price} ₽/ч</td>
@@ -213,7 +213,7 @@ async function viewOrder(orderId) {
                 productDetailsHtml += `
                     <div style="margin-top: 12px; padding: 12px; background: #f8f9fa; border-radius: 6px; border-left: 3px solid var(--color-primary);">
                         <h5 style="margin: 0 0 8px 0; color: var(--color-primary); font-size: 14px;">
-                            Позиция ${index + 1}: ${item.product_name} (кол-во: ${qty} шт)
+                            Позиция ${index + 1}: ${escapeHtml(item.product_name)} (кол-во: ${qty} шт)
                         </h5>
                             
                         ${materialsDetailHtml ? `
@@ -288,8 +288,8 @@ async function viewOrder(orderId) {
             materialsHtml += `
                 <tr>
                     <td>${matNum}</td>
-                    <td>${mat.material_name}</td>
-                    <td>${mat.material_code}</td>
+                    <td>${escapeHtml(mat.material_name)}</td>
+                    <td>${escapeHtml(mat.material_code)}</td>
                     <td style="text-align: center;">${mat.total_quantity.toFixed(3)}</td>
                     <td style="text-align: center;">шт</td>
                     <td style="text-align: right;">${mat.material_price} ₽</td>
@@ -330,8 +330,8 @@ async function viewOrder(orderId) {
             operationsHtml += `
                 <tr>
                     <td>${opNum}</td>
-                    <td>${op.operation_name}</td>
-                    <td>${op.operation_code}</td>
+                    <td>${escapeHtml(op.operation_name)}</td>
+                    <td>${escapeHtml(op.operation_code)}</td>
                     <td style="text-align: center;">${op.total_time.toFixed(2)}</td>
                     <td style="text-align: center;">ч</td>
                     <td style="text-align: right;">${op.operation_price} ₽/ч</td>
@@ -358,11 +358,11 @@ async function viewOrder(orderId) {
             <!-- Общая информация -->
             <h4 style="margin: 0 0 12px 0; color: var(--color-primary); border-bottom: 2px solid var(--color-primary); padding-bottom: 8px;">Общая информация</h4>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 20px;">
-                <p style="margin: 4px 0;"><strong>Номер:</strong> ${order.order_number}</p>
+                <p style="margin: 4px 0;"><strong>Номер:</strong> ${escapeHtml(order.order_number)}</p>
                 <p style="margin: 4px 0;"><strong>Дата:</strong> ${order.order_date ? new Date(order.order_date).toLocaleDateString('ru-RU') : '—'}</p>
-                <p style="margin: 4px 0;"><strong>Подразделение:</strong> ${order.subdivision || '—'}</p>
+                <p style="margin: 4px 0;"><strong>Подразделение:</strong> ${escapeHtml(order.subdivision) || '—'}</p>
                 <p style="margin: 4px 0;"><strong>Клиент:</strong> ${order.client_id ? order.client_id.substring(0, 8) + '...' : '—'}</p>
-                <p style="margin: 4px 0;"><strong>Статус:</strong> <span class="status-badge ${statusClass}">${order.status}</span></p>
+                <p style="margin: 4px 0;"><strong>Статус:</strong> <span class="status-badge ${statusClass}">${escapeHtml(order.status)}</span></p>
             </div>
                 
             <!-- Продукция -->

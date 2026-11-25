@@ -23,10 +23,10 @@
                         <span class="note-id">#${note.id}</span>
                         <span class="note-date">${note.formatted_date}</span>
                     </div>
-                    <h4 class="note-title">${note.title_user}</h4>
-                    <p class="note-content">${note.content}</p>
+                    <h4 class="note-title">${escapeHtml(note.title_user)}</h4>
+                    <p class="note-content">${escapeHtml(note.content)}</p>
                     <div class="note-card-footer">
-                        <span class="note-card-user">👤 ${note.title_user.split(' - ')[0]}</span>
+                        <span class="note-card-user">👤 ${escapeHtml(note.title_user.split(" - ")[0])}</span>
                     </div>
                 `;
                 container.appendChild(card);

@@ -28,7 +28,7 @@
 setattr(obj, key, value) — динамически устанавливает атрибут объекта.
 Эквивалентно: obj.name = "New Name"
 """
-from typing import List, Optional
+from typing import Any, List, Optional
 from app.extensions import db
 
 
@@ -47,7 +47,7 @@ class BaseRepository:
         """Получить все записи с пагинацией (skip/limit)."""
         return db.session.execute(db.select(self.model).offset(skip).limit(limit)).scalars().all()
 
-    def get_by_id(self, item_id) -> Optional:
+    def get_by_id(self, item_id) -> Optional[Any]:
         """Получить запись по ID. Возвращает None, если не найдена."""
         return db.session.get(self.model, item_id)
 

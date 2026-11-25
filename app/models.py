@@ -15,7 +15,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
-from sqlalchemy.sql import func
+from sqlalchemy.sql import false, func
 
 from app.extensions import db
 
@@ -247,7 +247,11 @@ class ProductionOrder(db.Model):
     order_date = Column(Date, nullable=False)
     subdivision = Column(String(100))
     client_id = Column(UUID(as_uuid=True), ForeignKey("clients.client_id"), nullable=True)
-    sales_order_id = Column(UUID(as_uuid=True), ForeignKey("sales_orders.sales_order_id", ondelete="CASCADE"), nullable=True)
+    sales_order_id = Column(
+        UUID(as_uuid=True),
+        ForeignKey("sales_orders.sales_order_id", ondelete="CASCADE"),
+        nullable=True,
+    )
     total_amount = Column(Numeric(12, 2), server_default="0.00")
     status = Column(String(20), nullable=False, server_default="Новый")
     created_at = Column(DateTime, server_default=func.now())
@@ -388,7 +392,7 @@ class User(db.Model):
     login = Column(String(50), unique=True, nullable=False, index=True)
     password_hash = Column(String(255), nullable=False)
     role = Column(String(20), nullable=False, server_default="Пользователь")
-    is_blocked = Column(Boolean, nullable=False, server_default="false")
+    is_blocked = Column(Boolean, nullable=False, server_default=false())
     failed_attempts = Column(Integer, nullable=False, server_default="0")
     blocked_until = Column(DateTime)
     created_at = Column(DateTime, server_default=func.now())

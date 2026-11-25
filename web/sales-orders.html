@@ -30,11 +30,11 @@
 
             if (clientSelect) {
                 clientSelect.innerHTML = '<option value="">Выберите заказчика...</option>' +
-                    clientsList.map(c => `<option value="${c.client_id}">${c.name}</option>`).join('');
+                    clientsList.map(c => `<option value="${c.client_id}">${escapeHtml(c.name)}</option>`).join('');
             }
             if (executorSelect) {
                 executorSelect.innerHTML = '<option value="">Выберите исполнителя...</option>' +
-                    clientsList.map(c => `<option value="${c.client_id}">${c.name}</option>`).join('');
+                    clientsList.map(c => `<option value="${c.client_id}">${escapeHtml(c.name)}</option>`).join('');
             }
         } catch (e) {
             console.error('Load clients error:', e);
@@ -61,7 +61,7 @@
                 const tr = document.createElement('tr');
                 const total = order.total_amount || 0;
                 tr.innerHTML = `
-                    <td>${order.order_number}</td>
+                    <td>${escapeHtml(order.order_number)}</td>
                     <td>${order.order_date ? new Date(order.order_date).toLocaleDateString('ru-RU') : '—'}</td>
                     <td>${order.client_id ? order.client_id.substring(0, 8) + '...' : '—'}</td>
                     <td>${order.executor_id ? order.executor_id.substring(0, 8) + '...' : '—'}</td>
@@ -235,7 +235,7 @@
         row.className = 'order-item-row';
         row.id = `orderItemRow_${rowId}`;
         
-        const optionsHtml = productsList.map(p => `<option value="${p.product_id}" data-name="${p.name}" data-code="${p.code}">${p.name} (${p.code})</option>`).join('');
+        const optionsHtml = productsList.map(p => `<option value="${p.product_id}" data-name="${escapeHtml(p.name)}" data-code="${escapeHtml(p.code)}">${escapeHtml(p.name)} (${escapeHtml(p.code)})</option>`).join('');
         
         row.innerHTML = `
             <div style="display: grid; grid-template-columns: 1.5fr 2fr 1fr 1fr 1fr 0.5fr; gap: 8px; margin-bottom: 8px; align-items: end;">
@@ -303,11 +303,11 @@
             modal.innerHTML = `
                 <div class="modal" style="max-width: 900px;">
                     <div class="modal-header">
-                        <h3 class="modal-title">Заказ ${order.order_number}</h3>
+                        <h3 class="modal-title">Заказ ${escapeHtml(order.order_number)}</h3>
                         <button class="modal-close" onclick="this.closest('.modal-overlay').remove()">&times;</button>
                     </div>
                     <div class="modal-body" id="viewOrderModalBody">
-                        <p><strong>Номер:</strong> ${order.order_number}</p>
+                        <p><strong>Номер:</strong> ${escapeHtml(order.order_number)}</p>
                         <p><strong>Дата:</strong> ${order.order_date ? new Date(order.order_date).toLocaleDateString('ru-RU') : '—'}</p>
                         <p><strong>Заказчик:</strong> ${order.client ? order.client.name : order.client_id}</p>
                         <p><strong>Исполнитель:</strong> ${order.executor ? order.executor.name : order.executor_id}</p>
@@ -328,7 +328,7 @@
                 order.items.forEach(item => {
                     const itemSum = item.quantity * item.unit_price * (1 - item.discount / 100);
                     itemsHtml += `<tr>
-                        <td>${item.product_name || item.product_id.substring(0, 8) + '...'}</td>
+                        <td>${escapeHtml(item.product_name) || item.product_id.substring(0, 8) + '...'}</td>
                         <td>${item.quantity}</td>
                         <td>${item.unit_price} ₽</td>
                         <td>${item.discount}%</td>
@@ -379,13 +379,13 @@
             modal.innerHTML = `
                 <div class="modal" style="max-width: 900px;">
                     <div class="modal-header">
-                        <h3 class="modal-title">Заказ на производство ${order.order_number}</h3>
+                        <h3 class="modal-title">Заказ на производство ${escapeHtml(order.order_number)}</h3>
                         <button class="modal-close" onclick="this.closest('.modal-overlay').remove()">&times;</button>
                     </div>
                     <div class="modal-body" id="viewProdOrderModalBody">
-                        <p><strong>Номер:</strong> ${order.order_number}</p>
+                        <p><strong>Номер:</strong> ${escapeHtml(order.order_number)}</p>
                         <p><strong>Дата:</strong> ${order.order_date ? new Date(order.order_date).toLocaleDateString('ru-RU') : '—'}</p>
-                        <p><strong>Статус:</strong> ${order.status}</p>
+                        <p><strong>Статус:</strong> ${escapeHtml(order.status)}</p>
                         <p><strong>Себестоимость:</strong> ${order.total_amount || 0} ₽</p>
                     </div>
                     <div class="modal-footer">
@@ -398,7 +398,7 @@
             let itemsHtml = '';
             if (order.items && order.items.length > 0) {
                 order.items.forEach(prodItem => {
-                    itemsHtml += `<h4 style="margin-top: 16px; margin-bottom: 8px;">Продукция: ${prodItem.product_name}</h4>`;
+                    itemsHtml += `<h4 style="margin-top: 16px; margin-bottom: 8px;">Продукция: ${escapeHtml(prodItem.product_name)}</h4>`;
                     itemsHtml += `<p><strong>Количество:</strong> ${prodItem.quantity}</p>`;
                     
                     // Материалы
@@ -407,7 +407,7 @@
                         itemsHtml += '<table style="width: 100%; margin-bottom: 12px;"><thead><tr><th>Материал</th><th>Кол-во</th><th>Цена</th><th>Сумма</th></tr></thead><tbody>';
                         prodItem.materials.forEach(mat => {
                             itemsHtml += `<tr>
-                                <td>${mat.material_name}</td>
+                                <td>${escapeHtml(mat.material_name)}</td>
                                 <td>${mat.total_quantity.toFixed(3)}</td>
                                 <td>${mat.material_price} ₽</td>
                                 <td>${mat.total_price.toFixed(2)} ₽</td>
@@ -422,7 +422,7 @@
                         itemsHtml += '<table style="width: 100%; margin-bottom: 12px;"><thead><tr><th>Операция</th><th>Время</th><th>Ставка</th><th>Сумма</th></tr></thead><tbody>';
                         prodItem.operations.forEach(op => {
                             itemsHtml += `<tr>
-                                <td>${op.operation_name}</td>
+                                <td>${escapeHtml(op.operation_name)}</td>
                                 <td>${op.total_time.toFixed(2)} ч</td>
                                 <td>${op.operation_price} ₽/ч</td>
                                 <td>${op.total_price.toFixed(2)} ₽</td>
@@ -482,7 +482,7 @@
                     itemsHtml += '<table style="width: 100%; margin-bottom: 8px;"><thead><tr><th>Материал</th><th>Кол-во</th><th>Цена</th><th>Сумма</th></tr></thead><tbody>';
                     result.cost_detail.material_costs.items.forEach(item => {
                         itemsHtml += `<tr>
-                            <td>${item.material_name}</td>
+                            <td>${escapeHtml(item.material_name)}</td>
                             <td>${item.total_quantity.toFixed(3)}</td>
                             <td>${item.price} ₽</td>
                             <td>${item.total.toFixed(2)} ₽</td>
@@ -498,7 +498,7 @@
                     itemsHtml += '<table style="width: 100%; margin-bottom: 8px;"><thead><tr><th>Операция</th><th>Время</th><th>Ставка</th><th>Сумма</th></tr></thead><tbody>';
                     result.cost_detail.operation_costs.items.forEach(item => {
                         itemsHtml += `<tr>
-                            <td>${item.operation_name}</td>
+                            <td>${escapeHtml(item.operation_name)}</td>
                             <td>${item.total_time.toFixed(2)} ч</td>
                             <td>${item.price} ₽/ч</td>
                             <td>${item.total.toFixed(2)} ₽</td>

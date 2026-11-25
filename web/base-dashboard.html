@@ -434,6 +434,17 @@
     </div>
 
     <script>
+        // Экранирование пользовательских данных перед вставкой в innerHTML (защита от XSS).
+        function escapeHtml(value) {
+            if (value === null || value === undefined) return '';
+            return String(value)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
         function showNotification(type, title, message) {
             const container = document.getElementById('notificationContainer');
             const icons = { error: '✕', warning: '!', info: 'ℹ', success: '✓' };
@@ -442,8 +453,8 @@
             notification.innerHTML = `
                 <div class="notification-icon">${icons[type] || 'i'}</div>
                 <div class="notification-content">
-                    <div class="notification-title">${title}</div>
-                    <div class="notification-message">${message}</div>
+                    <div class="notification-title">${escapeHtml(title)}</div>
+                    <div class="notification-message">${escapeHtml(message)}</div>
                 </div>
                 <button class="notification-close" onclick="this.parentElement.remove()">&times;</button>
             `;

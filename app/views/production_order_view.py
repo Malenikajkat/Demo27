@@ -26,7 +26,7 @@ class ProductionOrderListAPI(BaseAPIView):
         """Создание заказа на производство."""
         from app.extensions import db
         from sqlalchemy import text
-        
+
         data = request.get_json()
         required_fields = ["order_date"]
         if not data or not all(field in data for field in required_fields):
@@ -49,7 +49,7 @@ class ProductionOrderListAPI(BaseAPIView):
             result = db.session.execute(text(
                 "SELECT order_number FROM production_orders WHERE order_number IS NOT NULL AND order_number != ''"
             )).scalars().all()
-            
+
             max_num = 0
             for on in result:
                 try:
@@ -60,7 +60,7 @@ class ProductionOrderListAPI(BaseAPIView):
                         max_num = num
                 except (ValueError, IndexError):
                     continue
-            
+
             order_number = f"ЗП-{max_num + 1:06d}"
 
         new_order = ProductionOrder(

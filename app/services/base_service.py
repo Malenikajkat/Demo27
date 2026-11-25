@@ -20,7 +20,7 @@
 - Это позволяет подменять репозиторий (например, на Mock при тестировании).
 - Сервис не знает, откуда данные — из PostgreSQL, MongoDB или файла.
 """
-from typing import List, Optional
+from typing import Any, List, Optional
 
 
 class BaseService:
@@ -38,7 +38,7 @@ class BaseService:
         """Получить все записи с пагинацией."""
         return self.repository.get_all(skip=skip, limit=limit)
 
-    def get_by_id(self, item_id) -> Optional:
+    def get_by_id(self, item_id) -> Optional[Any]:
         """Получить запись по ID."""
         return self.repository.get_by_id(item_id)
 

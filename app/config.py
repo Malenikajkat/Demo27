@@ -29,6 +29,7 @@
   3. Установите FLASK_ENV=ваше_окружение
 """
 import os
+import secrets
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -54,9 +55,17 @@ def _build_database_url():
     return f"postgresql://{user}:{password}@{host}:{port}/{name}"
 
 
+# Ключ для разработки. В production запуск без SECRET_KEY запрещён (см. get_config).
+DEV_SECRET_KEY = secrets.token_hex(32)  # случайный ключ на процесс: в dev сессии сбрасываются при перезапуске
+
+
 class BaseConfig:
     """Базовая конфигурация."""
-    SECRET_KEY = os.getenv("SECRET_KEY", "production-is-system-secret-key-change-me")
+    SECRET_KEY = os.getenv("SECRET_KEY", DEV_SECRET_KEY)
+    # Защита сессионной cookie: недоступна из JS, не отправляется при кросс-сайт POST.
+    SESSION_COOKIE_HTTPONLY = True
+    SESSION_COOKIE_SAMESITE = "Lax"
+    SESSION_COOKIE_SECURE = os.getenv("SESSION_COOKIE_SECURE", "false").lower() == "true"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     PERMANENT_SESSION_LIFETIME = 3600
 
@@ -95,7 +104,22 @@ config_by_name = {
 }
 
 
-def get_config():
-    """Получение конфигурации по имени окружения."""
-    env = os.getenv("FLASK_ENV", "development")
-    return config_by_name.get(env, DevelopmentConfig)
+def get_config(name=None):
+    """Возвращает класс конфигурации по имени окружения.
+
+    Если имя не передано, используется переменная FLASK_ENV (по умолчанию development).
+    Для production обязательны SECRET_KEY и параметры подключения к БД.
+    """
+    env = name or os.getenv("FLASK_ENV", "development")
+    config_class = config_by_name.get(env, DevelopmentConfig)
+    if config_class is ProductionConfig:
+        missing = []
+        if not os.getenv("SECRET_KEY"):
+            missing.append("SECRET_KEY")
+        if not (os.getenv("DATABASE_URL") or os.getenv("DATABASE_PASSWORD")):
+            missing.append("DATABASE_URL или DATABASE_PASSWORD")
+        if missing:
+            raise RuntimeError(
+                "Для production не заданы переменные окружения: " + ", ".join(missing)
+            )
+    return config_class

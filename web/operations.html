@@ -18,12 +18,12 @@
             data.operations.forEach(operation => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td>${operation.name}</td>
-                    <td>${operation.code}</td>
+                    <td>${escapeHtml(operation.name)}</td>
+                    <td>${escapeHtml(operation.code)}</td>
                     <td>${operation.current_price ? operation.current_price + ' ₽/ч' : '—'}</td>
                     <td>${operation.created_at ? new Date(operation.created_at).toLocaleDateString('ru-RU') : '—'}</td>
                     <td>
-                        <button class="btn btn-sm btn-outline" onclick='editOperation(${JSON.stringify(operation)})'>✏️</button>
+                        <button class="btn btn-sm btn-outline" data-json="${escapeHtml(JSON.stringify(operation))}" onclick="editOperation(JSON.parse(this.dataset.json))">✏️</button>
                         <button class="btn btn-sm btn-warning" onclick="editOperationPrice('${operation.operation_id}', ${operation.current_price || 0})">💰</button>
                         <button class="btn btn-sm btn-danger" onclick="deleteOperation('${operation.operation_id}')">🗑️</button>
                     </td>

@@ -25,7 +25,8 @@ import os
 from pathlib import Path
 
 from dotenv import load_dotenv
-from flask import Flask
+from flask import Flask, flash, redirect, request, url_for
+from sqlalchemy.exc import OperationalError
 
 from app.extensions import db, login_manager, migrate
 from app.config import get_config
@@ -58,7 +59,7 @@ def create_app(config_name=None):
 
     # Загрузка конфигурации: читает класс из config_by_name в app/config.py.
     # Например, если FLASK_ENV=development, будет использован DevelopmentConfig.
-    config_class = get_config()
+    config_class = get_config(config_name)
     app.config.from_object(config_class)
 
     # Финальная проверка: без DATABASE_URL приложение не сможет работать с БД.
@@ -76,6 +77,17 @@ def create_app(config_name=None):
     login_manager.init_app(app)
     login_manager.login_view = "web.login_page"
     login_manager.login_message = "Пожалуйста, войдите в систему"
+
+    @login_manager.unauthorized_handler
+    def unauthorized():
+        """Для /api/* — JSON 401, для страниц — редирект на форму входа."""
+        if request.path.startswith("/api/"):
+            return {
+                "error": "Unauthorized",
+                "message": "Необходима авторизация",
+            }, 401
+        flash(login_manager.login_message, "error")
+        return redirect(url_for(login_manager.login_view))
 
     # Flask-Login использует этот callback для восстановления сессии.
     # При каждом запросе Flask-Login вызывает load_user(user_id), чтобы
@@ -126,13 +138,24 @@ def create_app(config_name=None):
     def not_found(e):
         return {"error": "Not Found", "message": "Ресурс не найден"}, 404
 
+    @app.errorhandler(OperationalError)
+    def database_unavailable(e):
+        """БД недоступна или отвергла соединение."""
+        db.session.rollback()
+        logging.error("Ошибка подключения к базе данных: %s", e)
+        return {
+            "error": "Internal Server Error",
+            "message": "Ошибка подключения к базе данных",
+        }, 500
+
     @app.errorhandler(500)
     def internal_error(e):
         # При ошибке откатываем транзакцию, чтобы не оставить БД в несогласованном состоянии.
         db.session.rollback()
+        logging.exception("Необработанная ошибка сервера")
         return {
             "error": "Internal Server Error",
-            "message": "Ошибка подключения к базе данных",
+            "message": "Внутренняя ошибка сервера",
         }, 500
 
     # Проверка подключения к базе данных при запуске.

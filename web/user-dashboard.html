@@ -59,6 +59,12 @@
     </div>
 
     <script>
+        function escapeHtml(value) {
+            if (value === null || value === undefined) return '';
+            return String(value).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+        }
+
         // Показать уведомление
         function showNotification(type, title, message) {
             const container = document.getElementById('notificationContainer');
@@ -99,8 +105,8 @@
                             <span class="note-id">#${note.id}</span>
                             <span class="note-date">${note.formatted_date}</span>
                         </div>
-                        <h4 class="note-title">${note.title_user}</h4>
-                        <p class="note-content">${note.content}</p>
+                        <h4 class="note-title">${escapeHtml(note.title_user)}</h4>
+                        <p class="note-content">${escapeHtml(note.content)}</p>
                     `;
                     container.appendChild(card);
                 });

@@ -27,7 +27,7 @@ class MaterialListAPI(BaseAPIView):
             ).order_by(MaterialPrice.effective_date.desc()).limit(1)
             price_record = db.session.execute(price_stmt).scalar_one_or_none()
             current_price = float(price_record.price) if price_record else 0.0
-            
+
             material_data = m.to_dict()
             material_data["current_price"] = current_price
             result.append(material_data)
@@ -133,7 +133,6 @@ class MaterialPriceAPI(BaseAPIView):
         db.session.commit()
 
         return self._success_response({"message": "Цена обновлена", "price": float(new_price.price)})
-
 
 
 materials_bp.add_url_rule("/", view_func=MaterialListAPI.as_view("materials_list"))

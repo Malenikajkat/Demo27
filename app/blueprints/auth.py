@@ -8,7 +8,7 @@
 Оба маршрута используют одну и ту же логику проверки паролей (app/auth.py).
 """
 from flask import Blueprint, request, jsonify
-from flask_login import login_user
+from flask_login import current_user, login_user
 
 from app.auth import hash_password, verify_password
 from app.extensions import db
@@ -16,19 +16,34 @@ from app.models import User
 
 auth_bp = Blueprint("auth", __name__)
 
+ROLE_USER = "Пользователь"
+ROLE_ADMIN = "Администратор"
+MIN_PASSWORD_LENGTH = 8
+
+
+def _bad_request(message):
+    """Ответ 400 в едином JSON-формате."""
+    return jsonify({"error": "Bad Request", "message": message}), 400
+
+
+def _read_credentials(data):
+    """Возвращает (login, password) или None, если поля отсутствуют/не строки."""
+    if not isinstance(data, dict):
+        return None
+    login_value = data.get("login")
+    password_value = data.get("password")
+    if not isinstance(login_value, str) or not isinstance(password_value, str):
+        return None
+    return login_value.strip(), password_value
+
 
 @auth_bp.route("/login", methods=["POST"])
 def login():
     """Авторизация пользователя через JSON API."""
-    data = request.get_json()
-    if not data or "login" not in data or "password" not in data:
-        return jsonify({
-            "error": "Bad Request",
-            "message": "Поля login и password обязательны",
-        }), 400
-
-    login_value = data["login"].strip()
-    password_value = data["password"]
+    credentials = _read_credentials(request.get_json(silent=True))
+    if credentials is None:
+        return _bad_request("Поля login и password обязательны (строки)")
+    login_value, password_value = credentials
 
     user = db.session.execute(
         db.select(User).where(User.login == login_value)
@@ -90,25 +105,21 @@ def get_current_user():
 def register():
     """Регистрация нового пользователя.
 
-    Студенты: обратите внимание на параметр role.
-    - По умолчанию устанавливается "Пользователь".
-    - В продакшене регистрация через API — потенциальная уязвимость!
-      Злоумышленник может зарегистрироваться с role="Администратор".
-      Для защиты нужно:
-      1. Отключить публичную регистрацию.
-      2. Или проверять, что пользователь имеет право создавать админов.
-      3. Или использовать отдельный админ-панель для создания пользователей.
+    Публичная регистрация создаёт только роль «Пользователь».
+    Роль «Администратор» может назначить лишь авторизованный администратор.
     """
-    data = request.get_json()
-    data = request.get_json()
-    if not data or "login" not in data or "password" not in data:
-        return jsonify({
-            "error": "Bad Request",
-            "message": "Необходимо указать login и password",
-        }), 400
+    data = request.get_json(silent=True)
+    credentials = _read_credentials(data)
+    if credentials is None:
+        return _bad_request("Необходимо указать login и password (строки)")
+    login_value, password_value = credentials
 
-    login_value = data["login"].strip()
-    password_value = data["password"]
+    if not login_value:
+        return _bad_request("Логин не может быть пустым")
+    if len(password_value) < MIN_PASSWORD_LENGTH:
+        return _bad_request(
+            f"Пароль должен содержать не менее {MIN_PASSWORD_LENGTH} символов"
+        )
 
     existing = db.session.execute(
         db.select(User).where(User.login == login_value)
@@ -120,7 +131,22 @@ def register():
             "message": f"Пользователь '{login_value}' уже существует",
         }), 400
 
-    role = data.get("role", "Пользователь")
+    # Публичная регистрация всегда создаёт обычного пользователя.
+    # Роль из тела запроса принимается только от авторизованного администратора.
+    role = ROLE_USER
+    requested_role = data.get("role")
+    if requested_role is not None:
+        is_admin = (
+            current_user.is_authenticated and current_user.role == ROLE_ADMIN
+        )
+        if not is_admin:
+            return jsonify({
+                "error": "Forbidden",
+                "message": "Назначать роль может только администратор",
+            }), 403
+        if requested_role not in (ROLE_USER, ROLE_ADMIN):
+            return _bad_request("Недопустимая роль")
+        role = requested_role
     new_user = User(
         login=login_value,
         password_hash=hash_password(password_value),

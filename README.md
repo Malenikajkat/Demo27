@@ -15,4 +15,5 @@ Flask-приложение: клиенты, продукция, материал
 - `bandit -r app run.py`
 
 ## Документация
-Структура проекта и результаты ревью — в `docs/review/` (`repo_map.md`, `review_report.md`).
+Структура проекта и результаты ревью — в `docs/review/` 
+(`repo_map.md`, `review_report.md`).

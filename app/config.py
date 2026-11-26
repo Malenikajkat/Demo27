@@ -47,7 +47,7 @@ def _build_database_url():
         return url
 
     host = os.getenv("DATABASE_HOST", "localhost")
-    port = os.getenv("DATABASE_PORT", "5432")
+    port = os.getenv("DATABASE_PORT", "5267")
     name = os.getenv("DATABASE_NAME", "production_db")
     user = os.getenv("DATABASE_USER", "postgres")
     password = os.getenv("DATABASE_PASSWORD", "12345")
